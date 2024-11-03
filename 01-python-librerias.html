@@ -209,7 +209,19 @@ Figura&nbsp;1.1: Los flujos de trabajos científicos relevan la importancia de l
 </div>
 <p>Dentro de esta, la programación, en un contexto de academia científica, permite la automatización de tareas, lo cual facilita que los flujos de trabajo puedan ejecutarse fácilmente y ser replicados. La programación científica usando lenguajes de libre acceso como <em>R</em>, <em>Python</em> o <em>Julia</em>, es una forma efectiva y eficiente para comenzar a construir flujos de trabajos que pueden ser reproducibles y, además fácilmente compartidos.</p>
 <p><em>Python</em> es un lenguaje de programación libre, abierto y gratuito, que puede ser descargado por cualquiera para ser usado. Este se ha convertido en uno de los lenguajes más populares y demandados en el mercado del trabajo (i.e.&nbsp;<em>PyQGIS</em> para desarrollar plugins y herramientas dentro del entorno de <em>QGIS</em>).</p>
-<p>==================================================================quizas aca nota de stack-overflow!====================================================================================================================================</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Según <em>Stack Overflow</em> (uno de los foros de programadores más grande de internet) <em>Python</em> es el tercer lenguaje más popular.</p>
+</div>
+</div>
 <p>Existen distintas formas de ocupar <em>Python</em> (tales como, su misma terminal, <em>IPython</em>, <em>Jupyter</em>), sin embargo, para mejorar la interactibilidad de este lenguaje ocuparemos <em>Spyder</em> un IDE diseñado específicamente para <em>Python</em>.</p>
 <p>Sin embargo, para el análisis de datos, el uso exclusivo de <em>Python</em> puede quedar corto. Para poder realizar distintas acciones dentro de esto (tales como crear <em>clickers</em>, analizar datos, visualizar datos multimedia) podemos ocupar librerías. Estos son módulos o paquetes específicos que expanden la funcionalidad de <em>Python</em>, facilitando el manejo de datos, la visualización y otras tareas complejas.</p>
 <section id="programas-necesarios" class="level2" data-number="1.1">
@@ -219,7 +231,19 @@ Figura&nbsp;1.1: Los flujos de trabajos científicos relevan la importancia de l
 <h3 class="unnumbered anchored" data-anchor-id="git-bash">Git Bash</h3>
 <p>Bash es un intérprete de línea de comandos y un lenguaje de <em>scripting</em> muy popular en sistemas operativos Unix y basados en Unix, como Linux y macOS. A través de esta se puede controlar el computador digitando los comandos desde el teclado, en lugar de usar los botones y menús como habitualmente se hace con los sistemas operativos más usados.</p>
 <p>De forma nativa, este intérprete no se encuentra dentro de <em>Windows</em>, por lo que, para hacer uso de este deberemos descargar Git Bash, el cual integra esta herramiento junto con <em>git</em>, “un sistema de control de versiones distribuido, libre y de código abierto, diseñado para manejar proyectos de cualquier tamaño, desde pequeños hasta muy grandes, con rapidez y eficiencia”.</p>
-<p>==================================================================Nota que destaque github, y las empresas en la que se ocupan!==================================================================</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si bien, <em>Git</em> no suena tan familiar, su versión online <em>GitHub</em> si. Esta página alberga código y sus versiones en internet y cualquier persona puede ser capaz de ver, replicar y alterar dicho (con los permisos suficientes). Algunas de las empresas que ocupan esto son Google, Microsoft y Netflix.</p>
+</div>
+</div>
 <p>Para su instalación, nos dirigiremos a la página oficial de <em>Git Bash</em>:</p>
 <ul>
 <li><a href="https://git-scm.com/downloads" class="uri">https://git-scm.com/downloads</a></li>
@@ -243,8 +267,19 @@ Figura&nbsp;1.2: <em>Git Bash</em> abierto en el escritorio, muestra el usuario 
 <ul>
 <li><a href="https://docs.conda.io/en/latest/miniconda.html" class="uri">https://docs.conda.io/en/latest/miniconda.html</a></li>
 </ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Es <strong>IMPORTANTE</strong> seleccionar el sistema operativo y versión (64-bit y 32-bit) que corresponda al computador y durante la instalación seleccione la primera opción para “Agregar Miniconda3 a mi variable de entorno PATH” seleccionando también en “Registrar Anaconda como Python 3.x predeterminado”.</p>
-<p>==================================================================LO DE ARRIBA QUIZAS EN NOTA ROJA O ALGO, PARA QUE SE NOTE==================================================================</p>
+</div>
+</div>
 <p>Aunque el paso de agregar <em>Anaconda</em> al <em>PATH</em> no es recomendado por el sistema, lo haremos igualmente para que sea más fácil usar <em>Conda</em> con <em>Git Bash</em>.</p>
 <section id="probando-la-nueva-configuración" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="probando-la-nueva-configuración">Probando la nueva configuración</h4>
@@ -280,10 +315,48 @@ Figura&nbsp;1.4: <em>Conda</em> testeado en <em>Git Bash</em>.
 </section>
 <section id="el-ambiente" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="el-ambiente">El ambiente</h3>
-<p>Dentro <em>Conda</em> instalaremos un ambiente de <em>Python</em> con librerías específicas para el análisis de datos geoespaciales que sido creado exclusivamente para este taller. Puedes descargar el archivo del ambiente haciendo clic <a href="recursos/tallerpython.yml" download="recursos/tallerpython.yml">aquí</a>. ==================================================================TODAVIA SE TIENE QUE ACTUALIZAR==================================================================</p>
-<p>Este archivo (de extensión <code>.yml</code>) contiene todos lo paquetes con sus dependencias necesarios para desarrollar las activiades posteriores. Dentro de el se encuentra el nombre del ambiente (en este caso <code>tallerpython</code>), las librerías y los canales por donde se descargaran estas. ==================================================================Nota que diga que usted tambien puede hacerlo con su propias librerias y necesidades segun sus necesidades==================================================================</p>
-<p>Para instalar este ambiente ejecute desde el Terminal el comando <code>conda env create -f tallerpython.yml</code></p>
-<p>==================================================================El proceso toma tiempo y varía de acuerdo con las capacidades de cada computador.==================================================================</p>
+<p>Dentro <em>Conda</em> instalaremos un ambiente de <em>Python</em> con librerías específicas para el análisis de datos geoespaciales que sido creado exclusivamente para este taller. Puedes descargar el archivo del ambiente haciendo clic <a href="recursos/tallerpython.yml" download="tallerpython.yml">aquí</a>.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Todavía hay que ver esto.</p>
+</div>
+</div>
+<p>Este archivo (de extensión <code>.yml</code>) contiene todos lo paquetes con sus dependencias necesarios para desarrollar las activiades posteriores. Dentro de el se encuentra el nombre del ambiente (en este caso <code>tallerpython</code>), las librerías y los canales por donde se descargaran estas.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note que aquí estamos creando un ambiente con paquetes previamente definidos. Si desea crear otro ambiente, con otras librerías, puede consultar la guía de <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html">conda</a>.</p>
+</div>
+</div>
+<p>Para instalar este ambiente ejecute desde el Terminal el comando <code>conda env create -f tallerpython.yml</code>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Tenga en cuenta que el proceso toma tiempo y varía de acuerdo con las capacidades de cada computador.</p>
+</div>
+</div>
 <div id="fig-mkenvir" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mkenvir-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -327,7 +400,19 @@ Figura&nbsp;1.7: Activación y desactivación de los entornos.
 <li><a href="https://www.spyder-ide.org/download/" class="uri">https://www.spyder-ide.org/download/</a></li>
 </ul>
 <p>Dentro de este, deberemos escoger el sistema operativo del computador.</p>
-<p>==================================================================Importante. lo del kernel==================================================================</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Aquí explicar lo del kernel, que no me acuerdo.</p>
+</div>
+</div>
 <section id="partes-de-spyder" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="partes-de-spyder">Partes de <em>Spyder</em></h4>
 <p>Spyder cuenta principalmente con 3 paneles, los cuales pueden tener distintas funcionalidades. Entre sus partes principales se encuentran:</p>
@@ -378,7 +463,19 @@ Figura&nbsp;1.10: Historial de <em>Spyder</em>
 <p>3.1. Explorador de variables</p>
 <p>Se muestran los objetos creados con la posibildiad de interactuar con estos.</p></li>
 </ol>
-<p>==================================================================ver tema de incompatibilidades==================================================================</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Profe, Spyder está dando problemas con pandas, no puedo lograr mostrar los dataframes dentro del explorador</p>
+</div>
+</div>
 <div id="fig-variables" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -433,8 +530,19 @@ Figura&nbsp;1.14: Perfilador (<em>Profiler</em>) dentro de <em>Spyder</em>
 </section>
 <section id="ejemplos" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="ejemplos"><span class="header-section-number">1.2</span> Ejemplos</h2>
-<p>================================================================== Nota:</p>
-<p>No sería mejor igual descargar et, para gestionar la descarga de datos.==================================================================</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>¿Vamos a incluir earthpy para descargar variables? o ¿cargaremos datasets a través de github u otra plataforma?</p>
+</div>
+</div>
 
 
 </section>
