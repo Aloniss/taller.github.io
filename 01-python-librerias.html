@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1&nbsp; Introducción a Python y Librerías esenciales – Uso de Python y librerías geoespaciales para el análisis de datos en el contexto de los incendios forestales </title>
+<title>1&nbsp; Introducción a Python y Librerías esenciales – Python y librerías Geoespaciales para el análisis de datos en el contexto de los Incendios Forestales</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -119,7 +99,7 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Uso de Python y librerías geoespaciales para el análisis de datos en el contexto de los incendios forestales</a> 
+      <a href="./">Python y librerías Geoespaciales para el análisis de datos en el contexto de los Incendios Forestales</a> 
         <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo oscuro"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
@@ -178,8 +158,21 @@ div.csl-indent {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#programas-necesarios" id="toc-programas-necesarios" class="nav-link active" data-scroll-target="#programas-necesarios"><span class="header-section-number">1.1</span> Programas necesarios</a>
+  <ul class="collapse">
+  <li><a href="#git-bash" id="toc-git-bash" class="nav-link" data-scroll-target="#git-bash">Git Bash</a></li>
+  <li><a href="#miniconda" id="toc-miniconda" class="nav-link" data-scroll-target="#miniconda">Miniconda</a></li>
+  <li><a href="#el-ambiente" id="toc-el-ambiente" class="nav-link" data-scroll-target="#el-ambiente">El ambiente</a></li>
+  <li><a href="#spyder" id="toc-spyder" class="nav-link" data-scroll-target="#spyder"><em>Spyder</em></a></li>
+  </ul></li>
+  <li><a href="#ejemplos" id="toc-ejemplos" class="nav-link" data-scroll-target="#ejemplos"><span class="header-section-number">1.2</span> Ejemplos</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -203,25 +196,248 @@ div.csl-indent {
 </header>
 
 
-<p>This is a book created from markdown and executable code.</p>
-<p>See <span class="citation" data-cites="knuth84">Knuth (<a href="#ref-knuth84" role="doc-biblioref">1984</a>)</span> for additional discussion of literate programming.</p>
-<div id="fig-01-01" class="quarto-float quarto-figure quarto-figure-center anchored">
+<p>La ciencia reproducible es cuando cualquiera puede entender y replicar los pasos de un análisis, aplicarlos a los mismos o nuevos datos. La ciencia abierta es también soportada por la colaboración. Los resultados reproducibles que se originan en flujos de trabajos reproducibles permiten que el trabajo se comparta y se pueda colaborar con otros, así como abiertamente publicar tus datos y flujos de trabajo para contribuir al conocimiento.</p>
+<div id="fig-ciencia" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-01-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="fig-ciencia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="foo/01-01-cienciaAbierta.png" class="img-fluid figure-img">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-01-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;1.1: Si
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ciencia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.1: Los flujos de trabajos científicos relevan la importancia de los datos, el código, los métodos.
 </figcaption>
 </figure>
 </div>
+<p>Dentro de esta, la programación, en un contexto de academia científica, permite la automatización de tareas, lo cual facilita que los flujos de trabajo puedan ejecutarse fácilmente y ser replicados. La programación científica usando lenguajes de libre acceso como <em>R</em>, <em>Python</em> o <em>Julia</em>, es una forma efectiva y eficiente para comenzar a construir flujos de trabajos que pueden ser reproducibles y, además fácilmente compartidos.</p>
+<p><em>Python</em> es un lenguaje de programación libre, abierto y gratuito, que puede ser descargado por cualquiera para ser usado. Este se ha convertido en uno de los lenguajes más populares y demandados en el mercado del trabajo (i.e.&nbsp;<em>PyQGIS</em> para desarrollar plugins y herramientas dentro del entorno de <em>QGIS</em>).</p>
+<p>==================================================================quizas aca nota de stack-overflow!====================================================================================================================================</p>
+<p>Existen distintas formas de ocupar <em>Python</em> (tales como, su misma terminal, <em>IPython</em>, <em>Jupyter</em>), sin embargo, para mejorar la interactibilidad de este lenguaje ocuparemos <em>Spyder</em> un IDE diseñado específicamente para <em>Python</em>.</p>
+<p>Sin embargo, para el análisis de datos, el uso exclusivo de <em>Python</em> puede quedar corto. Para poder realizar distintas acciones dentro de esto (tales como crear <em>clickers</em>, analizar datos, visualizar datos multimedia) podemos ocupar librerías. Estos son módulos o paquetes específicos que expanden la funcionalidad de <em>Python</em>, facilitando el manejo de datos, la visualización y otras tareas complejas.</p>
+<section id="programas-necesarios" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="programas-necesarios"><span class="header-section-number">1.1</span> Programas necesarios</h2>
+<p>Para poder organizar nuestro entorno de trabajo, deberemos descargar algunos programas que ayudarán a generar ambientes de trabajo reproducibles y aislados entre sí.</p>
+<section id="git-bash" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="git-bash">Git Bash</h3>
+<p>Bash es un intérprete de línea de comandos y un lenguaje de <em>scripting</em> muy popular en sistemas operativos Unix y basados en Unix, como Linux y macOS. A través de esta se puede controlar el computador digitando los comandos desde el teclado, en lugar de usar los botones y menús como habitualmente se hace con los sistemas operativos más usados.</p>
+<p>De forma nativa, este intérprete no se encuentra dentro de <em>Windows</em>, por lo que, para hacer uso de este deberemos descargar Git Bash, el cual integra esta herramiento junto con <em>git</em>, “un sistema de control de versiones distribuido, libre y de código abierto, diseñado para manejar proyectos de cualquier tamaño, desde pequeños hasta muy grandes, con rapidez y eficiencia”.</p>
+<p>==================================================================Nota que destaque github, y las empresas en la que se ocupan!==================================================================</p>
+<p>Para su instalación, nos dirigiremos a la página oficial de <em>Git Bash</em>:</p>
+<ul>
+<li><a href="https://git-scm.com/downloads" class="uri">https://git-scm.com/downloads</a></li>
+</ul>
+<p>Seleccionamos el sistema operativo y versión (64-bit y 32-bit) que corresponda al computador. Ejecutamos el lanzador e instalamos, al abrirlo se verá similar a la imagen a continuación, los colores pueden cambiar, ya que ofrece la posibilidad de customizar.</p>
+<div id="fig-bashAbierto" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bashAbierto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/03-01-bashAbierto.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bashAbierto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.2: <em>Git Bash</em> abierto en el escritorio, muestra el usuario (Alene), el computador (LAPTOP-RLJ48LRB) y la ruta en la barra principal (<code>/c/Users/Alene</code>).
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="miniconda" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="miniconda">Miniconda</h3>
+<p>Para la creación de entornos de trabajo podemos ocupar <em>Conda</em>, un sistema de gestión de paquetes y entornos de desarrollo, facilitando la instalación y gestión de librerías con sus dependencias, siendo importantes para evitar incompatibilidades entre paquetes. Debido a que <em>Conda</em> resulta tener un gran volumen, ocuparemos <em>Miniconda</em>, la cual es una distribución de <em>Python</em> que posee lo esencial para funcionar. Dentro de este instalaremos los paquetes y librerías que necesitamos para realizar análisis geoespaciales.</p>
+<p>El instalador se encuentra disponible en:</p>
+<ul>
+<li><a href="https://docs.conda.io/en/latest/miniconda.html" class="uri">https://docs.conda.io/en/latest/miniconda.html</a></li>
+</ul>
+<p>Es <strong>IMPORTANTE</strong> seleccionar el sistema operativo y versión (64-bit y 32-bit) que corresponda al computador y durante la instalación seleccione la primera opción para “Agregar Miniconda3 a mi variable de entorno PATH” seleccionando también en “Registrar Anaconda como Python 3.x predeterminado”.</p>
+<p>==================================================================LO DE ARRIBA QUIZAS EN NOTA ROJA O ALGO, PARA QUE SE NOTE==================================================================</p>
+<p>Aunque el paso de agregar <em>Anaconda</em> al <em>PATH</em> no es recomendado por el sistema, lo haremos igualmente para que sea más fácil usar <em>Conda</em> con <em>Git Bash</em>.</p>
+<section id="probando-la-nueva-configuración" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="probando-la-nueva-configuración">Probando la nueva configuración</h4>
+<ol type="1">
+<li><p>Cerramos y abrimos el <em>Bash</em>.</p></li>
+<li><p>En el Terminal que se levanta digite <code>bash</code> y presione <em>Enter</em>. Si no se obtiene ningún mensaje, quiere decir que <em>Bash</em> está disponible para ser utilizado.</p></li>
+<li><p>Digite <code>git</code> y presione <em>Enter</em>. Si aprecia una serie de comandos, <em>Git</em> está disponible para ser utilizado.</p></li>
+</ol>
+<div id="fig-bashTest" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bashTest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/03-02-bashTest.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bashTest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.3: <em>Git Bash</em> testeado con <code>bash</code> (sin mensaje) y <code>git</code> (comandos disponibles).
+</figcaption>
+</figure>
+</div>
+<ol start="4" type="1">
+<li>Digite <code>conda</code> y presiona <em>Enter</em>, si se aprecia una serie de comandos, <em>Conda</em> está disponible para ser empleado.</li>
+</ol>
+<div id="fig-bashTest2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bashTest2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/03-03-bashTest2.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bashTest2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.4: <em>Conda</em> testeado en <em>Git Bash</em>.
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="el-ambiente" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="el-ambiente">El ambiente</h3>
+<p>Dentro <em>Conda</em> instalaremos un ambiente de <em>Python</em> con librerías específicas para el análisis de datos geoespaciales que sido creado exclusivamente para este taller. Puedes descargar el archivo del ambiente haciendo clic <a href="recursos/tallerpython.yml" download="recursos/tallerpython.yml">aquí</a>. ==================================================================TODAVIA SE TIENE QUE ACTUALIZAR==================================================================</p>
+<p>Este archivo (de extensión <code>.yml</code>) contiene todos lo paquetes con sus dependencias necesarios para desarrollar las activiades posteriores. Dentro de el se encuentra el nombre del ambiente (en este caso <code>tallerpython</code>), las librerías y los canales por donde se descargaran estas. ==================================================================Nota que diga que usted tambien puede hacerlo con su propias librerias y necesidades segun sus necesidades==================================================================</p>
+<p>Para instalar este ambiente ejecute desde el Terminal el comando <code>conda env create -f tallerpython.yml</code></p>
+<p>==================================================================El proceso toma tiempo y varía de acuerdo con las capacidades de cada computador.==================================================================</p>
+<div id="fig-mkenvir" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mkenvir-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/03-07-mkenvir.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mkenvir-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.5: Instalación del entorno con el archivo <code>environment.yml</code>.
+</figcaption>
+</figure>
+</div>
+<p>Para ver la lista de los entornos de trabajo disponibles, ejecute <code>conda info --envs</code>. En este caso, nos interesa el ambiente <code>tallerpython</code>.</p>
+<div id="fig-ambiente" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ambiente-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/web/01-01-ambienteSeleccion.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ambiente-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.6: Ambientes instalados. Se pueden observar varios ya instalados.
+</figcaption>
+</figure>
+</div>
+<p>Para activar cualquier entorno de trabajo debe ejecutar <code>conda activate &lt;nombre-entorno&gt;</code>.</p>
+<p>En el caso de que <em>Git Bash</em> genere problemas al usar <code>conda activate</code> ejecute <code>conda init bash</code> solo una vez. Posteriormente, reinicie <em>Git Bash</em> para que los cambios surtan efecto. Si el problema persiste, puede intentar revisando el siguiente <a href="https://discuss.codecademy.com/t/setting-up-conda-in-git-bash/534473">link</a>.</p>
+<p>Para desactivar el entorno de trabajo <code>conda deactivate</code>, como se observa a continuación, pasamos del ambiente <code>base</code> al recién instalado y luego a <code>base</code> nuevamente.</p>
+<div id="fig-activate" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-activate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/web/01-02-acti-deac.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-activate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.7: Activación y desactivación de los entornos.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="spyder" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="spyder"><em>Spyder</em></h3>
+<p><em>Spyder</em> es un entorno de desarrollo integrado (IDE) de código abierto diseñado específicamente para la programación en <em>Python</em>. Combina herramientas avanzadas en un solo lugar, lo que lo hace popular entre investigadores y analistas.</p>
+<p>Para descargar el programa, nos deberemos dirigir al siguiente enlace:</p>
+<ul>
+<li><a href="https://www.spyder-ide.org/download/" class="uri">https://www.spyder-ide.org/download/</a></li>
+</ul>
+<p>Dentro de este, deberemos escoger el sistema operativo del computador.</p>
+<p>==================================================================Importante. lo del kernel==================================================================</p>
+<section id="partes-de-spyder" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="partes-de-spyder">Partes de <em>Spyder</em></h4>
+<p>Spyder cuenta principalmente con 3 paneles, los cuales pueden tener distintas funcionalidades. Entre sus partes principales se encuentran:</p>
+<ol type="1">
+<li>Editor</li>
+</ol>
+<p>En este panel se encuentra el script de <em>Python</em> a ejecutar. Dentro de este, se nos mostrará advertencias (<em>warnings</em>) o errores dentro de nuestro código. Por defecto, las líneas se encuentran numeradas. Tambien uno puede agregar pequeñas anotaciones para destacar ciertas líneas de código (pequeños puntos rojos en líneas 25 y 29).</p>
+<div id="fig-editor" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-editor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/web/01-03-editor.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-editor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.8: Editor de <em>Spyder</em>
+</figcaption>
+</figure>
+</div>
+<ol start="2" type="1">
+<li><p>Consola</p>
+<p>Aquí es donde se ejecuta el código. Una manera de hacerlo es dentro del Editor y apretando <code>F5</code> o <code>Ctrl + Enter</code>. En el caso de querer ejecutar código en solo una línea o líneas seleccionadas, puede apretar <code>F9</code>. Tambíen puede ejecutar código directamente la consola.</p></li>
+</ol>
+<div id="fig-consola" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-consola-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/web/01-04-consola.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-consola-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.9: Consola de <em>Spyder</em>
+</figcaption>
+</figure>
+</div>
+<pre><code>2.1. Historial
+
+Se muestra el historial del código ejecutado. Tambíen aparece código de sesiones anteriores.</code></pre>
+<div id="fig-historial" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-historial-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/web/01-05-historial.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-historial-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.10: Historial de <em>Spyder</em>
+</figcaption>
+</figure>
+</div>
+<ol start="3" type="1">
+<li><p>Conjunto de Sub-Paneles</p>
+<p>Este panel contiene distintas herramientas que aportarán interactibilidad al análisis de datos.</p>
+<p>3.1. Explorador de variables</p>
+<p>Se muestran los objetos creados con la posibildiad de interactuar con estos.</p></li>
+</ol>
+<p>==================================================================ver tema de incompatibilidades==================================================================</p>
+<div id="fig-variables" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/web/01-06-variables.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.11: Explorador de variables en <em>Spyder</em>
+</figcaption>
+</figure>
+</div>
+<pre><code>3.2.  Gráficos
+
+Muestra todos los gráficos ejecutados en la sesión.</code></pre>
+<div id="fig-graficos" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-graficos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/web/01-07-graficos.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-graficos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.12: Gráficos dentro de <em>Spyder</em>
+</figcaption>
+</figure>
+</div>
+<pre><code>3.3.  Ayuda
+
+A través de `Ctrl + I` *Spyder* es capaz de mostrar la documentación de la función en la que se está.</code></pre>
+<div id="fig-ayuda" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ayuda-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/web/01-08-ayuda.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ayuda-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.13: Ayuda dentro de <em>Spyder</em>
+</figcaption>
+</figure>
+</div>
+<pre><code>3.4.  Perfilador
+
+El perfilador determina el tiempo de ejecución y el número de llamadas para cada función y método llamado en un archivo. Esto te permite identificar fácilmente los cuellos de botella en tu código, señala declaraciones exactas más críticas para la optimización y mide la diferencia de rendimiento después de los cambios de seguimiento.</code></pre>
+<div id="fig-profiler" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-profiler-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/web/01-09-profiler.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-profiler-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.14: Perfilador (<em>Profiler</em>) dentro de <em>Spyder</em>
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+</section>
+<section id="ejemplos" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="ejemplos"><span class="header-section-number">1.2</span> Ejemplos</h2>
+<p>================================================================== Nota:</p>
+<p>No sería mejor igual descargar et, para gestionar la descarga de datos.==================================================================</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-knuth84" class="csl-entry" role="listitem">
-Knuth, Donald E. 1984. <span>«Literate Programming»</span>. <em>Comput. J.</em> 27 (2): 97-111. <a href="https://doi.org/10.1093/comjnl/27.2.97">https://doi.org/10.1093/comjnl/27.2.97</a>.
-</div>
-</div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
