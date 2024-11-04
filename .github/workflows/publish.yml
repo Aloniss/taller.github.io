@@ -30,11 +30,15 @@ jobs:
         run: |
           eval "$(conda shell.bash hook)"
           conda activate tallerpython
+          conda list
+          which python
+          python -m pip install jupyter nbformat
 
       - name: Render and Publish
-        uses: quarto-dev/quarto-actions/publish@v2
-        with:
-          target: gh-pages
+        run: |
+          eval "$(conda shell.bash hook)"
+          conda activate tallerpython
+          quarto publish gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           QUARTO_PUB_FORMAT: html
