@@ -44,7 +44,7 @@
     "href": "02-geomatica.html",
     "title": "2  Fundamentos de Geomática y Análisis de Datos Satelitales",
     "section": "",
-    "text": "2.1 Si\nsdsfds",
+    "text": "2.1 Si\n# Importando los paquetes necesarios\nimport os\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport pandas as pd\nsdsfds",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Fundamentos de Geomática y Análisis de Datos Satelitales</span>"
     ]
