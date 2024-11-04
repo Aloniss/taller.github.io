@@ -33,6 +33,11 @@ jobs:
           conda list
           which python
           python -m pip install jupyter nbformat
+          
+      - name: Configure Git
+        run: |
+          git config --global user.email "Alenescool@gmail.com"
+          git config --global user.name "Aloniss"
 
       - name: Render and Publish
         run: |
