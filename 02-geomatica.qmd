@@ -3,6 +3,14 @@ In summary, this book has no content whatsoever.
 
 ## Si 
 
+```{python}
+# Importando los paquetes necesarios
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+```
+
 sdsfds
 
 ## ddsfsd
