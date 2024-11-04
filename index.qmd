@@ -1,5 +1,11 @@
 # Descripción {.unnumbered}
 
-Pequeña bienvendia e introducción.
+¡Bienvenid@os al taller teórico-práctico “Python y Librerías Geoespaciales para el análisis de datos en el contexto de los Incendios Forestales”!
+
+Este taller ha sido diseñado para proporcionarles las herramientas y conocimientos necesarios para abordar, de manera práctica y efectiva, el análisis de datos geoespaciales con el lenguaje de programación Python. A lo largo del taller, exploraremos un conjunto de librerías especializadas y software que nos permitirán realizar una serie de tareas que involucran el preprocesamiento, procesamientos y análisis sobre los datos espaciales con un enfoque particular en los Incendios Forestales.
+
+Nuestro objetivo es capacitar a los participantes para manejar, procesar y visualizar datos geoespaciales que contribuyan al entendimiento y prevención de los Incendios Forestales, una problemática relevante y desafiante para el medio ambiente y las comunidades. Este taller forma parte del proyecto Fondecyt de Iniciación XXXX.
+
+¡Esperamos que este taller sea una experiencia enriquecedora, donde teoría y práctica se fusionen para potenciar sus habilidades y conocimientos en el ámbito del análisis geoespacial aplicado a desafíos ambientales contemporáneos!
 
 Este libro digital fue hecho usando *Quarto*. Puede revisar su documentación dentro del siguiente [link](https://quarto.org).
