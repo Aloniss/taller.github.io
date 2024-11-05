@@ -1,11 +1,5 @@
 # Introducción a Python y Librerías esenciales
 
-La ciencia reproducible es cuando cualquiera puede entender y replicar los pasos de un análisis, aplicarlos a los mismos o nuevos datos. La ciencia abierta es también soportada por la colaboración. Los resultados reproducibles que se originan en flujos de trabajos reproducibles permiten que el trabajo se comparta y se pueda colaborar con otros, así como abiertamente publicar tus datos y flujos de trabajo para contribuir al conocimiento.
-
-![Los flujos de trabajos científicos relevan la importancia de los datos, el código, los métodos.](foo/01-01-cienciaAbierta.png){#fig-ciencia}
-
-Dentro de esta, la programación, en un contexto de academia científica, permite la automatización de tareas, lo cual facilita que los flujos de trabajo puedan ejecutarse fácilmente y ser replicados. La programación científica usando lenguajes de libre acceso como *R*, *Python* o *Julia*, es una forma efectiva y eficiente para comenzar a construir flujos de trabajos que pueden ser reproducibles y, además fácilmente compartidos.
-
 *Python* es un lenguaje de programación libre, abierto y gratuito, que puede ser descargado por cualquiera para ser usado. Este se ha convertido en uno de los lenguajes más populares y demandados en el mercado del trabajo (i.e. *PyQGIS* para desarrollar plugins y herramientas dentro del entorno de *QGIS*).
 
 ::: {.callout-note}
