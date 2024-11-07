@@ -172,3 +172,4 @@ dependencies:
   - nbformat
   - rasterio
   - earthpy
+  - pyogrio
