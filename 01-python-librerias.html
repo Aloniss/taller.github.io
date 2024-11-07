@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -170,7 +204,15 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#el-ambiente" id="toc-el-ambiente" class="nav-link" data-scroll-target="#el-ambiente">El ambiente</a></li>
   <li><a href="#spyder" id="toc-spyder" class="nav-link" data-scroll-target="#spyder"><em>Spyder</em></a></li>
   </ul></li>
-  <li><a href="#ejemplos" id="toc-ejemplos" class="nav-link" data-scroll-target="#ejemplos"><span class="header-section-number">1.2</span> Ejemplos</a></li>
+  <li><a href="#recordatorio" id="toc-recordatorio" class="nav-link" data-scroll-target="#recordatorio">Recordatorio</a>
+  <ul class="collapse">
+  <li><a href="#librerías" id="toc-librerías" class="nav-link" data-scroll-target="#librerías">Librerías</a></li>
+  <li><a href="#directorios-de-trabajo" id="toc-directorios-de-trabajo" class="nav-link" data-scroll-target="#directorios-de-trabajo">Directorios de trabajo</a></li>
+  <li><a href="#carga-de-datos" id="toc-carga-de-datos" class="nav-link" data-scroll-target="#carga-de-datos">Carga de datos</a></li>
+  <li><a href="#visualización-de-datos" id="toc-visualización-de-datos" class="nav-link" data-scroll-target="#visualización-de-datos">Visualización de datos</a></li>
+  <li><a href="#ejemplo" id="toc-ejemplo" class="nav-link" data-scroll-target="#ejemplo">Ejemplo</a></li>
+  </ul></li>
+  <li><a href="#ejercicios" id="toc-ejercicios" class="nav-link" data-scroll-target="#ejercicios"><span class="header-section-number">1.2</span> Ejercicios</a></li>
   </ul>
 </nav>
     </div>
@@ -196,7 +238,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><em>Python</em> es un lenguaje de programación libre, abierto y gratuito, que puede ser descargado por cualquiera para ser usado. Este se ha convertido en uno de los lenguajes más populares y demandados en el mercado del trabajo (i.e.&nbsp;<em>PyQGIS</em> para desarrollar plugins y herramientas dentro del entorno de <em>QGIS</em>).</p>
+<p><em>Python</em> es un lenguaje de programación libre, abierto y gratuito, que puede ser descargado por cualquiera para ser usado. Este se ha convertido en uno de los lenguajes más populares y demandados en el mercado del trabajo (i.e.&nbsp;<em>ArcPy</em>, <em>PyQGIS</em> para desarrollar plugins y herramientas en el entorno de los <em>SIG</em>).</p>
+<p>IMAGEN</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -210,8 +253,8 @@ Nota
 <p>Según <em>Stack Overflow</em> (uno de los foros de programadores más grande de internet) <em>Python</em> es el tercer lenguaje más popular.</p>
 </div>
 </div>
-<p>Existen distintas formas de ocupar <em>Python</em> (tales como, su misma terminal, <em>IPython</em>, <em>Jupyter</em>), sin embargo, para mejorar la interactibilidad de este lenguaje ocuparemos <em>Spyder</em> un IDE diseñado específicamente para <em>Python</em>.</p>
-<p>Sin embargo, para el análisis de datos, el uso exclusivo de <em>Python</em> puede quedar corto. Para poder realizar distintas acciones dentro de esto (tales como crear <em>clickers</em>, analizar datos, visualizar datos multimedia) podemos ocupar librerías. Estos son módulos o paquetes específicos que expanden la funcionalidad de <em>Python</em>, facilitando el manejo de datos, la visualización y otras tareas complejas.</p>
+<p>Existen distintas formas de escribir código y usar <em>Python</em> (un terminal o CLI, <em>IPython</em>, <em>Jupyter</em>, etc.), sin embargo, para aprovechar su potencial y desplegar la naturaleza visual de los datos geográficos, ocuparemos <em>Spyder</em>, un IDE diseñado específicamente para <em>Python</em>.</p>
+<p>En el contexto de los datos geográficos, <em>Python</em> por sí solo puede que no nos baste, sin embargo, es posible instalar ciertos paquetes o librerías especializadas que permiten realizar acciones concretas o análisis más particulares de este tipo de datos. En concreto, estos son módulos o paquetes específicos que expanden la funcionalidad de <em>Python</em>, facilitando la gestión de los datos que poseen un componente espacial.</p>
 <section id="programas-necesarios" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="programas-necesarios"><span class="header-section-number">1.1</span> Programas necesarios</h2>
 <p>Para poder organizar nuestro entorno de trabajo, deberemos descargar algunos programas que ayudarán a generar ambientes de trabajo reproducibles y aislados entre sí.</p>
@@ -236,7 +279,7 @@ Nota
 <ul>
 <li><a href="https://git-scm.com/downloads" class="uri">https://git-scm.com/downloads</a></li>
 </ul>
-<p>Seleccionamos el sistema operativo y versión (64-bit y 32-bit) que corresponda al computador. Ejecutamos el lanzador e instalamos, al abrirlo se verá similar a la imagen a continuación, los colores pueden cambiar, ya que ofrece la posibilidad de customizar.</p>
+<p>Seleccionamos el sistema operativo y versión (64-bit y 32-bit) que corresponda al computador. Ejecutamos el instalador, al terminar se verá similar a la imagen a continuación, los colores pueden cambiar, ya que ofrece la posibilidad de personalizar.</p>
 <div id="fig-bashAbierto" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-bashAbierto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -250,7 +293,7 @@ Figura&nbsp;1.1: <em>Git Bash</em> abierto en el escritorio, muestra el usuario 
 </section>
 <section id="miniconda" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="miniconda">Miniconda</h3>
-<p>Para la creación de entornos de trabajo podemos ocupar <em>Conda</em>, un sistema de gestión de paquetes y entornos de desarrollo, facilitando la instalación y gestión de librerías con sus dependencias, siendo importantes para evitar incompatibilidades entre paquetes. Debido a que <em>Conda</em> resulta tener un gran volumen, ocuparemos <em>Miniconda</em>, la cual es una distribución de <em>Python</em> que posee lo esencial para funcionar. Dentro de este instalaremos los paquetes y librerías que necesitamos para realizar análisis geoespaciales.</p>
+<p>Para la creación de entornos de trabajo podemos ocupar <em>Conda</em>, un sistema de gestión de paquetes y entornos de desarrollo, facilitando la instalación y gestión de librerías con sus dependencias, siendo importantes para evitar incompatibilidades entre paquetes. Debido a que <em>Anaconda</em> resulta tener un gran volumen, ocuparemos <em>Miniconda</em>, la cual es una distribución de <em>Python</em> que posee lo esencial para funcionar. Dentro de este instalaremos los paquetes y librerías que necesitamos para realizar los análisis geoespaciales.</p>
 <p>El instalador se encuentra disponible en:</p>
 <ul>
 <li><a href="https://docs.conda.io/en/latest/miniconda.html" class="uri">https://docs.conda.io/en/latest/miniconda.html</a></li>
@@ -314,10 +357,10 @@ Advertencia
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Todavía hay que ver esto.</p>
+<p>Todavía hay que ver esto. EL NOMBRE NO ES TALLERPYTHON, SINO QUE SPYDER-PYTHON una cosa asi, insertar al final</p>
 </div>
 </div>
-<p>Este archivo (de extensión <code>.yml</code>) contiene todos lo paquetes con sus dependencias necesarios para desarrollar las activiades posteriores. Dentro de el se encuentra el nombre del ambiente (en este caso <code>tallerpython</code>), las librerías y los canales por donde se descargaran estas.</p>
+<p>Este archivo (de extensión <code>.yml</code>) contiene todos los paquetes con sus dependencias necesarios para desarrollar las actividades posteriores. Dentro de él se encuentra el nombre del ambiente (en este caso tallerpython), las librerías y los canales desde donde se obtienen.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -383,10 +426,7 @@ Figura&nbsp;1.6: Activación y desactivación de los entornos.
 <section id="spyder" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="spyder"><em>Spyder</em></h3>
 <p><em>Spyder</em> es un entorno de desarrollo integrado (IDE) de código abierto diseñado específicamente para la programación en <em>Python</em>. Combina herramientas avanzadas en un solo lugar, lo que lo hace popular entre investigadores y analistas.</p>
-<p>Para descargar el programa, nos deberemos dirigir al siguiente enlace:</p>
-<ul>
-<li><a href="https://www.spyder-ide.org/download/" class="uri">https://www.spyder-ide.org/download/</a></li>
-</ul>
+<p><em>Spyder</em> ya viene en el entorno de trabajo. Para usarlo solo hay que escribir <code>spyder</code> estando en el entorno <code>tallerpython</code>.</p>
 <p>Dentro de este, deberemos escoger el sistema operativo del computador.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -444,7 +484,7 @@ Figura&nbsp;1.9: Historial de <em>Spyder</em>
 </figure>
 </div></li>
 <li><p>Conjunto de Sub-Paneles</p>
-<p>Este panel contiene distintas herramientas que aportarán interactividad al análisis de datos.</p>
+<p>Este panel contiene distintas herramientas que aportarán interacción al análisis de los datos geográficos.</p>
 <p>3.1. Explorador de variables</p>
 <p>Se muestran los objetos creados con la posibilidad de interactuar con estos.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -510,21 +550,86 @@ Figura&nbsp;1.13: Perfilador (<em>Profiler</em>) dentro de <em>Spyder</em>
 </section>
 </section>
 </section>
-<section id="ejemplos" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="ejemplos"><span class="header-section-number">1.2</span> Ejemplos</h2>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="recordatorio" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="recordatorio">Recordatorio</h2>
+<p>En el caso de que una correcta ejecución dentro de un <em>script</em> dentro <em>Spyder</em>, debe realizar una serie de pasos. A continuación, explicaremos un ejemplo de carga y visualización de datos. Este tendrá los siguientes pasos:</p>
+<ul>
+<li><p>Carga de librerías.</p></li>
+<li><p>Cambio en el directorio de trabajo.</p></li>
+<li><p>Carga de datos.</p></li>
+<li><p>Visualización de datos.</p></li>
+</ul>
+<section id="librerías" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="librerías">Librerías</h3>
+<p>Las librerías o paquetes son una forma de organizar múltiples funciones relacionadas. Estan se componen de módulos, los cuales son archivos individuales que contienen código reutilizable. Acceder a esta (y para ocupar <em>Python</em> en general) se ocupa la notación de punto (<em>Dot notation</em>). Aquí, el nombre del objeto va seguido de un punto (<code>.</code>), y luego el nombre del atributo o método al que se quiera acceder o invocar.</p>
+</section>
+<section id="directorios-de-trabajo" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="directorios-de-trabajo">Directorios de trabajo</h3>
+<p>Al escribir un <em>script</em> de <em>Python</em> es importante saber en que ruta estás dentro del computador. Esto con el fin de poder acceder correctamente a datos que se necesiten ocupar, exportar resultados, entre otros. En <em>Python</em>, puedes utilizar el módulo <code>os</code> para gestionar rutas, ya que evita errores relacionados con rutas relativas o absolutas.</p>
+</section>
+<section id="carga-de-datos" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="carga-de-datos">Carga de datos</h3>
+<p>En nuestro contexto de análisis geoespacial, las principales herramientas que nos ayudarán a cargar datos son <em>Pandas</em>, <em>GeoPandas</em> y <em>Rasterio</em>, ya que sirven para datos tabulares, vectoriales y raster, respectivamente</p>
+</section>
+<section id="visualización-de-datos" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="visualización-de-datos">Visualización de datos</h3>
+<p>La principal herramienta para visualizar datos dentro de <em>Python</em> es <em>Matplotlib</em>, el cual, a través de su módulo <code>pyplot</code> permite graficar datos con estructura tabular. En el caso de visualización de rasters, el paquete <em>earthpy</em>, l otorga facilidades para mostrarlos y poder realizar composiciones de color.</p>
+</section>
+<section id="ejemplo" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo">Ejemplo</h3>
+<p>Una vez explicado los pasos a seguir, se tiene que implementar en código. Este tendrá la siguiente forma:</p>
+<div id="4535eafd" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1"></a><span class="im">import</span> os</span>
+<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-1-5" class="code-annotation-target"><a href="#annotated-cell-1-5"></a>os.chdir(<span class="st">"D:/Descargas"</span>)</span>
+<span id="annotated-cell-1-6"><a href="#annotated-cell-1-6"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-1-7" class="code-annotation-target"><a href="#annotated-cell-1-7"></a>poligono <span class="op">=</span> gpd.read_file(<span class="st">"polygon.shp"</span>)</span>
+<span id="annotated-cell-1-8"><a href="#annotated-cell-1-8"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-1-9" class="code-annotation-target"><a href="#annotated-cell-1-9"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10"></a></span>
+<span id="annotated-cell-1-11"><a href="#annotated-cell-1-11"></a>poligono.plot(ax <span class="op">=</span> ax,</span>
+<span id="annotated-cell-1-12"><a href="#annotated-cell-1-12"></a>              color <span class="op">=</span> <span class="st">"red"</span>)</span>
+<span id="annotated-cell-1-13"><a href="#annotated-cell-1-13"></a></span>
+<span id="annotated-cell-1-14"><a href="#annotated-cell-1-14"></a>ax.set_title(<span class="st">"Polígono a visualizar"</span>)</span>
+<span id="annotated-cell-1-15"><a href="#annotated-cell-1-15"></a></span>
+<span id="annotated-cell-1-16"><a href="#annotated-cell-1-16"></a>plt.show()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="1,2,3" data-code-annotation="1">Importa las librerías necesarias. Tanto <code>geopandas</code> como <code>matplotlib.pyplot</code> están abreviados gracias a <code>as</code>. La abreviación existe para facilitar la escritura dentro del <em>script</em>.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="5" data-code-annotation="2">Cambia el directorio de trabajo a la ruta <code>D:/Descargas</code>. Esta ruta es personal y varía según dispositivo.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="7" data-code-annotation="3">Con <em>GeoPandas</em> (<code>gpd</code>) carga un archivo vectorial (<code>.shp</code>).</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="9,11,12,14,16" data-code-annotation="4">A través de <em>Matplotlib</em> (<code>plt</code>), graficamos el objeto <code>poligono</code>. Si desea más información de como visualizar datos, consulte su <a href="https://matplotlib.org/stable/users/explain/quick_start.html">documentación</a>.</span>
+</dd>
+</dl>
 </div>
-<div class="callout-title-container flex-fill">
-Advertencia
+</div>
+<p>Así, se debería llegar al siguiente resultado:</p>
+<div id="03727037" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="01-python-librerias_files/figure-html/cell-3-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="265" height="446"></p>
+</figure>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>¿Vamos a incluir earthpy para descargar variables? o ¿cargaremos datasets a través de github u otra plataforma?</p>
 </div>
-</div>
+</section>
+</section>
+<section id="ejercicios" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="ejercicios"><span class="header-section-number">1.2</span> Ejercicios</h2>
 
 
 </section>
