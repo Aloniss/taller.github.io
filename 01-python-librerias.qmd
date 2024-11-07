@@ -1,14 +1,16 @@
 # Introducción a Python y Librerías esenciales
 
-*Python* es un lenguaje de programación libre, abierto y gratuito, que puede ser descargado por cualquiera para ser usado. Este se ha convertido en uno de los lenguajes más populares y demandados en el mercado del trabajo (i.e. *PyQGIS* para desarrollar plugins y herramientas dentro del entorno de *QGIS*).
+*Python* es un lenguaje de programación libre, abierto y gratuito, que puede ser descargado por cualquiera para ser usado. Este se ha convertido en uno de los lenguajes más populares y demandados en el mercado del trabajo (i.e. *ArcPy*, *PyQGIS* para desarrollar plugins y herramientas en el entorno de los *SIG*).
+
+IMAGEN
 
 ::: {.callout-note}
 Según *Stack Overflow* (uno de los foros de programadores más grande de internet) *Python* es el tercer lenguaje más popular.
 :::
 
-Existen distintas formas de ocupar *Python* (tales como, su misma terminal, *IPython*, *Jupyter*), sin embargo, para mejorar la interactibilidad de este lenguaje ocuparemos *Spyder* un IDE diseñado específicamente para *Python*. 
+Existen distintas formas de escribir código y usar *Python* (un terminal o CLI, *IPython*, *Jupyter*, etc.), sin embargo, para aprovechar su potencial y desplegar la naturaleza visual de los datos geográficos, ocuparemos *Spyder*, un IDE diseñado específicamente para *Python*.
 
-Sin embargo, para el análisis de datos, el uso exclusivo de *Python* puede quedar corto. Para poder realizar distintas acciones dentro de esto (tales como crear *clickers*, analizar datos, visualizar datos multimedia) podemos ocupar librerías. Estos son módulos o paquetes específicos que expanden la funcionalidad de *Python*, facilitando el manejo de datos, la visualización y otras tareas complejas.
+En el contexto de los datos geográficos, *Python* por sí solo puede que no nos baste, sin embargo, es posible instalar ciertos paquetes o librerías especializadas que permiten realizar acciones concretas o análisis más particulares de este tipo de datos. En concreto, estos son módulos o paquetes específicos que expanden la funcionalidad de *Python*, facilitando la gestión de los datos que poseen un componente espacial.
 
 ## Programas necesarios
 
@@ -28,13 +30,13 @@ Para su instalación, nos dirigiremos a la página oficial de *Git Bash*:
 
 -   <https://git-scm.com/downloads>
 
-Seleccionamos el sistema operativo y versión (64-bit y 32-bit) que corresponda al computador. Ejecutamos el lanzador e instalamos, al abrirlo se verá similar a la imagen a continuación, los colores pueden cambiar, ya que ofrece la posibilidad de customizar.
+Seleccionamos el sistema operativo y versión (64-bit y 32-bit) que corresponda al computador. Ejecutamos el instalador, al terminar se verá similar a la imagen a continuación, los colores pueden cambiar, ya que ofrece la posibilidad de personalizar.
 
 ![*Git Bash* abierto en el escritorio, muestra el usuario (Alene), el computador (LAPTOP-RLJ48LRB) y la ruta en la barra principal (`/c/Users/Alene`).](foo/03-01-bashAbierto.png){#fig-bashAbierto}
 
 ### Miniconda {-}
 
-Para la creación de entornos de trabajo podemos ocupar *Conda*, un sistema de gestión de paquetes y entornos de desarrollo, facilitando la instalación  y gestión de librerías con sus dependencias, siendo importantes para evitar incompatibilidades entre paquetes. Debido a que *Conda* resulta tener un gran volumen, ocuparemos *Miniconda*, la cual es una distribución de *Python* que posee lo esencial para funcionar. Dentro de este instalaremos los paquetes y librerías que necesitamos para realizar análisis geoespaciales.
+Para la creación de entornos de trabajo podemos ocupar *Conda*, un sistema de gestión de paquetes y entornos de desarrollo, facilitando la instalación y gestión de librerías con sus dependencias, siendo importantes para evitar incompatibilidades entre paquetes. Debido a que *Anaconda* resulta tener un gran volumen, ocuparemos *Miniconda*, la cual es una distribución de *Python* que posee lo esencial para funcionar. Dentro de este instalaremos los paquetes y librerías que necesitamos para realizar los análisis geoespaciales.
 
 El instalador se encuentra disponible en:
 
@@ -65,10 +67,10 @@ Aunque el paso de agregar *Anaconda* al *PATH* no es recomendado por el sistema,
 Dentro *Conda* instalaremos un ambiente de *Python* con librerías específicas para el análisis de datos geoespaciales que sido creado exclusivamente para este taller. Puedes descargar el archivo del ambiente haciendo clic [aquí](recursos/tallerpython.yml){download="tallerpython.yml"}. 
 
 ::: {.callout-warning}
-Todavía hay que ver esto.
+Todavía hay que ver esto. EL NOMBRE NO ES TALLERPYTHON, SINO QUE SPYDER-PYTHON una cosa asi, insertar al final
 :::
 
-Este archivo (de extensión `.yml`) contiene todos lo paquetes con sus dependencias necesarios para desarrollar las activiades posteriores. Dentro de el se encuentra el nombre del ambiente (en este caso `tallerpython`), las librerías y los canales por donde se descargaran estas. 
+Este archivo (de extensión `.yml`) contiene todos los paquetes con sus dependencias necesarios para desarrollar las actividades posteriores. Dentro de él se encuentra el nombre del ambiente (en este caso tallerpython), las librerías y los canales desde donde se obtienen.
 
 ::: {.callout-note}
 Note que aquí estamos creando un ambiente con paquetes previamente definidos. Si desea crear otro ambiente, con otras librerías, puede consultar la guía de [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html).
@@ -98,9 +100,7 @@ Para desactivar el entorno de trabajo `conda deactivate`, como se observa a cont
 
 *Spyder* es un entorno de desarrollo integrado (IDE) de código abierto diseñado específicamente para la programación en *Python*. Combina herramientas avanzadas en un solo lugar, lo que lo hace popular entre investigadores y analistas.
 
-Para descargar el programa, nos deberemos dirigir al siguiente enlace:
-
--   <https://www.spyder-ide.org/download/>
+*Spyder* ya viene en el entorno de trabajo. Para usarlo solo hay que escribir `spyder` estando en el entorno `tallerpython`.
 
 Dentro de este, deberemos escoger el sistema operativo del computador.
 
@@ -132,7 +132,7 @@ En este panel se encuentra el script de *Python* a ejecutar. Dentro de este, se 
 
 3. Conjunto de Sub-Paneles
 
-   Este panel contiene distintas herramientas que aportarán interactividad al análisis de datos.
+   Este panel contiene distintas herramientas que aportarán interacción al análisis de los datos geográficos.
 
    3.1. Explorador de variables
 
@@ -163,9 +163,84 @@ En este panel se encuentra el script de *Python* a ejecutar. Dentro de este, se 
 
 ![Perfilador (*Profiler*) dentro de *Spyder*](foo/web/01-09-profiler.png){#fig-profiler}
 
-## Ejemplos
+## Recordatorio {-}
+
+En el caso de que una correcta ejecución dentro de un *script* dentro *Spyder*, debe realizar una serie de pasos. A continuación, explicaremos un ejemplo de carga y visualización de datos. Este tendrá los siguientes pasos:
+ 
+-   Carga de librerías.
+
+-   Cambio en el directorio de trabajo.
+
+-   Carga de datos.
+
+-   Visualización de datos.
+
+### Librerías {-}
+
+Las librerías o paquetes son una forma de organizar múltiples funciones relacionadas. Estan se componen de módulos, los cuales son archivos individuales que contienen código reutilizable. Acceder a esta (y para ocupar *Python* en general) se ocupa la notación de punto (*Dot notation*). Aquí, el nombre del objeto va seguido de un punto (`.`), y luego el nombre del atributo o método al que se quiera acceder o invocar.
+
+### Directorios de trabajo {-}
+
+Al escribir un *script* de *Python* es importante saber en que ruta estás dentro del computador. Esto con el fin de poder acceder correctamente a datos que se necesiten ocupar, exportar resultados, entre otros. En *Python*, puedes utilizar el módulo `os` para gestionar rutas, ya que evita errores relacionados con rutas relativas o absolutas.
+
+### Carga de datos {-}
+
+En nuestro contexto de análisis geoespacial, las principales herramientas que nos ayudarán a cargar datos son *Pandas*, *GeoPandas* y *Rasterio*, ya que sirven para datos tabulares, vectoriales y raster, respectivamente
+
+### Visualización de datos {-}
+
+La principal herramienta para visualizar datos dentro de *Python* es *Matplotlib*, el cual, a través de su módulo `pyplot` permite graficar datos con estructura tabular. En el caso de visualización de rasters, el paquete *earthpy*, l otorga facilidades para mostrarlos y poder realizar composiciones de color.
+
+### Ejemplo {-}
+
+Una vez explicado los pasos a seguir, se tiene que implementar en código. Este tendrá la siguiente forma:
+
+```{python}
+#| eval: false
+import os # <1>
+import geopandas as gpd # <1>
+import matplotlib.pyplot as plt # <1>
+
+os.chdir("D:/Descargas") # <2>
+
+poligono = gpd.read_file("polygon.shp") # <3>
+
+fig, ax = plt.subplots() # <4>
+
+poligono.plot(ax = ax, # <4>
+              color = "red") # <4>
+
+ax.set_title("Polígono a visualizar") # <4>
+
+plt.show() # <4>
+```
+
+1. Importa las librerías necesarias. Tanto `geopandas` como  `matplotlib.pyplot` están abreviados gracias a `as`. La abreviación existe para facilitar la escritura dentro del *script*.
+2. Cambia el directorio de trabajo a la ruta `D:/Descargas`. Esta ruta es personal y varía según dispositivo.
+3. Con *GeoPandas* (`gpd`) carga un archivo vectorial (`.shp`).
+4. A través de *Matplotlib* (`plt`), graficamos el objeto `poligono`. Si desea más información de como visualizar datos, consulte su [documentación](https://matplotlib.org/stable/users/explain/quick_start.html).
+
+Así, se debería llegar al siguiente resultado:
+```{python}
+#| eval: true
+#| echo: false
+#| fig-align: center
+import os 
+import geopandas as gpd 
+import matplotlib.pyplot as plt 
+
+poligono = gpd.read_file("recursos/polygon.shp") 
+
+fig, ax = plt.subplots() 
+
+poligono.plot(ax = ax, 
+              color = "red") 
+
+ax.set_title("Polígono a visualizar") 
+
+plt.show() 
+```
+
+## Ejercicios
 
 
-::: {.callout-warning}
-¿Vamos a incluir earthpy para descargar variables? o ¿cargaremos datasets a través de github u otra plataforma?
-:::
