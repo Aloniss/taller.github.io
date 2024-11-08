@@ -137,7 +137,7 @@ with rio.open("recursos/imagenLand.tif") as src2:
 f, ax2 = plt.subplots()
 ep.plot_rgb(senti, 
             ax = ax2,
-            stretch = True)
+            stretch = False)
 plt.show()
 
 with rio.open("recursos/imagenSenTrue.tif") as src1:
