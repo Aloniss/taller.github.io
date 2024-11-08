@@ -166,7 +166,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02-geomatica.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos de Geomática y Análisis de Datos Satelitales</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos de Geomática y visualización de Datos Raster</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -239,7 +239,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><em>Python</em> es un lenguaje de programación libre, abierto y gratuito, que puede ser descargado por cualquiera para ser usado. Este se ha convertido en uno de los lenguajes más populares y demandados en el mercado del trabajo (i.e.&nbsp;<em>ArcPy</em>, <em>PyQGIS</em> para desarrollar plugins y herramientas en el entorno de los <em>SIG</em>).</p>
-<p>IMAGEN</p>
+<p><img src="foo/web/01-01_2-logoPy.png" class="img-fluid"></p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -428,26 +428,13 @@ Figura&nbsp;1.6: Activación y desactivación de los entornos.
 <p><em>Spyder</em> es un entorno de desarrollo integrado (IDE) de código abierto diseñado específicamente para la programación en <em>Python</em>. Combina herramientas avanzadas en un solo lugar, lo que lo hace popular entre investigadores y analistas.</p>
 <p><em>Spyder</em> ya viene en el entorno de trabajo. Para usarlo solo hay que escribir <code>spyder</code> estando en el entorno <code>tallerpython</code>.</p>
 <p>Dentro de este, deberemos escoger el sistema operativo del computador.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Advertencia
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Aquí explicar lo del kernel, que no me acuerdo.</p>
-</div>
-</div>
 <section id="partes-de-spyder" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="partes-de-spyder">Partes de <em>Spyder</em></h4>
 <p>Spyder cuenta principalmente con 3 paneles, los cuales pueden tener distintas funcionalidades. Entre sus partes principales se encuentran:</p>
 <ol type="1">
 <li>Editor</li>
 </ol>
-<p>En este panel se encuentra el script de <em>Python</em> a ejecutar. Dentro de este, se nos mostrará advertencias (<em>warnings</em>) o errores dentro de nuestro código. Por defecto, las líneas se encuentran numeradas. Tambien uno puede agregar pequeñas anotaciones para destacar ciertas líneas de código (pequeños puntos rojos en líneas 25 y 29).</p>
+<p>En este panel se encuentra el script de <em>Python</em> a ejecutar. Dentro de este, se nos mostrará advertencias (<em>warnings</em>) o errores dentro de nuestro código. Por defecto, las líneas se encuentran numeradas. También se pueden agregar pequeñas anotaciones para destacar ciertas líneas de código (pequeños puntos rojos en líneas 25 y 29).</p>
 <div id="fig-editor" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-editor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -487,19 +474,6 @@ Figura&nbsp;1.9: Historial de <em>Spyder</em>
 <p>Este panel contiene distintas herramientas que aportarán interacción al análisis de los datos geográficos.</p>
 <p>3.1. Explorador de variables</p>
 <p>Se muestran los objetos creados con la posibilidad de interactuar con estos.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Advertencia
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Profe, Spyder está dando problemas con pandas, no puedo lograr mostrar los dataframes dentro del explorador.</p>
-</div>
-</div>
 <div id="fig-variables" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -552,7 +526,7 @@ Figura&nbsp;1.13: Perfilador (<em>Profiler</em>) dentro de <em>Spyder</em>
 </section>
 <section id="recordatorio" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="recordatorio">Recordatorio</h2>
-<p>En el caso de que una correcta ejecución dentro de un <em>script</em> dentro <em>Spyder</em>, debe realizar una serie de pasos. A continuación, explicaremos un ejemplo de carga y visualización de datos. Este tendrá los siguientes pasos:</p>
+<p>Vamos a realizar un repaso para ver que todo está en orden. Para esto se ejecutará un <em>script</em> dentro de <em>Spyder</em>. A continuación, explicaremos un ejemplo de carga y visualización de datos. Este tendrá los siguientes pasos:</p>
 <ul>
 <li><p>Carga de librerías.</p></li>
 <li><p>Cambio en el directorio de trabajo.</p></li>
@@ -569,16 +543,16 @@ Figura&nbsp;1.13: Perfilador (<em>Profiler</em>) dentro de <em>Spyder</em>
 </section>
 <section id="carga-de-datos" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="carga-de-datos">Carga de datos</h3>
-<p>En nuestro contexto de análisis geoespacial, las principales herramientas que nos ayudarán a cargar datos son <em>Pandas</em>, <em>GeoPandas</em> y <em>Rasterio</em>, ya que sirven para datos tabulares, vectoriales y raster, respectivamente</p>
+<p>En nuestro contexto de análisis geoespacial, las principales herramientas que nos ayudarán a cargar datos son Pandas, GeoPandas y Rasterio, ya que sirven para datos tabulares, vectoriales y raster, respectivamente.</p>
 </section>
 <section id="visualización-de-datos" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="visualización-de-datos">Visualización de datos</h3>
-<p>La principal herramienta para visualizar datos dentro de <em>Python</em> es <em>Matplotlib</em>, el cual, a través de su módulo <code>pyplot</code> permite graficar datos con estructura tabular. En el caso de visualización de rasters, el paquete <em>earthpy</em>, l otorga facilidades para mostrarlos y poder realizar composiciones de color.</p>
+<p>La principal herramienta para visualizar datos dentro de <em>Python</em> es <em>Matplotlib</em>, el cual a través de su módulo <code>pyplot</code>, permite generar desde simples a complejas figuras. En el caso particular de los datos raster, el paquete <code>earthpy</code> otorga las herramientas necesarias para generar representaciones adecuadas para este tipo de datos.</p>
 </section>
 <section id="ejemplo" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="ejemplo">Ejemplo</h3>
 <p>Una vez explicado los pasos a seguir, se tiene que implementar en código. Este tendrá la siguiente forma:</p>
-<div id="e6a265ac" class="cell" data-execution_count="1">
+<div id="40b849ae" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1"></a><span class="im">import</span> os</span>
 <span id="annotated-cell-1-2"><a href="#annotated-cell-1-2"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
 <span id="annotated-cell-1-3"><a href="#annotated-cell-1-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -616,8 +590,8 @@ Figura&nbsp;1.13: Perfilador (<em>Profiler</em>) dentro de <em>Spyder</em>
 </dl>
 </div>
 </div>
-<p>Así, se debería llegar al siguiente resultado:</p>
-<div id="7223c3c2" class="cell" data-execution_count="2">
+<p>Si todo va bien, el resultado del script sería la figura mostrada abajo:</p>
+<div id="33683832" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -631,10 +605,45 @@ Figura&nbsp;1.13: Perfilador (<em>Profiler</em>) dentro de <em>Spyder</em>
 <section id="ejercicios" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="ejercicios"><span class="header-section-number">1.2</span> Ejercicios</h2>
 <ol type="1">
-<li><p>Cargue puntos de ignicion (link) y plotee.</p></li>
-<li><p>Consulta por region (tabla)</p></li>
-<li><p>Consulta por region (gpd, espacial), note si hay diferencias.</p></li>
+<li>Descargue y cargue los datos vectoriales disponibles en este <a href="https://figshare.com/ndownloader/files/49550784">enlace</a>. Una vez descargado, intente graficarlos.</li>
 </ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>El paquete <code>earthpy</code> tiene un submódulo especializado para descargar datos desde internet. Este es <code>data.get_data()</code>.</p>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li><p>Una vez cargados los datos, a través de sus atributos, consulte por la cantidad de puntos de ignición y superficie quemada por región.</p></li>
+<li><p>Dadas las provincias de Chile continental (disponibles en el siguiente <a href="https://figshare.com/ndownloader/files/50316978">enlace</a>), consulte la cantidad de puntos de ignición por región a través del componente espacial entre capas. Observe si hay diferencias con lo obtenido con el ejercicio anterior.</p></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>En el caso de que las capas estén en otro sistema de referencia, puede ocupar la función de <em>GeoPandas</em> <code>.to_crs()</code>.</p>
+<p><em>GeoPandas</em> permite disolver polígonos a través de <code>.dissolve()</code>. Si tiene dudas, puede consultar la documentación de ambas funciones.</p>
+</div>
+</div>
+</div>
 
 
 </section>
@@ -1211,8 +1220,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./02-geomatica.html" class="pagination-link" aria-label="Fundamentos de Geomática y Análisis de Datos Satelitales">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos de Geomática y Análisis de Datos Satelitales</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./02-geomatica.html" class="pagination-link" aria-label="Fundamentos de Geomática y visualización de Datos Raster">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos de Geomática y visualización de Datos Raster</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

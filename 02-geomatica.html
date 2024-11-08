@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Fundamentos de Geomática y Análisis de Datos Satelitales – Python y librerías Geoespaciales para el análisis de datos en el contexto de los Incendios Forestales</title>
+<title>2&nbsp; Fundamentos de Geomática y visualización de Datos Raster – Python y librerías Geoespaciales para el análisis de datos en el contexto de los Incendios Forestales</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -84,7 +84,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-geomatica.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos de Geomática y Análisis de Datos Satelitales</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-geomatica.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos de Geomática y visualización de Datos Raster</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -132,7 +132,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02-geomatica.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos de Geomática y Análisis de Datos Satelitales</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos de Geomática y visualización de Datos Raster</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -166,19 +166,19 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#datos-vectoriales" id="toc-datos-vectoriales" class="nav-link active" data-scroll-target="#datos-vectoriales"><span class="header-section-number">2.1</span> Datos vectoriales</a></li>
   <li><a href="#datos-raster" id="toc-datos-raster" class="nav-link" data-scroll-target="#datos-raster"><span class="header-section-number">2.2</span> Datos Raster</a></li>
   <li><a href="#sistemas-de-referencia" id="toc-sistemas-de-referencia" class="nav-link" data-scroll-target="#sistemas-de-referencia"><span class="header-section-number">2.3</span> Sistemas de referencia</a></li>
-  <li><a href="#dentro-de-python" id="toc-dentro-de-python" class="nav-link" data-scroll-target="#dentro-de-python"><span class="header-section-number">2.4</span> Dentro de <em>Python</em></a></li>
+  <li><a href="#formación-del-color" id="toc-formación-del-color" class="nav-link" data-scroll-target="#formación-del-color"><span class="header-section-number">2.4</span> Formación del color</a></li>
   <li><a href="#tipos-de-imagenes" id="toc-tipos-de-imagenes" class="nav-link" data-scroll-target="#tipos-de-imagenes"><span class="header-section-number">2.5</span> Tipos de imagenes</a>
   <ul class="collapse">
+  <li><a href="#monobanda" id="toc-monobanda" class="nav-link" data-scroll-target="#monobanda">Monobanda</a></li>
   <li><a href="#multiespectral" id="toc-multiespectral" class="nav-link" data-scroll-target="#multiespectral">Multiespectral</a></li>
   </ul></li>
-  <li><a href="#transformaciones-espectrales" id="toc-transformaciones-espectrales" class="nav-link" data-scroll-target="#transformaciones-espectrales"><span class="header-section-number">2.6</span> Transformaciones espectrales</a></li>
-  <li><a href="#plataformas-y-fuentes-de-datos-satelitales" id="toc-plataformas-y-fuentes-de-datos-satelitales" class="nav-link" data-scroll-target="#plataformas-y-fuentes-de-datos-satelitales"><span class="header-section-number">2.7</span> Plataformas y fuentes de datos satelitales</a>
+  <li><a href="#plataformas-y-fuentes-de-datos-satelitales" id="toc-plataformas-y-fuentes-de-datos-satelitales" class="nav-link" data-scroll-target="#plataformas-y-fuentes-de-datos-satelitales"><span class="header-section-number">2.6</span> Plataformas y fuentes de datos satelitales</a>
   <ul class="collapse">
-  <li><a href="#modis" id="toc-modis" class="nav-link" data-scroll-target="#modis"><em>MODIS</em></a></li>
+  <li><a href="#terra---aqua--modis" id="toc-terra---aqua--modis" class="nav-link" data-scroll-target="#terra---aqua--modis"><em>Terra - Aqua- MODIS</em></a></li>
   <li><a href="#landsat" id="toc-landsat" class="nav-link" data-scroll-target="#landsat"><em>Landsat</em></a></li>
   <li><a href="#sentinel" id="toc-sentinel" class="nav-link" data-scroll-target="#sentinel">Sentinel</a></li>
-  <li><a href="#diferencias-entre-plataformas" id="toc-diferencias-entre-plataformas" class="nav-link" data-scroll-target="#diferencias-entre-plataformas"><span class="header-section-number">2.7.1</span> Diferencias entre plataformas</a></li>
   </ul></li>
+  <li><a href="#dentro-de-python" id="toc-dentro-de-python" class="nav-link" data-scroll-target="#dentro-de-python"><span class="header-section-number">2.7</span> Dentro de <em>Python</em></a></li>
   <li><a href="#ejercicios" id="toc-ejercicios" class="nav-link" data-scroll-target="#ejercicios">Ejercicios</a></li>
   </ul>
 </nav>
@@ -188,7 +188,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos de Geomática y Análisis de Datos Satelitales</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos de Geomática y visualización de Datos Raster</span></h1>
 </div>
 
 
@@ -212,55 +212,64 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="datos-raster" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="datos-raster"><span class="header-section-number">2.2</span> Datos Raster</h2>
-<p>Los rasters o las cuadrículas, son datos almacenados como una grilla de valores, los cuales son dibujados en mapas como pixeles. Cada valor de pixel representa un área de la superficie de la tierra formando el dato espacial. Un archivo raster está compuesto de una cuadrícula regular de celdas, las cuales poseen el mismo tamaño. Es común que ya hayamos usados datos raster, ya sea en fotografías digitales o en una imagen de Google Earth. Sin embargo, los raster que vamos a trabajar son diferentes de las fotografías, puesto que se encuentran espacialmente referenciados. Cada pixel representa un área de la superficie de la tierra. Esta área está definida por la resolución espacial del raster. No hay que olvidar que los datos raster son representaciones matriciales de datos espaciales.</p>
-<p>Los datos raster pueden tener una o más layers (capas o variables). Por ejemplo, un modelo de elevación, generalmente solo ofrecerá una layer que representa la elevación de la superficie de la tierra en un lugar determinado. Sin embargo, otros datos que incluyen imágenes y series temporales de datos, pueden resultar en un raster que está compuesto de varias layers. Distintos tipos de archivos pueden ser usados para acomodar diferentes tamaños y estructuras de datos raster.</p>
+<p>Los rásters o cuadrículas son datos almacenados en una matriz de valores, representados como píxeles. Cada valor de píxel representa un área específica de la superficie terrestre, formando así el dato espacial. Un archivo ráster está compuesto por una cuadrícula regular de celdas de igual tamaño. Probablemente ya hemos utilizado datos ráster, como en fotografías digitales o imágenes de <em>Google Earth</em>. Sin embargo, los rásters que vamos a trabajar son distintos de las fotografías comunes, ya que están espacialmente referenciados. Esto significa que cada píxel representa una porción concreta de la superficie terrestre, lo cual se conoce como <strong>resolución espacial</strong>.</p>
+<p>Los datos ráster pueden tener una o varias capas (también llamadas <em>layers</em> o variables). Por ejemplo, un modelo de elevación generalmente incluye solo una capa que representa la altitud de la superficie terrestre en un área determinada. Sin embargo, otros tipos de datos, como imágenes multiespectrales o series temporales, pueden producir un ráster compuesto por varias capas.</p>
 </section>
 <section id="sistemas-de-referencia" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="sistemas-de-referencia"><span class="header-section-number">2.3</span> Sistemas de referencia</h2>
 <p>Es muy común que se obtengan datos espaciales desde distintas fuentes y que esos datos cubran diferentes extensiones espaciales. Este tipo de datos espaciales se encuentran a menudo en diferentes Sistemas de Referencia de Coordenadas (CRS, por sus siglas en inglés). En el caso de que se quiera trabajar con datos en distints CRS deberemos reproyectarlos. Sin embargo, es importante mencionar que cuando reproyectamos los datos, los estamos modificando. De esta forma estamos introduciendo alguna incerteza en nuestros datos. Mientras que esta incerteza es ligeramente menos importante en los datos vectoriales que en los raster, es necesario considerarla. Por otra parte, si solo se reproyecta para crear un mapa base, no es importante.</p>
 </section>
-<section id="dentro-de-python" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="dentro-de-python"><span class="header-section-number">2.4</span> Dentro de <em>Python</em></h2>
-<p>En <em>Python</em> las librerías principales para poder trabajar con datos raster son <code>rasterio</code> y <code>earthpy</code>. <code>rasterio</code> es una librería de <em>Python</em> diseñada para leer y escribir datos raster geoespaciales, mientras que <code>earthpy</code> facilita el manejo de multiples tipos de datos, lidiando con su descarga, descompresión y visualización.</p>
-<p>Por ejemplo, se cargará e imprimirá la información de un raster de elevación (<em>DEM</em>)</p>
-<div id="69819ea4" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-stdout">
-<pre><code>La imagen tiene 1 bandas.
-La imagen tiene EPSG:32613.</code></pre>
+<section id="formación-del-color" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="formación-del-color"><span class="header-section-number">2.4</span> Formación del color</h2>
+<p>La <strong>teoría aditiva</strong> del color explica cómo se forma el color mediante la combinación de luces de diferentes colores, especialmente los colores primarios de la luz: rojo, verde y azul (<em>RGB</em>). Cuando estos colores de luz se mezclan en diversas intensidades, generan una gama completa de colores.</p>
+<div id="fig-02-01" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-02-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/web/02-01-pythonRaster.png" class="img-fluid figure-img">
 </div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-02-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2.1: Composición <em>RGB</em>
+</figcaption>
+</figure>
 </div>
-<p>A través de <code>earthpy</code> podemos visualizarlo:</p>
-<div id="b0ec727a" class="cell" data-execution_count="2">
+<p>En un monitor de computadora, cada píxel está compuesto por subpíxeles rojo, verde y azul. Al ajustar la intensidad de cada subpíxel, el monitor produce diferentes colores visibles.</p>
+<p>En las imágenes de satélite, esta teoría se aplica para representar las bandas espectrales. Cada banda (p.&nbsp;ej., visible, infrarrojo) se asigna a un canal de color (R, G, B) para crear una composición de color que permite observar características específicas de la superficie terrestre.</p>
+</section>
+<section id="tipos-de-imagenes" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="tipos-de-imagenes"><span class="header-section-number">2.5</span> Tipos de imagenes</h2>
+<p>Anteriormente ya mencionamos que existen diferentes tipos de imágenes, desde aquellas que almacenan solo una variable, hasta las que contienen varias o cientos.</p>
+<section id="monobanda" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="monobanda">Monobanda</h3>
+<p>Son aquellas que solo almacenan una variable o <em>layer</em>. Es común encontrar este tipo de imágenes para almacenar y representar datos de tipo continuo, como la temperatura superficial o la reflectancia. No obstante, se usan también para representar variables de tipo discretas como las categorías de un sistema de clasificación.</p>
+<div id="1766b35c" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="02-geomatica_files/figure-html/cell-3-output-1.png" width="583" height="289" class="figure-img"></p>
+<p><img src="02-geomatica_files/figure-html/cell-2-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="540" height="280"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="tipos-de-imagenes" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="tipos-de-imagenes"><span class="header-section-number">2.5</span> Tipos de imagenes</h2>
-<p>Anteriormente se mostró imágenes con una sola banda, la cual puede servir para representar elevación. Sin embargo, hay más tipos de imágenes:</p>
 <section id="multiespectral" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="multiespectral">Multiespectral</h3>
-<p>Las imágenes multiespectrales son datos en varias bandas del espectro electromagnético. Cada banda representa una parte diferente del espectro, por ejemplo, visible, infrarrojo cercano, infrarrojo medio, etc. Las bandas son herramientas analíticas de la superficie terrestre. Por ejemplo, la imagen de un satélite multispectral tiene bandas para:</p>
+<p>Las imágenes multiespectrales son raster que poseen datos en varias bandas del espectro electromagnético. Cada banda representa una parte diferente del espectro, por ejemplo, visible, infrarrojo cercano, infrarrojo medio, etc. Las bandas son herramientas analíticas de la superficie terrestre. Por ejemplo, la imagen de un satélite multiespectral tiene bandas para:</p>
 <ul>
 <li><p>Luz visible (rojo, verde, azul [<em>RGB</em>])</p></li>
 <li><p>Infrarrojo cercano (<em>NIR</em>)</p></li>
 <li><p>Infrarrojo medio (<em>MIR</em>)</p></li>
+<li><p>Otras</p></li>
 </ul>
-<p>Estas bandas pueden se combinan para obtener distintas composiciones que resalta características específicas, como la vegetación o el agua. Al combinar distintas bandas podemos obtener distintas composiciones:</p>
+<p>Estas bandas se pueden combinar con los colores <em>RGB</em> que proporcionan los monitores para obtener distintas composiciones que resaltan características específicas, como la vegetación o el agua.</p>
 <div>
 
 </div>
-<div id="89afffab" class="cell quarto-layout-panel" data-execution_count="3" data-layout-nrow="2">
+<div id="27a67fd7" class="cell quarto-layout-panel" data-execution_count="2" data-layout-nrow="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="02-geomatica_files/figure-html/cell-4-output-1.png" width="408" height="389" class="figure-img"></p>
+<p><img src="02-geomatica_files/figure-html/cell-3-output-1.png" width="408" height="389" class="figure-img"></p>
 <figcaption>Composición Color Natural</figcaption>
 </figure>
 </div>
@@ -270,39 +279,24 @@ La imagen tiene EPSG:32613.</code></pre>
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="02-geomatica_files/figure-html/cell-4-output-2.png" width="408" height="389" class="figure-img"></p>
+<p><img src="02-geomatica_files/figure-html/cell-3-output-2.png" width="408" height="389" class="figure-img"></p>
 <figcaption>Composición Falso Color</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Nota
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Es importante resaltar que las composiciones de color no afectan el contenido de los datos Raster, sino únicamente su visualización.</p>
-</div>
-</div>
 </section>
 </section>
-<section id="transformaciones-espectrales" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="transformaciones-espectrales"><span class="header-section-number">2.6</span> Transformaciones espectrales</h2>
-<p>Las transformaciones espectrales son operaciones matemáticas que se realizan con las bandas de las imágenes de satélite. Están diseñadas para realzar una característica específica de las imágenes. Entre las transformaciones más usadas se encuentran los Índices de Vegetación (IVs) que realzan características como el vigor o el contenido de humedad de la vegetación.</p>
-<p>En el contexto de los incendios forestales, las transformaciones espectrales hacen uso de las firmas espectrales, realzando así las distintas condiciones de daño que se pueden encontrar en la vegetación afectada por los incendios.</p>
-</section>
-<section id="plataformas-y-fuentes-de-datos-satelitales" class="level2" data-number="2.7">
-<h2 data-number="2.7" class="anchored" data-anchor-id="plataformas-y-fuentes-de-datos-satelitales"><span class="header-section-number">2.7</span> Plataformas y fuentes de datos satelitales</h2>
+<section id="plataformas-y-fuentes-de-datos-satelitales" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="plataformas-y-fuentes-de-datos-satelitales"><span class="header-section-number">2.6</span> Plataformas y fuentes de datos satelitales</h2>
 <p>Existen diversas plataformas y fuentes de datos satelitales que proporcionan imágenes y datos geoespaciales para una amplia variedad de aplicaciones.</p>
-<section id="modis" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="modis"><em>MODIS</em></h3>
-<p>Es un instrumento llamado Espectrorradiómetro de Imágenes de Resolución Moderada (<em>Moderate-Resolution Imaging Spectroradiometer</em>) abordo de satélites Terra y Aqua de la NASA. Es capaz de de capturar 36 bandas espectrales con una resolución espacial desde 250 metros a 1 kilómetro. Es ampliamente ocupado debido a su alta resolución temporal (nivel diario).</p>
+<section id="terra---aqua--modis" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="terra---aqua--modis"><em>Terra - Aqua- MODIS</em></h3>
+<p>MODIS es el <em>Moderate-Resolution Imaging Spectroradiometer</em> abordo de satélites <em>Terra</em> y <em>Aqua</em> de la <em>NASA</em>. Es capaz de capturar 36 bandas espectrales con una resolución espacial desde 250 metros a 1 kilómetro. Es ampliamente ocupado debido a su alta resolución temporal (nivel diario).</p>
+<div class="line-block">Band | Reflected Range (nm) | Emitted Range (µm) | Band Explanation | Primary Use |</div>
+<p>|:—-:|:——————–:|:————- —–:|——————————–:|:———————————–:| | 1 | 620-670 | | Shortwave/VIS | | | 2 | 841-876 | | Shortwave/NIR | Land/Cloud/Aerosol Properties | | 3 | 459-479 | | Shortwave/VIS | Land/Cloud/Aerosol Properties | | 4 | 545-565 | | Shortwave/VIS | Land/Cloud/Aerosol Properties | | 5 | 1230-1250 | | Shortwave/NIR | Land/Cloud/Aerosol Properties | | 6 | 1628-1652 | | Shortwave Infrared/SWIR | Land/Cloud/Aerosol Properties | | 7 | 2105-2155 | | Shortwave Infrared/SWIR | | | 8 | 405-420 | | Shortwave/VIS | | | 9 | 438-448 | | Shortwave/VIS | | | 10 | 483-493 | | Shortwave/VIS | | | 11 | 526-536 | | Shortwave/VIS | | | 12 | 546-556 | | Shortwave/VIS | | | 13 | 662-672 | | Shortwave/VIS | | | 13h | 662-672 | | Shortwave/VIS | | | 14 | 673-683 | | Shortwave/VIS | | | 14h | 673-683 | | Shortwave/VIS | | | 15 | 743-753 | | Shortwave/VIS | | | 16 | 862-877 | | Shortwave/NIR | | | 17 | 890-920 | | Shortwave/NIR | Atmospheric Water Vapor | | 18 | 931-941 | | Shortwave/NIR | Atmospheric Water Vapor | | 19 | 915-965 | | Shortwave/NIR | Atmospheric Water Vapor | | 20 | | 3.660-3.840 | Longwave thermal Infrared/TIR | | | 21 | | 3.929-3.989 | Longwave thermal Infrared/TIR | | | 22 | | 3.929-3.989 | Longwave thermal Infrared/TIR | | | 23 | | 4.020-4.080 | Longwave thermal Infrared/TIR | | | 24 | | 4.433-4.498 | Longwave thermal Infrared/TIR | Atmospheric Temperature | | 25 | | 4.482-4.549 | Longwave thermal Infrared/TIR | Atmospheric Temperature | | 26 | 1360-1390 | | Shortwave/NIR | | | 27 | | 6.535-6.895 | Longwave thermal Infrared/TIR | | | 28 | | 7.175-7.475 | Longwave thermal Infrared/TIR | | | 29 | | 8.400-8.700 | Longwave thermal Infrared/TIR | Cloud Properties | | 30 | | 9.580-9.880 | Longwave thermal Infrared/TIR | | | 31 | | 10.780-11.280 | Longwave thermal Infrared/TIR | Surface/Cloud Temperature | | 32 | | 11.770-12.270 | Longwave thermal Infrared/TIR | Surface/Cloud Temperature | | 33 | | 13.185-13.485 | Longwave thermal Infrared/TIR | | | 34 | | 13.485-13.785 | Longwave thermal Infrared/TIR | | | 35 | | 13.785-14.085 | Longwave thermal Infrared/TIR | | | 36 | | 14.085-14.385 | Longwave thermal Infrared/TIR | |</p>
+<p>: Bandas de MODIS {#tbl-bandasModis}</p>
 </section>
 <section id="landsat" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="landsat"><em>Landsat</em></h3>
@@ -312,35 +306,27 @@ Nota
 <h3 class="unnumbered anchored" data-anchor-id="sentinel">Sentinel</h3>
 <p>Es un programa comandado por la Agencia Espacial Europea (<em>ESA</em>), lanzando distintas misiones llamadas Sentinel. Al igual que Landsat, proporciona imágenes de alta resolucion para el monitoreo del Medio Ambiente. El último lanzamiento fue en 2015, el cual consta de dos satélites, Sentinel-2A y Sentinel-2B, capturando 13 bandas y una resolución que varía desde los 10 a 60 metros.</p>
 </section>
-<section id="diferencias-entre-plataformas" class="level3" data-number="2.7.1">
-<h3 data-number="2.7.1" class="anchored" data-anchor-id="diferencias-entre-plataformas"><span class="header-section-number">2.7.1</span> Diferencias entre plataformas</h3>
-<p>A continuación se presentan las diferencias entre dos imágenes, una de <em>Landsat</em> y otra de <em>Sentinel</em>, tomadas en un periodo de tiempo cercano (3 meses) para observar sus discrepancias.</p>
-<div>
-
-</div>
-<div id="d4641bb6" class="cell quarto-layout-panel" data-execution_count="4" data-layout-nrow="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="02-geomatica_files/figure-html/cell-5-output-1.png" width="409" height="389" class="figure-img"></p>
-<figcaption>Imagen <em>Landsat</em></figcaption>
-</figure>
-</div>
-</div>
-</div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="02-geomatica_files/figure-html/cell-5-output-2.png" width="408" height="389" class="figure-img"></p>
-<figcaption>Imagen <em>Sentinel</em></figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
 </section>
+<section id="dentro-de-python" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="dentro-de-python"><span class="header-section-number">2.7</span> Dentro de <em>Python</em></h2>
+<p>En <em>Python</em> las librerías principales para poder trabajar con datos raster son <code>rasterio</code> y <code>earthpy</code>. <code>rasterio</code> es una librería de <em>Python</em> diseñada para leer y escribir datos raster geoespaciales, mientras que <code>earthpy</code> facilita el manejo de multiples tipos de datos, lidiando con su descarga, descompresión y visualización.</p>
+<p>Por ejemplo, se cargará e imprimirá la información de un raster de elevación (<em>DEM</em>)</p>
+<div id="f46465de" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-stdout">
+<pre><code>La imagen tiene 1 bandas.
+La imagen tiene EPSG:32613.</code></pre>
+</div>
+</div>
+<p>A través de <code>earthpy</code> podemos visualizarlo:</p>
+<div id="64b8a78c" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-geomatica_files/figure-html/cell-5-output-1.png" width="583" height="289" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="ejercicios" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="ejercicios">Ejercicios</h2>
