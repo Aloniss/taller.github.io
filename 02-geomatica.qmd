@@ -1,4 +1,4 @@
-# Fundamentos de Geomática y Análisis de Datos Satelitales
+# Fundamentos de Geomática y visualización de Datos Raster
 
 En las Ciencias de los Tierra, existen principalmente dos formas de representar la realidad, los datos vectoriales y los datos raster.
 
@@ -8,13 +8,154 @@ Los datos vectoriales están compuestos de posiciones geométricas discretas (va
 
 ## Datos Raster
 
-Los rasters o las cuadrículas, son datos almacenados como una grilla de valores, los cuales son dibujados en mapas como pixeles. Cada valor de pixel representa un área de la superficie de la tierra formando el dato espacial. Un archivo raster está compuesto de una cuadrícula regular de celdas, las cuales poseen el mismo tamaño. Es común que ya hayamos usados datos raster, ya sea en fotografías digitales o en una imagen de Google Earth. Sin embargo, los raster que vamos a trabajar son diferentes de las fotografías, puesto que se encuentran espacialmente referenciados. Cada pixel representa un área de la superficie de la tierra. Esta área está definida por la resolución espacial del raster. No hay que olvidar que los datos raster son representaciones matriciales de datos espaciales. 
+Los rásters o cuadrículas son datos almacenados en una matriz de valores, representados como píxeles. Cada valor de píxel representa un área específica de la superficie terrestre, formando así el dato espacial. Un archivo ráster está compuesto por una cuadrícula regular de celdas de igual tamaño. Probablemente ya hemos utilizado datos ráster, como en fotografías digitales o imágenes de *Google Earth*. Sin embargo, los rásters que vamos a trabajar son distintos de las fotografías comunes, ya que están espacialmente referenciados. Esto significa que cada píxel representa una porción concreta de la superficie terrestre, lo cual se conoce como **resolución espacial**.
 
-Los datos raster pueden tener una o más layers (capas o variables). Por ejemplo, un modelo de elevación, generalmente solo ofrecerá una layer que representa la elevación de la superficie de la tierra en un lugar determinado. Sin embargo, otros datos que incluyen imágenes y series temporales de datos, pueden resultar en un raster que está compuesto de varias layers. Distintos tipos de archivos pueden ser usados para acomodar diferentes tamaños y estructuras de datos raster.
+Los datos ráster pueden tener una o varias capas (también llamadas *layers* o variables). Por ejemplo, un modelo de elevación generalmente incluye solo una capa que representa la altitud de la superficie terrestre en un área determinada. Sin embargo, otros tipos de datos, como imágenes multiespectrales o series temporales, pueden producir un ráster compuesto por varias capas.
 
 ## Sistemas de referencia
 
 Es muy común que se obtengan datos espaciales desde distintas fuentes y que esos datos cubran diferentes extensiones espaciales. Este tipo de datos espaciales se encuentran a menudo en diferentes Sistemas de Referencia de Coordenadas (CRS, por sus siglas en inglés). En el caso de que se quiera trabajar con datos en distints CRS deberemos reproyectarlos. Sin embargo, es importante mencionar que cuando reproyectamos los datos, los estamos modificando. De esta forma estamos introduciendo alguna incerteza en nuestros datos. Mientras que esta incerteza es ligeramente menos importante en los datos vectoriales que en los raster, es necesario considerarla. Por otra parte, si solo se reproyecta para crear un mapa base, no es importante.
+
+## Formación del color
+
+La **teoría aditiva** del color explica cómo se forma el color mediante la combinación de luces de diferentes colores, especialmente los colores primarios de la luz: rojo, verde y azul (*RGB*). Cuando estos colores de luz se mezclan en diversas intensidades, generan una gama completa de colores. 
+
+![Composición *RGB*](foo/web/02-01-pythonRaster.png){#fig-02-01}
+
+En un monitor de computadora, cada píxel está compuesto por subpíxeles rojo, verde y azul. Al ajustar la intensidad de cada subpíxel, el monitor produce diferentes colores visibles.
+
+En las imágenes de satélite, esta teoría se aplica para representar las bandas espectrales. Cada banda (p. ej., visible, infrarrojo) se asigna a un canal de color (R, G, B) para crear una composición de color que permite observar características específicas de la superficie terrestre. 
+
+## Tipos de imagenes
+
+Anteriormente ya mencionamos que existen diferentes tipos de imágenes, desde aquellas que almacenan solo una variable, hasta las que contienen varias o cientos.
+
+### Monobanda {-}
+
+Son aquellas que solo almacenan una variable o *layer*. Es común encontrar este tipo de imágenes para almacenar y representar datos de tipo continuo, como la temperatura superficial o la reflectancia. No obstante, se usan también para representar variables de tipo discretas como las categorías de un sistema de clasificación.
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import os
+import rasterio as rio
+import earthpy.plot as ep
+import matplotlib.pyplot as plt
+import numpy as np
+
+with rio.open("D:/uniNoCopia/web_2024/taller.github.io/recursos/pre_DTM.tif") as src:
+    DEM = src.read(1, masked = True)
+
+f, ax = plt.subplots()
+ep.plot_bands(DEM,
+              scale = False,
+              cmap = 'Greys',
+              cbar = False,
+              ax = ax)
+ax.set_axis_off()
+plt.show()
+```
+
+### Multiespectral {-}
+
+Las imágenes multiespectrales son raster que poseen datos en varias bandas del espectro electromagnético. Cada banda representa una parte diferente del espectro, por ejemplo, visible, infrarrojo cercano, infrarrojo medio, etc. Las bandas son herramientas analíticas de la superficie terrestre. Por ejemplo, la imagen de un satélite multiespectral tiene bandas para:
+
+- Luz visible (rojo, verde, azul [*RGB*])
+
+- Infrarrojo cercano (*NIR*)
+
+- Infrarrojo medio (*MIR*)
+
+- Otras
+
+Estas bandas se pueden combinar con los colores *RGB* que proporcionan los monitores para obtener distintas composiciones que resaltan características específicas, como la vegetación o el agua. 
+
+```{python}
+#| layout-nrow: 2
+#| fig-align: center
+#| echo: false
+#| fig-cap: 
+#|   - "Composición Color Natural"
+#|   - "Composición Falso Color"
+
+with rio.open("recursos/imagenSenTrue.tif") as src2:
+    senti = src2.read()
+f, ax2 = plt.subplots()
+ep.plot_rgb(senti, 
+            ax = ax2,
+            rgb = (1, 2, 3),
+            stretch = True)
+plt.show()
+
+with rio.open("recursos/imagenSenTrue.tif") as src1:
+    sentiNir = src1.read()
+f, ax1 = plt.subplots()
+ep.plot_rgb(sentiNir, 
+            ax = ax1,
+            rgb = (0, 1, 2),
+            stretch = True)
+plt.show()
+```
+
+## Plataformas y fuentes de datos satelitales 
+
+Existen diversas plataformas y fuentes de datos satelitales que proporcionan imágenes y datos geoespaciales para una amplia variedad de aplicaciones.
+
+### *Terra - Aqua- MODIS* {-}
+
+MODIS es el *Moderate-Resolution Imaging Spectroradiometer* abordo de satélites *Terra* y *Aqua* de la *NASA*. Es capaz de capturar 36 bandas espectrales con una resolución espacial desde 250 metros a 1 kilómetro. Es ampliamente ocupado debido a su alta resolución temporal (nivel diario).
+
+| Band | Reflected Range (nm) | Emitted Range (µm)  | Band Explanation                | Primary Use                         |
+|:----:|:--------------------:|:------------- -----:|--------------------------------:|:-----------------------------------:|
+| 1    | 620-670              |                     | Shortwave/VIS                   |                                     |
+| 2    | 841-876              |                     | Shortwave/NIR                   | Land/Cloud/Aerosol Properties       |
+| 3    | 459-479              |                     | Shortwave/VIS                   | Land/Cloud/Aerosol Properties       |
+| 4    | 545-565              |                     | Shortwave/VIS                   | Land/Cloud/Aerosol Properties       |
+| 5    | 1230-1250            |                     | Shortwave/NIR                   | Land/Cloud/Aerosol Properties       |
+| 6    | 1628-1652            |                     | Shortwave Infrared/SWIR         | Land/Cloud/Aerosol Properties       |
+| 7    | 2105-2155            |                     | Shortwave Infrared/SWIR         |                                     |
+| 8    | 405-420              |                     | Shortwave/VIS                   |                                     |
+| 9    | 438-448              |                     | Shortwave/VIS                   |                                     |
+| 10   | 483-493              |                     | Shortwave/VIS                   |                                     |
+| 11   | 526-536              |                     | Shortwave/VIS                   |                                     |
+| 12   | 546-556              |                     | Shortwave/VIS                   |                                     |
+| 13   | 662-672              |                     | Shortwave/VIS                   |                                     |
+| 13h  | 662-672              |                     | Shortwave/VIS                   |                                     |
+| 14   | 673-683              |                     | Shortwave/VIS                   |                                     |
+| 14h  | 673-683              |                     | Shortwave/VIS                   |                                     |
+| 15   | 743-753              |                     | Shortwave/VIS                   |                                     |
+| 16   | 862-877              |                     | Shortwave/NIR                   |                                     |
+| 17   | 890-920              |                     | Shortwave/NIR                   | Atmospheric Water Vapor             |
+| 18   | 931-941              |                     | Shortwave/NIR                   | Atmospheric Water Vapor             |
+| 19   | 915-965              |                     | Shortwave/NIR                   | Atmospheric Water Vapor             |
+| 20   |                       | 3.660-3.840        | Longwave thermal Infrared/TIR   |                                     |
+| 21   |                       | 3.929-3.989        | Longwave thermal Infrared/TIR   |                                     |
+| 22   |                       | 3.929-3.989        | Longwave thermal Infrared/TIR   |                                     |
+| 23   |                       | 4.020-4.080        | Longwave thermal Infrared/TIR   |                                     |
+| 24   |                       | 4.433-4.498        | Longwave thermal Infrared/TIR   | Atmospheric Temperature             |
+| 25   |                       | 4.482-4.549        | Longwave thermal Infrared/TIR   | Atmospheric Temperature             |
+| 26   | 1360-1390             |                     | Shortwave/NIR                  |                                     |
+| 27   |                       | 6.535-6.895        | Longwave thermal Infrared/TIR   |                                     |
+| 28   |                       | 7.175-7.475        | Longwave thermal Infrared/TIR   |                                     |
+| 29   |                       | 8.400-8.700        | Longwave thermal Infrared/TIR   |  Cloud Properties                   |
+| 30   |                       | 9.580-9.880        | Longwave thermal Infrared/TIR   |                                     |
+| 31   |                       | 10.780-11.280      | Longwave thermal Infrared/TIR   | Surface/Cloud Temperature           |
+| 32   |                       | 11.770-12.270      | Longwave thermal Infrared/TIR   | Surface/Cloud Temperature           |
+| 33   |                       | 13.185-13.485      | Longwave thermal Infrared/TIR   |                                     |
+| 34   |                       | 13.485-13.785      | Longwave thermal Infrared/TIR   |                                     |
+| 35   |                       | 13.785-14.085      | Longwave thermal Infrared/TIR   |                                     |
+| 36   |                       | 14.085-14.385      | Longwave thermal Infrared/TIR   |                                     |
+
+: Bandas de MODIS {#tbl-bandasModis}
+
+### *Landsat* {-}
+
+El programa *Landsat* son una seria de misiones satelitáles gestionadas por la NASA y el Servicio Geológico de Estados Unidos (*USGS*). Desde 1972 han proporcionado imágenes multiespectrales de alta resolción (30 metros) y va continuamente lanzando nuevos satélites. El último ha sido *Landsat 9*, que fue lanzado el 2021 mejorando la calidad y adquisición de las imágenes de su antecesor (*Landsat 8*).
+
+### Sentinel {-}
+
+Es un programa comandado por la Agencia Espacial Europea (*ESA*), lanzando distintas misiones llamadas Sentinel. Al igual que Landsat, proporciona imágenes de alta resolucion para el monitoreo del Medio Ambiente. El último lanzamiento fue en 2015, el cual consta de dos satélites, Sentinel-2A y Sentinel-2B, capturando 13 bandas y una resolución que varía desde los 10 a 60 metros.
 
 ## Dentro de *Python*
 
@@ -52,104 +193,6 @@ ep.plot_bands(DEM,
               ax = ax)
 plt.show()
 ```
-
-## Tipos de imagenes
-
-Anteriormente se mostró imágenes con una sola banda, la cual puede servir para representar elevación. Sin embargo, hay más tipos de imágenes:
-
-### Multiespectral {-}
-
-Las imágenes multiespectrales son datos en varias bandas del espectro electromagnético. Cada banda representa una parte diferente del espectro, por ejemplo, visible, infrarrojo cercano, infrarrojo medio, etc. Las bandas son herramientas analíticas de la superficie terrestre. Por ejemplo, la imagen de un satélite multispectral tiene bandas para:
-
-- Luz visible (rojo, verde, azul [*RGB*])
-
-- Infrarrojo cercano (*NIR*)
-
-- Infrarrojo medio (*MIR*)
-
-Estas bandas pueden se combinan para obtener distintas composiciones que resalta características específicas, como la vegetación o el agua. Al combinar distintas bandas podemos obtener distintas composiciones:
-
-```{python}
-#| layout-nrow: 2
-#| echo: false
-#| fig-cap: 
-#|   - "Composición Color Natural"
-#|   - "Composición Falso Color"
-
-with rio.open("recursos/imagenSenTrue.tif") as src2:
-    senti = src2.read()
-f, ax2 = plt.subplots()
-ep.plot_rgb(senti, 
-            ax = ax2,
-            rgb = (1, 2, 3),
-            stretch = True)
-plt.show()
-
-with rio.open("recursos/imagenSenTrue.tif") as src1:
-    sentiNir = src1.read()
-f, ax1 = plt.subplots()
-ep.plot_rgb(sentiNir, 
-            ax = ax1,
-            rgb = (0, 1, 2),
-            stretch = True)
-plt.show()
-```
-
-::: {.callout-note}
-Es importante resaltar que las composiciones de color no afectan el contenido de los datos Raster, sino únicamente su visualización.
-:::
-
-## Transformaciones espectrales
-
-Las transformaciones espectrales son operaciones matemáticas que se realizan con las bandas de las imágenes de satélite. Están diseñadas para realzar una característica específica de las imágenes. Entre las transformaciones más usadas se encuentran los Índices de Vegetación (IVs) que realzan características como el vigor o el contenido de humedad de la vegetación. 
-
-En el contexto de los incendios forestales, las transformaciones espectrales hacen uso de las firmas espectrales, realzando así las distintas condiciones de daño que se pueden encontrar en la vegetación afectada por los incendios. 
-
-## Plataformas y fuentes de datos satelitales 
-
-Existen diversas plataformas y fuentes de datos satelitales que proporcionan imágenes y datos geoespaciales para una amplia variedad de aplicaciones.
-
-### *MODIS* {-}
-
-Es un instrumento llamado Espectrorradiómetro de Imágenes de Resolución Moderada (*Moderate-Resolution Imaging Spectroradiometer*) abordo de satélites Terra y Aqua de la NASA. Es capaz de de capturar 36 bandas espectrales con una resolución espacial desde 250 metros a 1 kilómetro. Es ampliamente ocupado debido a su alta resolución temporal (nivel diario).
-
-### *Landsat* {-}
-
-El programa *Landsat* son una seria de misiones satelitáles gestionadas por la NASA y el Servicio Geológico de Estados Unidos (*USGS*). Desde 1972 han proporcionado imágenes multiespectrales de alta resolción (30 metros) y va continuamente lanzando nuevos satélites. El último ha sido *Landsat 9*, que fue lanzado el 2021 mejorando la calidad y adquisición de las imágenes de su antecesor (*Landsat 8*).
-
-### Sentinel {-}
-
-Es un programa comandado por la Agencia Espacial Europea (*ESA*), lanzando distintas misiones llamadas Sentinel. Al igual que Landsat, proporciona imágenes de alta resolucion para el monitoreo del Medio Ambiente. El último lanzamiento fue en 2015, el cual consta de dos satélites, Sentinel-2A y Sentinel-2B, capturando 13 bandas y una resolución que varía desde los 10 a 60 metros.
-
-### Diferencias entre plataformas
-
-A continuación se presentan las diferencias entre dos imágenes, una de *Landsat* y otra de *Sentinel*, tomadas en un periodo de tiempo cercano (3 meses) para observar sus discrepancias.
-
-```{python}
-#| layout-nrow: 2
-#| echo: false
-#| fig-cap: 
-#|   - "Imagen *Landsat*"
-#|   - "Imagen *Sentinel*"
-
-with rio.open("recursos/imagenLand.tif") as src2:
-    senti = src2.read()
-f, ax2 = plt.subplots()
-ep.plot_rgb(senti, 
-            ax = ax2,
-            stretch = False)
-plt.show()
-
-with rio.open("recursos/imagenSenTrue.tif") as src1:
-    sentiNir = src1.read()
-f, ax1 = plt.subplots()
-ep.plot_rgb(sentiNir, 
-            ax = ax1,
-            rgb = (1, 2, 3),
-            stretch = True)
-plt.show()
-```
-
 
 
 ## Ejercicios {-}

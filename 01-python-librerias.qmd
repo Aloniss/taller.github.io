@@ -2,7 +2,7 @@
 
 *Python* es un lenguaje de programación libre, abierto y gratuito, que puede ser descargado por cualquiera para ser usado. Este se ha convertido en uno de los lenguajes más populares y demandados en el mercado del trabajo (i.e. *ArcPy*, *PyQGIS* para desarrollar plugins y herramientas en el entorno de los *SIG*).
 
-IMAGEN
+![](foo/web/01-01_2-logoPy.png)
 
 ::: {.callout-note}
 Según *Stack Overflow* (uno de los foros de programadores más grande de internet) *Python* es el tercer lenguaje más popular.
@@ -104,17 +104,13 @@ Para desactivar el entorno de trabajo `conda deactivate`, como se observa a cont
 
 Dentro de este, deberemos escoger el sistema operativo del computador.
 
-::: {.callout-warning}
-Aquí explicar lo del kernel, que no me acuerdo.
-:::
-
 #### Partes de *Spyder* {-}
 
 Spyder cuenta principalmente con 3 paneles, los cuales pueden tener distintas funcionalidades. Entre sus partes principales se encuentran:
 
 1.  Editor
 
-En este panel se encuentra el script de *Python* a ejecutar. Dentro de este, se nos mostrará advertencias (*warnings*) o errores dentro de nuestro código. Por defecto, las líneas se encuentran numeradas. Tambien uno puede agregar pequeñas anotaciones para destacar ciertas líneas de código (pequeños puntos rojos en líneas 25 y 29).
+En este panel se encuentra el script de *Python* a ejecutar. Dentro de este, se nos mostrará advertencias (*warnings*) o errores dentro de nuestro código. Por defecto, las líneas se encuentran numeradas. También se pueden agregar pequeñas anotaciones para destacar ciertas líneas de código (pequeños puntos rojos en líneas 25 y 29).
 
 ![Editor de *Spyder*](foo/web/01-03-editor.png){#fig-editor}
 
@@ -137,10 +133,6 @@ En este panel se encuentra el script de *Python* a ejecutar. Dentro de este, se 
    3.1. Explorador de variables
 
    Se muestran los objetos creados con la posibilidad de interactuar con estos.
-
-   ::: {.callout-warning}
-   Profe, Spyder está dando problemas con pandas, no puedo lograr mostrar los dataframes dentro del explorador.
-   :::
 
    ![Explorador de variables en *Spyder*](foo/web/01-06-variables.png){#fig-variables}
 
@@ -165,7 +157,7 @@ En este panel se encuentra el script de *Python* a ejecutar. Dentro de este, se 
 
 ## Recordatorio {-}
 
-En el caso de que una correcta ejecución dentro de un *script* dentro *Spyder*, debe realizar una serie de pasos. A continuación, explicaremos un ejemplo de carga y visualización de datos. Este tendrá los siguientes pasos:
+Vamos a realizar un repaso para ver que todo está en orden. Para esto se ejecutará un *script* dentro de *Spyder*. A continuación, explicaremos un ejemplo de carga y visualización de datos. Este tendrá los siguientes pasos:
  
 -   Carga de librerías.
 
@@ -185,11 +177,11 @@ Al escribir un *script* de *Python* es importante saber en que ruta estás dentr
 
 ### Carga de datos {-}
 
-En nuestro contexto de análisis geoespacial, las principales herramientas que nos ayudarán a cargar datos son *Pandas*, *GeoPandas* y *Rasterio*, ya que sirven para datos tabulares, vectoriales y raster, respectivamente
+En nuestro contexto de análisis geoespacial, las principales herramientas que nos ayudarán a cargar datos son Pandas, GeoPandas y Rasterio, ya que sirven para datos tabulares, vectoriales y raster, respectivamente.
 
 ### Visualización de datos {-}
 
-La principal herramienta para visualizar datos dentro de *Python* es *Matplotlib*, el cual, a través de su módulo `pyplot` permite graficar datos con estructura tabular. En el caso de visualización de rasters, el paquete *earthpy*, l otorga facilidades para mostrarlos y poder realizar composiciones de color.
+La principal herramienta para visualizar datos dentro de *Python* es *Matplotlib*, el cual a través de su módulo `pyplot`, permite generar desde simples a complejas figuras. En el caso particular de los datos raster, el paquete `earthpy` otorga las herramientas necesarias para generar representaciones adecuadas para este tipo de datos.
 
 ### Ejemplo {-}
 
@@ -220,7 +212,7 @@ plt.show() # <4>
 3. Con *GeoPandas* (`gpd`) carga un archivo vectorial (`.shp`).
 4. A través de *Matplotlib* (`plt`), graficamos el objeto `poligono`. Si desea más información de como visualizar datos, consulte su [documentación](https://matplotlib.org/stable/users/explain/quick_start.html).
 
-Así, se debería llegar al siguiente resultado:
+Si todo va bien, el resultado del script sería la figura mostrada abajo:
 ```{python}
 #| eval: true
 #| echo: false
@@ -243,11 +235,21 @@ plt.show()
 
 ## Ejercicios
 
-1.   Cargue puntos de ignicion (link) y plotee.
+1. Descargue y cargue los datos vectoriales disponibles en este [enlace](https://figshare.com/ndownloader/files/49550784). Una vez descargado, intente graficarlos.
 
-2.   Consulta por region (tabla)
+::: {.callout-tip collapse="true"}
+El paquete `earthpy` tiene un submódulo especializado para descargar datos desde internet. Este es `data.get_data()`. 
+:::
 
-3.   Consulta por region (gpd, espacial), note si hay diferencias.
+2. Una vez cargados los datos, a través de sus atributos, consulte por la cantidad de puntos de ignición y superficie quemada por región.
+
+3. Dadas las provincias de Chile continental (disponibles en el siguiente [enlace](https://figshare.com/ndownloader/files/50316978)), consulte la cantidad de puntos de ignición por región a través del componente espacial entre capas. Observe si hay diferencias con lo obtenido con el ejercicio anterior.
+
+::: {.callout-tip collapse="true"}
+En el caso de que las capas estén en otro sistema de referencia, puede ocupar la función de *GeoPandas* `.to_crs()`.
+
+*GeoPandas* permite disolver polígonos a través de `.dissolve()`. Si tiene dudas, puede consultar la documentación de ambas funciones.
+:::
 
 
 
