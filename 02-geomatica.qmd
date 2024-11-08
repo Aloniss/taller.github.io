@@ -20,13 +20,13 @@ Es muy común que se obtengan datos espaciales desde distintas fuentes y que eso
 
 La **teoría aditiva** del color explica cómo se forma el color mediante la combinación de luces de diferentes colores, especialmente los colores primarios de la luz: rojo, verde y azul (*RGB*). Cuando estos colores de luz se mezclan en diversas intensidades, generan una gama completa de colores. 
 
-![Composición *RGB*](foo/web/02-01-pythonRaster.png){#fig-02-01}
+![Composición *RGB*](foo/web/02-01-pythonRaster.png){#fig-02-01 width=50%}
 
 En un monitor de computadora, cada píxel está compuesto por subpíxeles rojo, verde y azul. Al ajustar la intensidad de cada subpíxel, el monitor produce diferentes colores visibles.
 
 En las imágenes de satélite, esta teoría se aplica para representar las bandas espectrales. Cada banda (p. ej., visible, infrarrojo) se asigna a un canal de color (R, G, B) para crear una composición de color que permite observar características específicas de la superficie terrestre. 
 
-## Tipos de imagenes
+## Tipos de imágenes
 
 Anteriormente ya mencionamos que existen diferentes tipos de imágenes, desde aquellas que almacenan solo una variable, hasta las que contienen varias o cientos.
 
@@ -106,56 +106,19 @@ Existen diversas plataformas y fuentes de datos satelitales que proporcionan im�
 
 MODIS es el *Moderate-Resolution Imaging Spectroradiometer* abordo de satélites *Terra* y *Aqua* de la *NASA*. Es capaz de capturar 36 bandas espectrales con una resolución espacial desde 250 metros a 1 kilómetro. Es ampliamente ocupado debido a su alta resolución temporal (nivel diario).
 
-| Band | Reflected Range (nm) | Emitted Range (µm)  | Band Explanation                | Primary Use                         |
-|:----:|:--------------------:|:-------------------:|:--------------------------------|:-----------------------------------:|
-| 1    | 620-670              |                     | Shortwave/VIS                   |                                     |
-| 2    | 841-876              |                     | Shortwave/NIR                   | Land/Cloud/Aerosol Properties       |
-| 3    | 459-479              |                     | Shortwave/VIS                   | Land/Cloud/Aerosol Properties       |
-| 4    | 545-565              |                     | Shortwave/VIS                   | Land/Cloud/Aerosol Properties       |
-| 5    | 1230-1250            |                     | Shortwave/NIR                   | Land/Cloud/Aerosol Properties       |
-| 6    | 1628-1652            |                     | Shortwave Infrared/SWIR         | Land/Cloud/Aerosol Properties       |
-| 7    | 2105-2155            |                     | Shortwave Infrared/SWIR         |                                     |
-| 8    | 405-420              |                     | Shortwave/VIS                   |                                     |
-| 9    | 438-448              |                     | Shortwave/VIS                   |                                     |
-| 10   | 483-493              |                     | Shortwave/VIS                   |                                     |
-| 11   | 526-536              |                     | Shortwave/VIS                   |                                     |
-| 12   | 546-556              |                     | Shortwave/VIS                   |                                     |
-| 13   | 662-672              |                     | Shortwave/VIS                   |                                     |
-| 13h  | 662-672              |                     | Shortwave/VIS                   |                                     |
-| 14   | 673-683              |                     | Shortwave/VIS                   |                                     |
-| 14h  | 673-683              |                     | Shortwave/VIS                   |                                     |
-| 15   | 743-753              |                     | Shortwave/VIS                   |                                     |
-| 16   | 862-877              |                     | Shortwave/NIR                   |                                     |
-| 17   | 890-920              |                     | Shortwave/NIR                   | Atmospheric Water Vapor             |
-| 18   | 931-941              |                     | Shortwave/NIR                   | Atmospheric Water Vapor             |
-| 19   | 915-965              |                     | Shortwave/NIR                   | Atmospheric Water Vapor             |
-| 20   |                      | 3.660-3.840         | Longwave thermal Infrared/TIR   |                                     |
-| 21   |                      | 3.929-3.989         | Longwave thermal Infrared/TIR   |                                     |
-| 22   |                      | 3.929-3.989         | Longwave thermal Infrared/TIR   |                                     |
-| 23   |                      | 4.020-4.080         | Longwave thermal Infrared/TIR   |                                     |
-| 24   |                      | 4.433-4.498         | Longwave thermal Infrared/TIR   | Atmospheric Temperature             |
-| 25   |                      | 4.482-4.549         | Longwave thermal Infrared/TIR   | Atmospheric Temperature             |
-| 26   | 1360-1390            |                     | Shortwave/NIR                   |                                     |
-| 27   |                      | 6.535-6.895         | Longwave thermal Infrared/TIR   |                                     |
-| 28   |                      | 7.175-7.475         | Longwave thermal Infrared/TIR   |                                     |
-| 29   |                      | 8.400-8.700         | Longwave thermal Infrared/TIR   | Cloud Properties                    |
-| 30   |                      | 9.580-9.880         | Longwave thermal Infrared/TIR   |                                     |
-| 31   |                      | 10.780-11.280       | Longwave thermal Infrared/TIR   | Surface/Cloud Temperature           |
-| 32   |                      | 11.770-12.270       | Longwave thermal Infrared/TIR   | Surface/Cloud Temperature           |
-| 33   |                      | 13.185-13.485       | Longwave thermal Infrared/TIR   |                                     |
-| 34   |                      | 13.485-13.785       | Longwave thermal Infrared/TIR   |                                     |
-| 35   |                      | 13.785-14.085       | Longwave thermal Infrared/TIR   |                                     |
-| 36   |                      | 14.085-14.385       | Longwave thermal Infrared/TIR   |                                     |
+![Bandas de *MODIS*.](foo/web/02-02-modisBands.png){#fig-02-02}
 
-: Bandas de MODIS {#tbl-bandasModis}
-
-### *Landsat* {-}
+### *Landsat - OLI* {-}
 
 El programa *Landsat* son una seria de misiones satelitáles gestionadas por la NASA y el Servicio Geológico de Estados Unidos (*USGS*). Desde 1972 han proporcionado imágenes multiespectrales de alta resolción (30 metros) y va continuamente lanzando nuevos satélites. El último ha sido *Landsat 9*, que fue lanzado el 2021 mejorando la calidad y adquisición de las imágenes de su antecesor (*Landsat 8*).
 
-### Sentinel {-}
+![Bandas de *Landsat*.](foo/web/02-03-landsatBands.png){#fig-02-03}
 
-Es un programa comandado por la Agencia Espacial Europea (*ESA*), lanzando distintas misiones llamadas Sentinel. Al igual que Landsat, proporciona imágenes de alta resolucion para el monitoreo del Medio Ambiente. El último lanzamiento fue en 2015, el cual consta de dos satélites, Sentinel-2A y Sentinel-2B, capturando 13 bandas y una resolución que varía desde los 10 a 60 metros.
+### Sentinel - *MSI* {-}
+
+*MSI* es el *Multiespectral Imager* a bordo de los satelitales *Sentinel-2*. Estos forman parte del programa comandado por la Agencia Espacial Europea (*ESA*), lanzando distintas misiones llamadas *Sentinel*. Al igual que *Landsat*, proporciona imágenes de mediana-alta resolución para el monitoreo del Medio Ambiente. El último lanzamiento fue en 2015, el cual consta de dos satélites, *Sentinel-2A* y *Sentinel-2B*, capturando 13 bandas y una resolución que varía desde los 10 a 60 metros.
+
+![Bandas de *Sentinel*.](foo/web/02-04-sentinelBands.png){#fig-02-04}
 
 ## Dentro de *Python*
 
@@ -164,7 +127,7 @@ En *Python* las librerías principales para poder trabajar con datos raster son 
 Por ejemplo, se cargará e imprimirá la información de un raster de elevación (*DEM*)
 
 ```{python}
-#| echo: false
+#| echo: true
 # Importando los paquetes necesarios
 import os
 import rasterio as rio
@@ -183,7 +146,7 @@ with rio.open("recursos/pre_DTM.tif") as src:
 A través de `earthpy` podemos visualizarlo:
 
 ```{python}
-#| echo: false
+#| echo: true
 f, ax = plt.subplots()
 
 ep.plot_bands(DEM,
@@ -194,14 +157,27 @@ ep.plot_bands(DEM,
 plt.show()
 ```
 
-
 ## Ejercicios {-}
 
-1.    Cargar DEM de Valdi
+1.  Cargue el siguiente [Modelo de Elevación Digital](https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/imagenElevationVal.tif) y grafíquelo.
 
-2.    Exportar el Sentinel con todas sus bandas
+2.  De la misma manera, descargue la siguiente [imagen Sentinel](https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/senImagenFullBands.tif) y grafique cada banda que posea.   
 
-3.    Jugar con la composicion de color
+3.  De acuerdo a la teoría del color, grafique distintas composiciones que representen distintas características específicas del entorno. Puede usar la siguente [página](https://mappinggis.com/2019/05/combinaciones-de-bandas-en-imagenes-de-satelite-landsat-y-sentinel/) para guiarse.
 
 
+4. Descarga esta [imagen](https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/img-rgb.tif) y visualiza la composición y observa sus histogramas.
+    i) Aplica un realce lineal.
+
+    ii) Realiza un recorte de la imagen con las coordenadas que se listan abajo, aplica un realce y observa sus histogramas.
+    - `xmin` = 697030.5734
+    - `xmax` = 700721.5109
+    - `ymin` = 5494727.9939
+    - `ymax` = 5496852.5981
+
+::: {.callout-tip collapse="true"}
+El paquete `earthpy` posee distintas opciones para graficar las bandas, (`ep.plot_bands`),  composiciones (`et.plot_rgb`) e histogramas (`et.hist`) de una imagen.
+
+Adicionalmente, `rasterio` tiene una función para poder realizar cortes a un raster (`rio.clip_box`).
+:::
 
