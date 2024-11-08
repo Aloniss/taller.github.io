@@ -124,7 +124,7 @@
     "href": "02-geomatica.html#ejercicios",
     "title": "2  Fundamentos de Geomática y Análisis de Datos Satelitales",
     "section": "Ejercicios",
-    "text": "Ejercicios",
+    "text": "Ejercicios\n\nCargar DEM de Valdi\nExportar el Sentinel con todas sus bandas\nJugar con la composicion de color",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Fundamentos de Geomática y Análisis de Datos Satelitales</span>"
     ]
