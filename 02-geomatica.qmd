@@ -107,7 +107,7 @@ Existen diversas plataformas y fuentes de datos satelitales que proporcionan im�
 MODIS es el *Moderate-Resolution Imaging Spectroradiometer* abordo de satélites *Terra* y *Aqua* de la *NASA*. Es capaz de capturar 36 bandas espectrales con una resolución espacial desde 250 metros a 1 kilómetro. Es ampliamente ocupado debido a su alta resolución temporal (nivel diario).
 
 | Band | Reflected Range (nm) | Emitted Range (µm)  | Band Explanation                | Primary Use                         |
-|:----:|:--------------------:|:------------- -----:|--------------------------------:|:-----------------------------------:|
+|:----:|:--------------------:|:-------------------:|:--------------------------------|:-----------------------------------:|
 | 1    | 620-670              |                     | Shortwave/VIS                   |                                     |
 | 2    | 841-876              |                     | Shortwave/NIR                   | Land/Cloud/Aerosol Properties       |
 | 3    | 459-479              |                     | Shortwave/VIS                   | Land/Cloud/Aerosol Properties       |
@@ -129,23 +129,23 @@ MODIS es el *Moderate-Resolution Imaging Spectroradiometer* abordo de satélites
 | 17   | 890-920              |                     | Shortwave/NIR                   | Atmospheric Water Vapor             |
 | 18   | 931-941              |                     | Shortwave/NIR                   | Atmospheric Water Vapor             |
 | 19   | 915-965              |                     | Shortwave/NIR                   | Atmospheric Water Vapor             |
-| 20   |                       | 3.660-3.840        | Longwave thermal Infrared/TIR   |                                     |
-| 21   |                       | 3.929-3.989        | Longwave thermal Infrared/TIR   |                                     |
-| 22   |                       | 3.929-3.989        | Longwave thermal Infrared/TIR   |                                     |
-| 23   |                       | 4.020-4.080        | Longwave thermal Infrared/TIR   |                                     |
-| 24   |                       | 4.433-4.498        | Longwave thermal Infrared/TIR   | Atmospheric Temperature             |
-| 25   |                       | 4.482-4.549        | Longwave thermal Infrared/TIR   | Atmospheric Temperature             |
-| 26   | 1360-1390             |                     | Shortwave/NIR                  |                                     |
-| 27   |                       | 6.535-6.895        | Longwave thermal Infrared/TIR   |                                     |
-| 28   |                       | 7.175-7.475        | Longwave thermal Infrared/TIR   |                                     |
-| 29   |                       | 8.400-8.700        | Longwave thermal Infrared/TIR   |  Cloud Properties                   |
-| 30   |                       | 9.580-9.880        | Longwave thermal Infrared/TIR   |                                     |
-| 31   |                       | 10.780-11.280      | Longwave thermal Infrared/TIR   | Surface/Cloud Temperature           |
-| 32   |                       | 11.770-12.270      | Longwave thermal Infrared/TIR   | Surface/Cloud Temperature           |
-| 33   |                       | 13.185-13.485      | Longwave thermal Infrared/TIR   |                                     |
-| 34   |                       | 13.485-13.785      | Longwave thermal Infrared/TIR   |                                     |
-| 35   |                       | 13.785-14.085      | Longwave thermal Infrared/TIR   |                                     |
-| 36   |                       | 14.085-14.385      | Longwave thermal Infrared/TIR   |                                     |
+| 20   |                      | 3.660-3.840         | Longwave thermal Infrared/TIR   |                                     |
+| 21   |                      | 3.929-3.989         | Longwave thermal Infrared/TIR   |                                     |
+| 22   |                      | 3.929-3.989         | Longwave thermal Infrared/TIR   |                                     |
+| 23   |                      | 4.020-4.080         | Longwave thermal Infrared/TIR   |                                     |
+| 24   |                      | 4.433-4.498         | Longwave thermal Infrared/TIR   | Atmospheric Temperature             |
+| 25   |                      | 4.482-4.549         | Longwave thermal Infrared/TIR   | Atmospheric Temperature             |
+| 26   | 1360-1390            |                     | Shortwave/NIR                   |                                     |
+| 27   |                      | 6.535-6.895         | Longwave thermal Infrared/TIR   |                                     |
+| 28   |                      | 7.175-7.475         | Longwave thermal Infrared/TIR   |                                     |
+| 29   |                      | 8.400-8.700         | Longwave thermal Infrared/TIR   | Cloud Properties                    |
+| 30   |                      | 9.580-9.880         | Longwave thermal Infrared/TIR   |                                     |
+| 31   |                      | 10.780-11.280       | Longwave thermal Infrared/TIR   | Surface/Cloud Temperature           |
+| 32   |                      | 11.770-12.270       | Longwave thermal Infrared/TIR   | Surface/Cloud Temperature           |
+| 33   |                      | 13.185-13.485       | Longwave thermal Infrared/TIR   |                                     |
+| 34   |                      | 13.485-13.785       | Longwave thermal Infrared/TIR   |                                     |
+| 35   |                      | 13.785-14.085       | Longwave thermal Infrared/TIR   |                                     |
+| 36   |                      | 14.085-14.385       | Longwave thermal Infrared/TIR   |                                     |
 
 : Bandas de MODIS {#tbl-bandasModis}
 
