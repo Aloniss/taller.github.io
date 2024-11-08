@@ -153,3 +153,12 @@ plt.show()
 
 
 ## Ejercicios {-}
+
+1.    Cargar DEM de Valdi
+
+2.    Exportar el Sentinel con todas sus bandas
+
+3.    Jugar con la composicion de color
+
+
+
