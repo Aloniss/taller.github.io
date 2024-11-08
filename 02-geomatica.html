@@ -241,7 +241,7 @@ Figura&nbsp;2.1: Composición <em>RGB</em>
 <section id="monobanda" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="monobanda">Monobanda</h3>
 <p>Son aquellas que solo almacenan una variable o <em>layer</em>. Es común encontrar este tipo de imágenes para almacenar y representar datos de tipo continuo, como la temperatura superficial o la reflectancia. No obstante, se usan también para representar variables de tipo discretas como las categorías de un sistema de clasificación.</p>
-<div id="1766b35c" class="cell" data-execution_count="1">
+<div id="e75470bc" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -264,7 +264,7 @@ Figura&nbsp;2.1: Composición <em>RGB</em>
 <div>
 
 </div>
-<div id="27a67fd7" class="cell quarto-layout-panel" data-execution_count="2" data-layout-nrow="2">
+<div id="2ebe6e7a" class="cell quarto-layout-panel" data-execution_count="2" data-layout-nrow="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
@@ -294,9 +294,301 @@ Figura&nbsp;2.1: Composición <em>RGB</em>
 <section id="terra---aqua--modis" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="terra---aqua--modis"><em>Terra - Aqua- MODIS</em></h3>
 <p>MODIS es el <em>Moderate-Resolution Imaging Spectroradiometer</em> abordo de satélites <em>Terra</em> y <em>Aqua</em> de la <em>NASA</em>. Es capaz de capturar 36 bandas espectrales con una resolución espacial desde 250 metros a 1 kilómetro. Es ampliamente ocupado debido a su alta resolución temporal (nivel diario).</p>
-<div class="line-block">Band | Reflected Range (nm) | Emitted Range (µm) | Band Explanation | Primary Use |</div>
-<p>|:—-:|:——————–:|:————- —–:|——————————–:|:———————————–:| | 1 | 620-670 | | Shortwave/VIS | | | 2 | 841-876 | | Shortwave/NIR | Land/Cloud/Aerosol Properties | | 3 | 459-479 | | Shortwave/VIS | Land/Cloud/Aerosol Properties | | 4 | 545-565 | | Shortwave/VIS | Land/Cloud/Aerosol Properties | | 5 | 1230-1250 | | Shortwave/NIR | Land/Cloud/Aerosol Properties | | 6 | 1628-1652 | | Shortwave Infrared/SWIR | Land/Cloud/Aerosol Properties | | 7 | 2105-2155 | | Shortwave Infrared/SWIR | | | 8 | 405-420 | | Shortwave/VIS | | | 9 | 438-448 | | Shortwave/VIS | | | 10 | 483-493 | | Shortwave/VIS | | | 11 | 526-536 | | Shortwave/VIS | | | 12 | 546-556 | | Shortwave/VIS | | | 13 | 662-672 | | Shortwave/VIS | | | 13h | 662-672 | | Shortwave/VIS | | | 14 | 673-683 | | Shortwave/VIS | | | 14h | 673-683 | | Shortwave/VIS | | | 15 | 743-753 | | Shortwave/VIS | | | 16 | 862-877 | | Shortwave/NIR | | | 17 | 890-920 | | Shortwave/NIR | Atmospheric Water Vapor | | 18 | 931-941 | | Shortwave/NIR | Atmospheric Water Vapor | | 19 | 915-965 | | Shortwave/NIR | Atmospheric Water Vapor | | 20 | | 3.660-3.840 | Longwave thermal Infrared/TIR | | | 21 | | 3.929-3.989 | Longwave thermal Infrared/TIR | | | 22 | | 3.929-3.989 | Longwave thermal Infrared/TIR | | | 23 | | 4.020-4.080 | Longwave thermal Infrared/TIR | | | 24 | | 4.433-4.498 | Longwave thermal Infrared/TIR | Atmospheric Temperature | | 25 | | 4.482-4.549 | Longwave thermal Infrared/TIR | Atmospheric Temperature | | 26 | 1360-1390 | | Shortwave/NIR | | | 27 | | 6.535-6.895 | Longwave thermal Infrared/TIR | | | 28 | | 7.175-7.475 | Longwave thermal Infrared/TIR | | | 29 | | 8.400-8.700 | Longwave thermal Infrared/TIR | Cloud Properties | | 30 | | 9.580-9.880 | Longwave thermal Infrared/TIR | | | 31 | | 10.780-11.280 | Longwave thermal Infrared/TIR | Surface/Cloud Temperature | | 32 | | 11.770-12.270 | Longwave thermal Infrared/TIR | Surface/Cloud Temperature | | 33 | | 13.185-13.485 | Longwave thermal Infrared/TIR | | | 34 | | 13.485-13.785 | Longwave thermal Infrared/TIR | | | 35 | | 13.785-14.085 | Longwave thermal Infrared/TIR | | | 36 | | 14.085-14.385 | Longwave thermal Infrared/TIR | |</p>
-<p>: Bandas de MODIS {#tbl-bandasModis}</p>
+<div id="tbl-bandasModis" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-bandasModis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;2.1: Bandas de MODIS
+</figcaption>
+<div aria-describedby="tbl-bandasModis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 18%">
+<col style="width: 17%">
+<col style="width: 27%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Band</th>
+<th style="text-align: center;">Reflected Range (nm)</th>
+<th style="text-align: center;">Emitted Range (µm)</th>
+<th style="text-align: left;">Band Explanation</th>
+<th style="text-align: center;">Primary Use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">620-670</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave/VIS</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">841-876</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave/NIR</td>
+<td style="text-align: center;">Land/Cloud/Aerosol Properties</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">459-479</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave/VIS</td>
+<td style="text-align: center;">Land/Cloud/Aerosol Properties</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">545-565</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave/VIS</td>
+<td style="text-align: center;">Land/Cloud/Aerosol Properties</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1230-1250</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave/NIR</td>
+<td style="text-align: center;">Land/Cloud/Aerosol Properties</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">1628-1652</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave Infrared/SWIR</td>
+<td style="text-align: center;">Land/Cloud/Aerosol Properties</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">2105-2155</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave Infrared/SWIR</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">405-420</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave/VIS</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">438-448</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave/VIS</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">483-493</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave/VIS</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">526-536</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave/VIS</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">546-556</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave/VIS</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">662-672</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave/VIS</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">13h</td>
+<td style="text-align: center;">662-672</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave/VIS</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">673-683</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave/VIS</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">14h</td>
+<td style="text-align: center;">673-683</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave/VIS</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">743-753</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave/VIS</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">862-877</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave/NIR</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">890-920</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave/NIR</td>
+<td style="text-align: center;">Atmospheric Water Vapor</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">931-941</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave/NIR</td>
+<td style="text-align: center;">Atmospheric Water Vapor</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">915-965</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave/NIR</td>
+<td style="text-align: center;">Atmospheric Water Vapor</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">20</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">3.660-3.840</td>
+<td style="text-align: left;">Longwave thermal Infrared/TIR</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">21</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">3.929-3.989</td>
+<td style="text-align: left;">Longwave thermal Infrared/TIR</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">22</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">3.929-3.989</td>
+<td style="text-align: left;">Longwave thermal Infrared/TIR</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">23</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">4.020-4.080</td>
+<td style="text-align: left;">Longwave thermal Infrared/TIR</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">24</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">4.433-4.498</td>
+<td style="text-align: left;">Longwave thermal Infrared/TIR</td>
+<td style="text-align: center;">Atmospheric Temperature</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">25</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">4.482-4.549</td>
+<td style="text-align: left;">Longwave thermal Infrared/TIR</td>
+<td style="text-align: center;">Atmospheric Temperature</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">26</td>
+<td style="text-align: center;">1360-1390</td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Shortwave/NIR</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">27</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">6.535-6.895</td>
+<td style="text-align: left;">Longwave thermal Infrared/TIR</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">28</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">7.175-7.475</td>
+<td style="text-align: left;">Longwave thermal Infrared/TIR</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">29</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">8.400-8.700</td>
+<td style="text-align: left;">Longwave thermal Infrared/TIR</td>
+<td style="text-align: center;">Cloud Properties</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">30</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">9.580-9.880</td>
+<td style="text-align: left;">Longwave thermal Infrared/TIR</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">31</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">10.780-11.280</td>
+<td style="text-align: left;">Longwave thermal Infrared/TIR</td>
+<td style="text-align: center;">Surface/Cloud Temperature</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">32</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">11.770-12.270</td>
+<td style="text-align: left;">Longwave thermal Infrared/TIR</td>
+<td style="text-align: center;">Surface/Cloud Temperature</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">33</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">13.185-13.485</td>
+<td style="text-align: left;">Longwave thermal Infrared/TIR</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">34</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">13.485-13.785</td>
+<td style="text-align: left;">Longwave thermal Infrared/TIR</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">35</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">13.785-14.085</td>
+<td style="text-align: left;">Longwave thermal Infrared/TIR</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">36</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">14.085-14.385</td>
+<td style="text-align: left;">Longwave thermal Infrared/TIR</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
 </section>
 <section id="landsat" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="landsat"><em>Landsat</em></h3>
@@ -311,14 +603,14 @@ Figura&nbsp;2.1: Composición <em>RGB</em>
 <h2 data-number="2.7" class="anchored" data-anchor-id="dentro-de-python"><span class="header-section-number">2.7</span> Dentro de <em>Python</em></h2>
 <p>En <em>Python</em> las librerías principales para poder trabajar con datos raster son <code>rasterio</code> y <code>earthpy</code>. <code>rasterio</code> es una librería de <em>Python</em> diseñada para leer y escribir datos raster geoespaciales, mientras que <code>earthpy</code> facilita el manejo de multiples tipos de datos, lidiando con su descarga, descompresión y visualización.</p>
 <p>Por ejemplo, se cargará e imprimirá la información de un raster de elevación (<em>DEM</em>)</p>
-<div id="f46465de" class="cell" data-execution_count="3">
+<div id="91b5bad3" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-stdout">
 <pre><code>La imagen tiene 1 bandas.
 La imagen tiene EPSG:32613.</code></pre>
 </div>
 </div>
 <p>A través de <code>earthpy</code> podemos visualizarlo:</p>
-<div id="64b8a78c" class="cell" data-execution_count="4">
+<div id="1bed8275" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
