@@ -44,7 +44,7 @@ import earthpy.plot as ep
 import matplotlib.pyplot as plt
 import numpy as np
 
-with rio.open("D:/uniNoCopia/web_2024/taller.github.io/recursos/pre_DTM.tif") as src:
+with rio.open("recursos/pre_DTM.tif") as src:
     DEM = src.read(1, masked = True)
 
 f, ax = plt.subplots()
