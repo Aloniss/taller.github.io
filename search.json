@@ -44,7 +44,7 @@
     "href": "01-python-librerias.html#ejercicios",
     "title": "1  Introducción a Python y Librerías esenciales",
     "section": "1.2 Ejercicios",
-    "text": "1.2 Ejercicios",
+    "text": "1.2 Ejercicios\n\nCargue puntos de ignicion (link) y plotee.\nConsulta por region (tabla)\nConsulta por region (gpd, espacial), note si hay diferencias.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introducción a Python y Librerías esenciales</span>"
     ]
