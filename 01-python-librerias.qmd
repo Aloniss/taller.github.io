@@ -243,4 +243,15 @@ plt.show()
 
 ## Ejercicios
 
+1.   Cargue puntos de ignicion (link) y plotee.
+
+2.   Consulta por region (tabla)
+
+3.   Consulta por region (gpd, espacial), note si hay diferencias.
+
+
+
+
+
+
 
