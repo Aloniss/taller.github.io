@@ -116,7 +116,7 @@ ep.plot_bands(NDVI,
               vmin = -1,
               vmax = 1,
               ax = ax)
- ax.set_title("NDVI en Valdivia")
+ax.set_title("NDVI en Valdivia")
 plt.show()
 ```
 
