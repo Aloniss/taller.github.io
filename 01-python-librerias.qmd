@@ -235,7 +235,7 @@ plt.show()
 
 ## Ejercicios
 
-1. Descargue y lea los datos vectoriales disponibles en este [enlace](https://figshare.com/ndownloader/files/49550784). Estos datos corresponden a una base de datos histórica de cicatrices de fuego en Chile (propiedad del (CR)^2^ y disponibles en el siguiente [link](https://www.plataformadedatos.cl/datasets/es/492F65B350AAF9D1)). Una vez descargado, intente graficarlos.
+1. Descargue y lea los datos vectoriales disponibles en este [enlace](https://figshare.com/ndownloader/files/49550784). Estos datos corresponden a una base de datos histórica de cicatrices de fuego en Chile (propiedad del (CR)^2^ y disponibles en el siguiente [link](https://www.plataformadedatos.cl/datasets/es/492F65B350AAF9D1)). Una vez descargados, visualizarlos.
 
 ::: {.callout-tip collapse="true"}
 El paquete `earthpy` tiene un submódulo especializado para descargar datos desde internet. Este es `data.get_data()`. 
@@ -243,7 +243,7 @@ El paquete `earthpy` tiene un submódulo especializado para descargar datos desd
 
 2. Una vez cargados los datos, a través de sus atributos, consulte por la cantidad de puntos de ignición y superficie quemada por región.
 
-3. Dadas las provincias de Chile continental (disponibles en el siguiente [enlace](https://figshare.com/ndownloader/files/50316978)), consulte la cantidad de puntos de ignición por región a través de la consulta basada en la coincidencia espacial. Observe si hay diferencias con lo obtenido con el ejercicio anterior.
+3. Dadas las provincias de Chile continental (disponibles en el siguiente [enlace](https://figshare.com/ndownloader/files/50316978)), consulte la cantidad de puntos de ignición que existen por región, usando una consulta basada en la coincidencia espacial. Observe si hay diferencias con lo obtenido con el ejercicio anterior.
 
 ::: {.callout-tip collapse="true"}
 En el caso de que las capas estén en otro sistema de referencia, puede ocupar la función de *GeoPandas* `.to_crs()`.
