@@ -76,9 +76,32 @@ De esta forma el *dNBR* permite estimar el grado de severidad de una zona, respe
 
 El desempeño de los índices o transformaciones espectrales se ve afectado por las condiciones de la vegetación, que pueden incluir a la heterogeneidad, estructura o cobertura. En otras palabras, no todas las transformaciones espectrales funcionan adecuadamente en todos los ecosistemas. Para el caso del *dNBR*, se ha reportado que subestima el nivel de daño, sobre todo cuando la vegetación pre-incendio corresponde a estructuras heterogéneas o se cuenta con poca cobertura. Para intentar mitigar estos efectos se pueden usar variaciones del *dNBR*.
 
-## Dentro de *Python*
+### *Relative difference Normalized Burn Ratio* (*RdNBR*)
 
-En el [Módulo @sec-raster] aprendimos a cargar un raster en Python utilizando *Rasterio*. Es importante recordar que una imagen raster puede ser interpretada como una matriz, la cual *Numpy* puede manejar como un array. En el caso de una imagen monobanda, esta se representará como una matriz de $n$ filas por $n$ columnas. Por otro lado, una imagen multiespectral estará compuesta por múltiples matrices apiladas.
+El *RdNBR* utiliza una pequeña modificación para evitar que exista correlación entre las condiciones previas al incendio y el valor de severidad que se estima. De esta manera minimiza los errores de clasificación para las áreas de mayor severidad, mantiene el significado de la severidad y permitiría la comparación de incendios históricos. 
+$$
+RdNBR=\frac{dNBR}{\sqrt{|\frac{NBR_{pre}}{1000}}|}
+$$ {#eq-rdnbr}
+
+### *Relativized Burn Ratio* (*RBR*)
+
+A pesar que el *RdNBR* es una mejora, no está exento de inconvenientes que pueden resultar en valores particularmente altos difíciles de interpretar, valores infinitos o ambiguos. Se propuso entonces el *RBR* como un índice que sea sensible a las condiciones de la vegetación pre incendio, pero que evite además los problemas del *RdNBR*.
+
+$$
+RBR=\left(\frac{dNBR}{NBR_{pre}+1.001}\right)
+$$
+
+### Burn Area Index (BAI)
+
+Este índice realza las áreas quemadas en la zona del *NIR*, enfatizando la señal del carbón en las imágenes post-incendio. Se calcula como una distancia espectral desde cada pixel a un punto espectral de referencia, donde suelen converger las áreas quemadas recientes.
+
+$$
+BAI=\frac{1}{(0.1-Red)^2+(0.06-NIR)^2}
+$$
+
+### Ejemplo
+
+En el [Módulo @sec-raster] aprendimos a cargar un raster en Python utilizando *Rasterio*. Es importante recordar que una imagen raster puede ser interpretada como una matriz, la cual *NumPy* puede manejar como un array. En el caso de una imagen monobanda, esta se representará como una matriz de $n$ filas por $n$ columnas. Por otro lado, una imagen multiespectral estará compuesta por múltiples matrices apiladas.
 
 Una vez cargado el raster, se pueden separar sus capas (bandas) y poder realizar las transformaciones espectrales. En el siguiente ejemplo, se cargará una imagen de Valdivia y se le calculará el `NDVI`:
 
@@ -89,7 +112,7 @@ os.chdir("recursos")
 ```
 ```{python}
 #| fig-align: center
-
+#| label: lst-trasnform
 # Importación de librerías
 import os
 import rasterio as rio
@@ -100,6 +123,8 @@ import matplotlib.pyplot as plt
 # Cargamos la imagen
 with rio.open("valdiviaSentinel.tif") as src:
     valdivia = src.read()
+    transform = src.transform
+    crsValdivia = src.crs
 
 # Seleccion de bandas (el conteo de bandas comienza desde 0)
 NIR = valdivia[8,:,:] # Banda 8a (NIR)
@@ -119,5 +144,122 @@ ep.plot_bands(NDVI,
 ax.set_title("NDVI en Valdivia")
 plt.show()
 ```
+
+## Segmentación (discretización) de datos Raster
+
+Los índices entregan valores continuos en un rango determinado, no obstante, para obtener las categorías de interés, es necesario encontrar ciertos valores o umbrales que permitan esa separación. Generalmente esos umbrales vienen dados o se pueden establecer desde calibraciones en campo o con gráficos de distribución de los valores.
+
+En este caso, se mostrará una segmentación simple del NDVI anteriormente calculado. En este, valores mayores a `0.5` serán una categoría, mientras que valores menores o iguales `0.5` será otra categoría.
+
+```{python}
+#| fig-align: center
+
+# Asigna otro objeto
+ndvi_clases = NDVI
+
+# Re-clasifica los valores de los píxeles
+ndvi_clases[np.where((ndvi_clases > 0.5))] = 2
+ndvi_clases[np.where((ndvi_clases <= 0.5))] = 1
+
+# Visualizacion+
+f, ax = plt.subplots()
+ep.plot_bands(ndvi_clases,
+              cmap="RdYlGn",
+              ax = ax)
+
+ax.set_title("NDVI con dos clases")
+plt.show()
+```
+
+::: {.callout-important}
+Es crucial mantener el orden correcto al reclasificar los valores de los píxeles. Si primero asignamos `[np.where(ndvi_clases <= 0.5)] = 1` y luego `[np.where(ndvi_clases > 0.5)] = 2`, los valores ya reclasificados en la primera condición serán también considerados en la segunda, lo que resultará en una única clase.
+:::
+
+## Vectorización de Datos Raster
+
+Cuando se han obtenido las categorías de interés, muchas veces es necesario transformar los objetos resultantes a formato vectorial para poder utilizarlos en conjunto con bases de datos ya existentes. Para obtener esto, primero deberemos cargar librerías extras. Posteriormente debemos seleccionar que pixeles son los que deseamos vectorizar, y así crear una máscara. Una vez creada la máscara, a través de `shapely` se transformará el raster a un objeto de tipo `generator`.
+
+::: {.callout-note}
+Note que en el código del @lst-trasnform se crea la variable `transform`, el cual define cómo convertir entre las coordenadas de píxeles (índices de filas y columnas) y las coordenadas del sistema de referencia espacial del raster (generalmente coordenadas geográficas o proyectadas, como UTM).
+
+Note también que se le extrae el sistema de coordenadas del raster.
+:::
+
+Una vez hecho teniendo el objeto de tipo `generator`, se transformará a un *GeoDataFrame* el cual servirá para su visualización:
+
+```{python}
+#| fig-align: center
+
+#Importancion de librerias
+import shapely # Nos permite transformar geometrías.
+import rasterio.features as features # Contiene una función para vectorizar.
+import geopandas as gpd
+
+# Asignamos mascara con pixeles de valor 2 (pixeles con mayor a 0.5 de NDVI) 
+mask = ndvi_clases == 2
+
+# Convertirmos a objeto tipo generador
+result = features.shapes(ndvi_clases, 
+                transform = transform, 
+                connectivity = 4, 
+                mask = mask)
+
+# Convertimos result a geoDataFrame a través de un loop
+lista = []
+
+# Bucle que toma cada geometría y la agrega a la lista.
+for x in result: 
+    lista.append(shapely.geometry.shape(x[0]))
+
+lista_geo = gpd.GeoDataFrame(geometry = lista,
+                             crs = crsValdivia)
+
+# Visualizacion
+f, ax = plt.subplots()
+lista_geo.plot(ax = ax,
+               color = "green")
+ax.set_title("NDVI vectrorial en Valdivia")
+plt.show()
+```
+
+## Exportación de archivos
+
+Una vez creados los archivos de interés (ya sea raster o vectorial), podemos exportarlos de la siguiente manera:
+
+Para datos raster:
+
+```{python}
+#| eval: false
+
+with rio.open("ndvi_clases.tif", # Crea el archivo
+              'w', # En modo escritura (write)
+              driver = 'GTiff',  # Especifica el controlador (formato) del archivo, en este caso GeoTIFF
+              height = ndvi_clases.shape[0], # Alto de raster
+              width = ndvi_clases.shape[1], # Ancho de raster
+              count = 1, # Número de bandas en el raster 
+              crs = crs, # Sistema de referencia de coordenadas (CRS) del raster
+              transform = transform, # Transformación de afinidad del raster
+              dtype = "float32") as dst: # Tipo de dato de los valores del raster
+    dst.write(ndvi_clases, 1)
+```
+
+Para datos vectoriales:
+
+```{python}
+#| eval: false
+lista_geo.to_file("ndvi_vectrorial.shp")
+```
+
+## Ejercicios {-}
+
+1.  Descargue el siguiente [set de datos](https://figshare.com/ndownloader/files/50335344). Ests son dos imágenes *Sentinel* de Viña del Mar antes y después de los incendios ocurridos en Febrero de este año. Las bandas entregadas son: B1, B2, B3, B4, B5, B6, B7, B8, B8a, B9, B11, B12.
+
+2.  A través de *Rasterio* y *NumPy* calcule *NDVI*, *BAI* a ambas imágenes.
+
+3.  Calcule el *NBR* y los derivados de este índice para ambas imágenes.
+
+4.  A través de la @tbl-dnbr-severity, segmente el raster de *dNBR* y exportelo como un archivo `.tif`.
+
+5.  Vectorice su raster segmentado y exportelo como archivo `.shp`.
 
 

@@ -167,7 +167,7 @@ plt.show()
 
 1.  Cargar y visualizar el siguiente [Modelo de Elevación Digital](https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/imagenElevationVal.tif).
 
-2.  De la misma manera, descargue la [imagen Sentinel](https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/valdiviaSentinel.tif)y visualice cada banda que posea.   
+2.  De la misma manera, descargue la [imagen Sentinel](https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/valdiviaSentinel.tif) y visualice cada banda que posea.   
 
 3.  De acuerdo con la teoría del color, visualice varias composiciones que representen distintas características de la imagen. Puede usar la siguiente  [página](https://mappinggis.com/2019/05/combinaciones-de-bandas-en-imagenes-de-satelite-landsat-y-sentinel/) para orientarse.
 
