@@ -231,8 +231,15 @@ window.Quarto = {
   <li><a href="#normalized-difference-vegetation-index-ndvi" id="toc-normalized-difference-vegetation-index-ndvi" class="nav-link" data-scroll-target="#normalized-difference-vegetation-index-ndvi"><em>Normalized Difference Vegetation Index</em> (<em>NDVI</em>)</a></li>
   <li><a href="#normalized-burn-ratio-nbr" id="toc-normalized-burn-ratio-nbr" class="nav-link" data-scroll-target="#normalized-burn-ratio-nbr"><em>Normalized Burn Ratio</em> (<em>NBR</em>)</a></li>
   <li><a href="#difference-normalized-burn-ratio-dnbr" id="toc-difference-normalized-burn-ratio-dnbr" class="nav-link" data-scroll-target="#difference-normalized-burn-ratio-dnbr"><em>Difference Normalized Burn Ratio</em> (<em>dNBR</em>)</a></li>
+  <li><a href="#relative-difference-normalized-burn-ratio-rdnbr" id="toc-relative-difference-normalized-burn-ratio-rdnbr" class="nav-link" data-scroll-target="#relative-difference-normalized-burn-ratio-rdnbr"><span class="header-section-number">3.1.1</span> <em>Relative difference Normalized Burn Ratio</em> (<em>RdNBR</em>)</a></li>
+  <li><a href="#relativized-burn-ratio-rbr" id="toc-relativized-burn-ratio-rbr" class="nav-link" data-scroll-target="#relativized-burn-ratio-rbr"><span class="header-section-number">3.1.2</span> <em>Relativized Burn Ratio</em> (<em>RBR</em>)</a></li>
+  <li><a href="#burn-area-index-bai" id="toc-burn-area-index-bai" class="nav-link" data-scroll-target="#burn-area-index-bai"><span class="header-section-number">3.1.3</span> Burn Area Index (BAI)</a></li>
+  <li><a href="#ejemplo" id="toc-ejemplo" class="nav-link" data-scroll-target="#ejemplo"><span class="header-section-number">3.1.4</span> Ejemplo</a></li>
   </ul></li>
-  <li><a href="#dentro-de-python" id="toc-dentro-de-python" class="nav-link" data-scroll-target="#dentro-de-python"><span class="header-section-number">3.2</span> Dentro de <em>Python</em></a></li>
+  <li><a href="#segmentación-discretización-de-datos-raster" id="toc-segmentación-discretización-de-datos-raster" class="nav-link" data-scroll-target="#segmentación-discretización-de-datos-raster"><span class="header-section-number">3.2</span> Segmentación (discretización) de datos Raster</a></li>
+  <li><a href="#vectorización-de-datos-raster" id="toc-vectorización-de-datos-raster" class="nav-link" data-scroll-target="#vectorización-de-datos-raster"><span class="header-section-number">3.3</span> Vectorización de Datos Raster</a></li>
+  <li><a href="#exportación-de-archivos" id="toc-exportación-de-archivos" class="nav-link" data-scroll-target="#exportación-de-archivos"><span class="header-section-number">3.4</span> Exportación de archivos</a></li>
+  <li><a href="#ejercicios" id="toc-ejercicios" class="nav-link" data-scroll-target="#ejercicios">Ejercicios</a></li>
   </ul>
 </nav>
     </div>
@@ -383,12 +390,31 @@ Tabla&nbsp;3.1: Categorías de severidad del <em>dNBR</em> según el <em>US Fore
 </div>
 <p>El desempeño de los índices o transformaciones espectrales se ve afectado por las condiciones de la vegetación, que pueden incluir a la heterogeneidad, estructura o cobertura. En otras palabras, no todas las transformaciones espectrales funcionan adecuadamente en todos los ecosistemas. Para el caso del <em>dNBR</em>, se ha reportado que subestima el nivel de daño, sobre todo cuando la vegetación pre-incendio corresponde a estructuras heterogéneas o se cuenta con poca cobertura. Para intentar mitigar estos efectos se pueden usar variaciones del <em>dNBR</em>.</p>
 </section>
+<section id="relative-difference-normalized-burn-ratio-rdnbr" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="relative-difference-normalized-burn-ratio-rdnbr"><span class="header-section-number">3.1.1</span> <em>Relative difference Normalized Burn Ratio</em> (<em>RdNBR</em>)</h3>
+<p>El <em>RdNBR</em> utiliza una pequeña modificación para evitar que exista correlación entre las condiciones previas al incendio y el valor de severidad que se estima. De esta manera minimiza los errores de clasificación para las áreas de mayor severidad, mantiene el significado de la severidad y permitiría la comparación de incendios históricos. <span id="eq-rdnbr"><span class="math display">\[
+RdNBR=\frac{dNBR}{\sqrt{|\frac{NBR_{pre}}{1000}}|}
+\tag{3.4}\]</span></span></p>
 </section>
-<section id="dentro-de-python" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="dentro-de-python"><span class="header-section-number">3.2</span> Dentro de <em>Python</em></h2>
-<p>En el <a href="02-geomatica.html" class="quarto-xref">Módulo&nbsp;<span>2</span></a> aprendimos a cargar un raster en Python utilizando <em>Rasterio</em>. Es importante recordar que una imagen raster puede ser interpretada como una matriz, la cual <em>Numpy</em> puede manejar como un array. En el caso de una imagen monobanda, esta se representará como una matriz de <span class="math inline">\(n\)</span> filas por <span class="math inline">\(n\)</span> columnas. Por otro lado, una imagen multiespectral estará compuesta por múltiples matrices apiladas.</p>
+<section id="relativized-burn-ratio-rbr" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="relativized-burn-ratio-rbr"><span class="header-section-number">3.1.2</span> <em>Relativized Burn Ratio</em> (<em>RBR</em>)</h3>
+<p>A pesar que el <em>RdNBR</em> es una mejora, no está exento de inconvenientes que pueden resultar en valores particularmente altos difíciles de interpretar, valores infinitos o ambiguos. Se propuso entonces el <em>RBR</em> como un índice que sea sensible a las condiciones de la vegetación pre incendio, pero que evite además los problemas del <em>RdNBR</em>.</p>
+<p><span class="math display">\[
+RBR=\left(\frac{dNBR}{NBR_{pre}+1.001}\right)
+\]</span></p>
+</section>
+<section id="burn-area-index-bai" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="burn-area-index-bai"><span class="header-section-number">3.1.3</span> Burn Area Index (BAI)</h3>
+<p>Este índice realza las áreas quemadas en la zona del <em>NIR</em>, enfatizando la señal del carbón en las imágenes post-incendio. Se calcula como una distancia espectral desde cada pixel a un punto espectral de referencia, donde suelen converger las áreas quemadas recientes.</p>
+<p><span class="math display">\[
+BAI=\frac{1}{(0.1-Red)^2+(0.06-NIR)^2}
+\]</span></p>
+</section>
+<section id="ejemplo" class="level3" data-number="3.1.4">
+<h3 data-number="3.1.4" class="anchored" data-anchor-id="ejemplo"><span class="header-section-number">3.1.4</span> Ejemplo</h3>
+<p>En el <a href="02-geomatica.html" class="quarto-xref">Módulo&nbsp;<span>2</span></a> aprendimos a cargar un raster en Python utilizando <em>Rasterio</em>. Es importante recordar que una imagen raster puede ser interpretada como una matriz, la cual <em>NumPy</em> puede manejar como un array. En el caso de una imagen monobanda, esta se representará como una matriz de <span class="math inline">\(n\)</span> filas por <span class="math inline">\(n\)</span> columnas. Por otro lado, una imagen multiespectral estará compuesta por múltiples matrices apiladas.</p>
 <p>Una vez cargado el raster, se pueden separar sus capas (bandas) y poder realizar las transformaciones espectrales. En el siguiente ejemplo, se cargará una imagen de Valdivia y se le calculará el <code>NDVI</code>:</p>
-<div id="8088c7b2" class="cell" data-execution_count="2">
+<div id="cell-lst-trasnform" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Importación de librerías</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> os</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> rasterio <span class="im">as</span> rio</span>
@@ -399,32 +425,171 @@ Tabla&nbsp;3.1: Categorías de severidad del <em>dNBR</em> según el <em>US Fore
 <span id="cb1-8"><a href="#cb1-8"></a><span class="co"># Cargamos la imagen</span></span>
 <span id="cb1-9"><a href="#cb1-9"></a><span class="cf">with</span> rio.<span class="bu">open</span>(<span class="st">"valdiviaSentinel.tif"</span>) <span class="im">as</span> src:</span>
 <span id="cb1-10"><a href="#cb1-10"></a>    valdivia <span class="op">=</span> src.read()</span>
-<span id="cb1-11"><a href="#cb1-11"></a></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="co"># Seleccion de bandas (el conteo de bandas comienza desde 0)</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a>NIR <span class="op">=</span> valdivia[<span class="dv">8</span>,:,:] <span class="co"># Banda 8a (NIR)</span></span>
-<span id="cb1-14"><a href="#cb1-14"></a></span>
-<span id="cb1-15"><a href="#cb1-15"></a>Red <span class="op">=</span> valdivia[<span class="dv">3</span>,:,:] <span class="co"># Banda 4 (Red)</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>    transform <span class="op">=</span> src.transform</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    crsValdivia <span class="op">=</span> src.crs</span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co"># Seleccion de bandas (el conteo de bandas comienza desde 0)</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>NIR <span class="op">=</span> valdivia[<span class="dv">8</span>,:,:] <span class="co"># Banda 8a (NIR)</span></span>
 <span id="cb1-16"><a href="#cb1-16"></a></span>
-<span id="cb1-17"><a href="#cb1-17"></a><span class="co"># NDVI</span></span>
-<span id="cb1-18"><a href="#cb1-18"></a>NDVI <span class="op">=</span> (NIR <span class="op">-</span> Red)<span class="op">/</span>(NIR <span class="op">+</span> Red)</span>
-<span id="cb1-19"><a href="#cb1-19"></a></span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="co"># Visualizacion</span></span>
-<span id="cb1-21"><a href="#cb1-21"></a>f, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb1-22"><a href="#cb1-22"></a>ep.plot_bands(NDVI,</span>
-<span id="cb1-23"><a href="#cb1-23"></a>              cmap <span class="op">=</span> <span class="st">"RdYlGn"</span>,</span>
-<span id="cb1-24"><a href="#cb1-24"></a>              vmin <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>,</span>
-<span id="cb1-25"><a href="#cb1-25"></a>              vmax <span class="op">=</span> <span class="dv">1</span>,</span>
-<span id="cb1-26"><a href="#cb1-26"></a>              ax <span class="op">=</span> ax)</span>
-<span id="cb1-27"><a href="#cb1-27"></a>ax.set_title(<span class="st">"NDVI en Valdivia"</span>)</span>
-<span id="cb1-28"><a href="#cb1-28"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-17"><a href="#cb1-17"></a>Red <span class="op">=</span> valdivia[<span class="dv">3</span>,:,:] <span class="co"># Banda 4 (Red)</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="co"># NDVI</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a>NDVI <span class="op">=</span> (NIR <span class="op">-</span> Red)<span class="op">/</span>(NIR <span class="op">+</span> Red)</span>
+<span id="cb1-21"><a href="#cb1-21"></a></span>
+<span id="cb1-22"><a href="#cb1-22"></a><span class="co"># Visualizacion</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a>f, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb1-24"><a href="#cb1-24"></a>ep.plot_bands(NDVI,</span>
+<span id="cb1-25"><a href="#cb1-25"></a>              cmap <span class="op">=</span> <span class="st">"RdYlGn"</span>,</span>
+<span id="cb1-26"><a href="#cb1-26"></a>              vmin <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>,</span>
+<span id="cb1-27"><a href="#cb1-27"></a>              vmax <span class="op">=</span> <span class="dv">1</span>,</span>
+<span id="cb1-28"><a href="#cb1-28"></a>              ax <span class="op">=</span> ax)</span>
+<span id="cb1-29"><a href="#cb1-29"></a>ax.set_title(<span class="st">"NDVI en Valdivia"</span>)</span>
+<span id="cb1-30"><a href="#cb1-30"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="03-imagenes_files/figure-html/cell-3-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="479" height="417"></p>
+<div id="lst-trasnform" class="listing quarto-float quarto-figure quarto-figure-left anchored" height="417" width="479" data-fig-align="center">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-trasnform-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listado&nbsp;3.1
+</figcaption>
+<div aria-describedby="lst-trasnform-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-imagenes_files/figure-html/lst-trasnform-output-1.png" id="lst-trasnform" class="quarto-figure quarto-figure-center anchored figure-img" width="479" height="417">
+</div>
 </figure>
 </div>
 </div>
 </div>
+</section>
+</section>
+<section id="segmentación-discretización-de-datos-raster" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="segmentación-discretización-de-datos-raster"><span class="header-section-number">3.2</span> Segmentación (discretización) de datos Raster</h2>
+<p>Los índices entregan valores continuos en un rango determinado, no obstante, para obtener las categorías de interés, es necesario encontrar ciertos valores o umbrales que permitan esa separación. Generalmente esos umbrales vienen dados o se pueden establecer desde calibraciones en campo o con gráficos de distribución de los valores.</p>
+<p>En este caso, se mostrará una segmentación simple del NDVI anteriormente calculado. En este, valores mayores a <code>0.5</code> serán una categoría, mientras que valores menores o iguales <code>0.5</code> será otra categoría.</p>
+<div id="55939133" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Asigna otro objeto</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>ndvi_clases <span class="op">=</span> NDVI</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># Re-clasifica los valores de los píxeles</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>ndvi_clases[np.where((ndvi_clases <span class="op">&gt;</span> <span class="fl">0.5</span>))] <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>ndvi_clases[np.where((ndvi_clases <span class="op">&lt;=</span> <span class="fl">0.5</span>))] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co"># Visualizacion+</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>f, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb2-10"><a href="#cb2-10"></a>ep.plot_bands(ndvi_clases,</span>
+<span id="cb2-11"><a href="#cb2-11"></a>              cmap<span class="op">=</span><span class="st">"RdYlGn"</span>,</span>
+<span id="cb2-12"><a href="#cb2-12"></a>              ax <span class="op">=</span> ax)</span>
+<span id="cb2-13"><a href="#cb2-13"></a></span>
+<span id="cb2-14"><a href="#cb2-14"></a>ax.set_title(<span class="st">"NDVI con dos clases"</span>)</span>
+<span id="cb2-15"><a href="#cb2-15"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="03-imagenes_files/figure-html/cell-4-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="459" height="417"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Es crucial mantener el orden correcto al reclasificar los valores de los píxeles. Si primero asignamos <code>[np.where(ndvi_clases &lt;= 0.5)] = 1</code> y luego <code>[np.where(ndvi_clases &gt; 0.5)] = 2</code>, los valores ya reclasificados en la primera condición serán también considerados en la segunda, lo que resultará en una única clase.</p>
+</div>
+</div>
+</section>
+<section id="vectorización-de-datos-raster" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="vectorización-de-datos-raster"><span class="header-section-number">3.3</span> Vectorización de Datos Raster</h2>
+<p>Cuando se han obtenido las categorías de interés, muchas veces es necesario transformar los objetos resultantes a formato vectorial para poder utilizarlos en conjunto con bases de datos ya existentes. Para obtener esto, primero deberemos cargar librerías extras. Posteriormente debemos seleccionar que pixeles son los que deseamos vectorizar, y así crear una máscara. Una vez creada la máscara, a través de <code>shapely</code> se transformará el raster a un objeto de tipo <code>generator</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note que en el código del <a href="#lst-trasnform" class="quarto-xref">Listado&nbsp;<span>3.1</span></a> se crea la variable <code>transform</code>, el cual define cómo convertir entre las coordenadas de píxeles (índices de filas y columnas) y las coordenadas del sistema de referencia espacial del raster (generalmente coordenadas geográficas o proyectadas, como UTM).</p>
+<p>Note también que se le extrae el sistema de coordenadas del raster.</p>
+</div>
+</div>
+<p>Una vez hecho teniendo el objeto de tipo <code>generator</code>, se transformará a un <em>GeoDataFrame</em> el cual servirá para su visualización:</p>
+<div id="241ca0cb" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#Importancion de librerias</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="im">import</span> shapely <span class="co"># Nos permite transformar geometrías.</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="im">import</span> rasterio.features <span class="im">as</span> features <span class="co"># Contiene una función para vectorizar.</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb3-5"><a href="#cb3-5"></a></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co"># Asignamos mascara con pixeles de valor 2 (pixeles con mayor a 0.5 de NDVI) </span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>mask <span class="op">=</span> ndvi_clases <span class="op">==</span> <span class="dv">2</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co"># Convertirmos a objeto tipo generador</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>result <span class="op">=</span> features.shapes(ndvi_clases, </span>
+<span id="cb3-11"><a href="#cb3-11"></a>                transform <span class="op">=</span> transform, </span>
+<span id="cb3-12"><a href="#cb3-12"></a>                connectivity <span class="op">=</span> <span class="dv">4</span>, </span>
+<span id="cb3-13"><a href="#cb3-13"></a>                mask <span class="op">=</span> mask)</span>
+<span id="cb3-14"><a href="#cb3-14"></a></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co"># Convertimos result a geoDataFrame a través de un loop</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>lista <span class="op">=</span> []</span>
+<span id="cb3-17"><a href="#cb3-17"></a></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="co"># Bucle que toma cada geometría y la agrega a la lista.</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="cf">for</span> x <span class="kw">in</span> result: </span>
+<span id="cb3-20"><a href="#cb3-20"></a>    lista.append(shapely.geometry.shape(x[<span class="dv">0</span>]))</span>
+<span id="cb3-21"><a href="#cb3-21"></a></span>
+<span id="cb3-22"><a href="#cb3-22"></a>lista_geo <span class="op">=</span> gpd.GeoDataFrame(geometry <span class="op">=</span> lista,</span>
+<span id="cb3-23"><a href="#cb3-23"></a>                             crs <span class="op">=</span> crsValdivia)</span>
+<span id="cb3-24"><a href="#cb3-24"></a></span>
+<span id="cb3-25"><a href="#cb3-25"></a><span class="co"># Visualizacion</span></span>
+<span id="cb3-26"><a href="#cb3-26"></a>f, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb3-27"><a href="#cb3-27"></a>lista_geo.plot(ax <span class="op">=</span> ax,</span>
+<span id="cb3-28"><a href="#cb3-28"></a>               color <span class="op">=</span> <span class="st">"green"</span>)</span>
+<span id="cb3-29"><a href="#cb3-29"></a>ax.set_title(<span class="st">"NDVI vectrorial en Valdivia"</span>)</span>
+<span id="cb3-30"><a href="#cb3-30"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="03-imagenes_files/figure-html/cell-5-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="456" height="431"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="exportación-de-archivos" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="exportación-de-archivos"><span class="header-section-number">3.4</span> Exportación de archivos</h2>
+<p>Una vez creados los archivos de interés (ya sea raster o vectorial), podemos exportarlos de la siguiente manera:</p>
+<p>Para datos raster:</p>
+<div id="dbfaeefe" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="cf">with</span> rio.<span class="bu">open</span>(<span class="st">"ndvi_clases.tif"</span>, <span class="co"># Crea el archivo</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>              <span class="st">'w'</span>, <span class="co"># En modo escritura (write)</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>              driver <span class="op">=</span> <span class="st">'GTiff'</span>,  <span class="co"># Especifica el controlador (formato) del archivo, en este caso GeoTIFF</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>              height <span class="op">=</span> ndvi_clases.shape[<span class="dv">0</span>], <span class="co"># Alto de raster</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>              width <span class="op">=</span> ndvi_clases.shape[<span class="dv">1</span>], <span class="co"># Ancho de raster</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>              count <span class="op">=</span> <span class="dv">1</span>, <span class="co"># Número de bandas en el raster </span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>              crs <span class="op">=</span> crs, <span class="co"># Sistema de referencia de coordenadas (CRS) del raster</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>              transform <span class="op">=</span> transform, <span class="co"># Transformación de afinidad del raster</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>              dtype <span class="op">=</span> <span class="st">"float32"</span>) <span class="im">as</span> dst: <span class="co"># Tipo de dato de los valores del raster</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>    dst.write(ndvi_clases, <span class="dv">1</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para datos vectoriales:</p>
+<div id="26043e8a" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>lista_geo.to_file(<span class="st">"ndvi_vectrorial.shp"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ejercicios" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="ejercicios">Ejercicios</h2>
+<ol type="1">
+<li><p>Descargue el siguiente <a href="https://figshare.com/ndownloader/files/50335344">set de datos</a>. Ests son dos imágenes <em>Sentinel</em> de Viña del Mar antes y después de los incendios ocurridos en Febrero de este año. Las bandas entregadas son: B1, B2, B3, B4, B5, B6, B7, B8, B8a, B9, B11, B12.</p></li>
+<li><p>A través de <em>Rasterio</em> y <em>NumPy</em> calcule <em>NDVI</em>, <em>BAI</em> a ambas imágenes.</p></li>
+<li><p>Calcule el <em>NBR</em> y los derivados de este índice para ambas imágenes.</p></li>
+<li><p>A través de la <a href="#tbl-dnbr-severity" class="quarto-xref">Tabla&nbsp;<span>3.1</span></a>, segmente el raster de <em>dNBR</em> y exportelo como un archivo <code>.tif</code>.</p></li>
+<li><p>Vectorice su raster segmentado y exportelo como archivo <code>.shp</code>.</p></li>
+</ol>
 
 
 </section>
