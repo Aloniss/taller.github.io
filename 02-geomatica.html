@@ -275,7 +275,7 @@ Figura&nbsp;2.1: Composición <em>RGB</em>
 <section id="monobanda" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="monobanda">Monobanda</h3>
 <p>Son aquellas que solo almacenan una variable o <em>layer</em>. Es común encontrar este tipo de imágenes para almacenar y representar datos de tipo continuo, como la temperatura superficial o la reflectancia. No obstante, se usan también para representar variables de tipo discretas como las categorías de un sistema de clasificación.</p>
-<div id="9f287e2a" class="cell" data-execution_count="1">
+<div id="0087b652" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -298,7 +298,7 @@ Figura&nbsp;2.1: Composición <em>RGB</em>
 <div>
 
 </div>
-<div id="10bc2a52" class="cell quarto-layout-panel" data-layout-nrow="2" data-execution_count="2">
+<div id="8493a3aa" class="cell quarto-layout-panel" data-execution_count="2" data-layout-nrow="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
@@ -341,7 +341,7 @@ Figura&nbsp;2.2: Bandas de <em>MODIS</em>.
 </section>
 <section id="landsat---oli" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="landsat---oli"><em>Landsat - OLI</em></h3>
-<p>El programa <em>Landsat</em> son una seria de misiones satelitáles gestionadas por la NASA y el Servicio Geológico de Estados Unidos (<em>USGS</em>). Desde 1972 han proporcionado imágenes multiespectrales de alta resolción (30 metros) y va continuamente lanzando nuevos satélites. El último ha sido <em>Landsat 9</em>, que fue lanzado el 2021 mejorando la calidad y adquisición de las imágenes de su antecesor (<em>Landsat 8</em>).</p>
+<p><em>OLI</em> es <em>Operational Land Imager</em>, a bordo de los últimos satélites <em>Landsat</em>. El programa <em>Landsat</em> son una seria de misiones satelitales gestionadas por la <em>NASA</em> y el Servicio Geológico de Estados Unidos (<em>USGS</em>). Desde 1972 han proporcionado imágenes multiespectrales de mediana resolución (30 metros), y continuamente están lanzando nuevos satélites. El último ha sido <em>Landsat</em> 9, que fue lanzado el 2021 mejorando la calidad y adquisición de las imágenes de su antecesor (<em>Landsat</em> 8).</p>
 <div id="fig-02-03" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-02-03-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -372,7 +372,7 @@ Figura&nbsp;2.4: Bandas de <em>Sentinel</em>.
 <h2 data-number="2.7" class="anchored" data-anchor-id="dentro-de-python"><span class="header-section-number">2.7</span> Dentro de <em>Python</em></h2>
 <p>En <em>Python</em> las librerías principales para poder trabajar con datos raster son <code>rasterio</code> y <code>earthpy</code>. <code>rasterio</code> es una librería de <em>Python</em> diseñada para leer y escribir datos raster geoespaciales, mientras que <code>earthpy</code> facilita el manejo de multiples tipos de datos, lidiando con su descarga, descompresión y visualización.</p>
 <p>Por ejemplo, se cargará e imprimirá la información de un raster de elevación (<em>DEM</em>)</p>
-<div id="1c8bd4b2" class="cell" data-execution_count="3">
+<div id="a1d8b336" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Importando los paquetes necesarios</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> os</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> rasterio <span class="im">as</span> rio</span>
@@ -392,7 +392,7 @@ La imagen tiene EPSG:32613.</code></pre>
 </div>
 </div>
 <p>A través de <code>earthpy</code> podemos visualizarlo:</p>
-<div id="dbe825d1" class="cell" data-execution_count="4">
+<div id="83094965" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>f, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb3-2"><a href="#cb3-2"></a></span>
 <span id="cb3-3"><a href="#cb3-3"></a>ep.plot_bands(DEM,</span>
@@ -413,20 +413,24 @@ La imagen tiene EPSG:32613.</code></pre>
 <section id="ejercicios" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="ejercicios">Ejercicios</h2>
 <ol type="1">
-<li><p>Cargue el siguiente <a href="https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/imagenElevationVal.tif">Modelo de Elevación Digital</a> y grafíquelo.</p></li>
-<li><p>De la misma manera, descargue la siguiente <a href="https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/senImagenFullBands.tif">imagen Sentinel</a> y grafique cada banda que posea.</p></li>
-<li><p>De acuerdo a la teoría del color, grafique distintas composiciones que representen distintas características específicas del entorno. Puede usar la siguente <a href="https://mappinggis.com/2019/05/combinaciones-de-bandas-en-imagenes-de-satelite-landsat-y-sentinel/">página</a> para guiarse.</p></li>
-<li><p>Descarga esta <a href="https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/img-rgb.tif">imagen</a> y visualiza la composición y observa sus histogramas.</p>
+<li><p>Cargar y visualizar el siguiente <a href="https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/imagenElevationVal.tif">Modelo de Elevación Digital</a>.</p></li>
+<li><p>De la misma manera, descargue la <a href="https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/senImagenFullBands.tif">imagen Sentinel</a>y visualice cada banda que posea.</p></li>
+<li><p>De acuerdo con la teoría del color, visualice varias composiciones que representen distintas características de la imagen. Puede usar la siguiente <a href="https://mappinggis.com/2019/05/combinaciones-de-bandas-en-imagenes-de-satelite-landsat-y-sentinel/">página</a> para orientarse.</p></li>
+<li><p>Descargue esta <a href="https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/img-rgb.tif">imagen</a> y visualice la composición, observe los histogramas de sus bandas.</p>
 <ol type="i">
-<li><p>Aplica un realce lineal.</p></li>
-<li><p>Realiza un recorte de la imagen con las coordenadas que se listan abajo, aplica un realce y observa sus histogramas.</p></li>
+<li><p>Observar sus histogramas.</p></li>
+<li><p>Aplicar un realce lineal</p></li>
+<li><p>Realizar un recorte de la imagen con las coordenadas que se listan abajo:</p></li>
 </ol>
 <ul>
-<li><code>xmin</code> = 697030.5734</li>
-<li><code>xmax</code> = 700721.5109</li>
-<li><code>ymin</code> = 5494727.9939</li>
-<li><code>ymax</code> = 5496852.5981</li>
-</ul></li>
+<li><p><code>xmin</code> = 697030.5734</p></li>
+<li><p><code>xmax</code> = 700721.5109</p></li>
+<li><p><code>ymin</code> = 5494727.9939</p></li>
+<li><p><code>ymax</code> = 5496852.5981</p></li>
+</ul>
+<ol start="4" type="i">
+<li>Aplicar un realce lineal y observar sus histogramas.</li>
+</ol></li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">

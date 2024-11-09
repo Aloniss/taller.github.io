@@ -198,6 +198,7 @@ window.Quarto = {
   <li><a href="#normalized-burn-ratio-nbr" id="toc-normalized-burn-ratio-nbr" class="nav-link" data-scroll-target="#normalized-burn-ratio-nbr"><em>Normalized Burn Ratio</em> (<em>NBR</em>)</a></li>
   <li><a href="#difference-normalized-burn-ratio-dnbr" id="toc-difference-normalized-burn-ratio-dnbr" class="nav-link" data-scroll-target="#difference-normalized-burn-ratio-dnbr"><em>Difference Normalized Burn Ratio</em> (<em>dNBR</em>)</a></li>
   </ul></li>
+  <li><a href="#dentro-de-python" id="toc-dentro-de-python" class="nav-link" data-scroll-target="#dentro-de-python"><span class="header-section-number">3.2</span> Dentro de <em>Python</em></a></li>
   </ul>
 </nav>
     </div>
@@ -223,8 +224,8 @@ window.Quarto = {
 </header>
 
 
-<p>Aunque las composiciones <em>RGB</em> son útiles, por ejemplo, para identificar las cicatrices producidas por un incendio forestal o visualizar de mejor manera la vegetación, no permiten una adecuada cuantificación de sus magnitudes a niveles de reflectancia. En este contexto, existen las transformaciones espectrales, las cuales están especialmente diseñadas para tales efectos.</p>
-<p>as transformaciones espectrales son operaciones matemáticas que se realizan con las bandas de las imágenes de satélite. Están diseñadas para realzar una característica específica de las imágenes. Entre las transformaciones más usadas se encuentran los Índices de Vegetación (IVs) que realzan características como el vigor o el contenido de humedad de la vegetación, y los índices relacionados a los incendios, los cuales cuantifican la severidad de incendios, por ejemplo.</p>
+<p>Los incendios forestales se han transformado en un grave problema para el mundo y particularmente para los ecosistemas forestales. Dada la actual y futura situación de Cambio Climático, se espera que los incendios aumenten en frecuencia, magnitud y en la extensión de sus temporadas. En este contexto, se hace cada vez más necesario contar con herramientas que permitan su rápida detección y evaluación de los daños una vez ocurridos.</p>
+<p>Aunque las composiciones <em>RGB</em> de bandas son útiles para diferenciar las cubiertas y algunas veces sus estados, las transformaciones espectrales pueden ayudar a mejorar las estimaciones de las áreas quemadas y la severidad provocadas por los incendios forestales.</p>
 <div id="fig-03-01" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-03-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -237,8 +238,7 @@ Figura&nbsp;3.1: Bandas del NIR y SWIR para situaciones con y sin incendio.
 </div>
 <section id="índices-de-vegetación-de-banda-ancha" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="índices-de-vegetación-de-banda-ancha"><span class="header-section-number">3.1</span> Índices de Vegetación de Banda Ancha</h2>
-<p>Los IVs de banda ancha (los que se aplican a los sensores que poseen bandas espectrales anchas) se encuentran entre las medidas más simples de la cantidad y el vigor de la vegetación verde. Son combinaciones de las mediciones de reflectancia que son sensibles a los efectos combinados de la concentración de clorofila del follaje, el área foliar del dosel, la aglomeración del follaje y la arquitectura del dosel.</p>
-<p>Estos IVs están diseñados para proporcionar una medida general de la cantidad y calidad del material fotosintético en la vegetación, lo cual es esencial para comprender el estado de la vegetación para cualquier propósito. Estos IVs son una medida integradora de estos factores y están bien correlacionados con la fracción absorbida de la radiación fotosintéticamente activa (fAPAR) en las copas de las plantas y los píxeles con vegetación. Estos IVs no brindan información cuantitativa sobre ningún factor biológico o ambiental que contribuya al fAPAR, pero se han encontrado correlaciones amplias entre los IVs de banda ancha y el LAI del dosel.</p>
+<p>Los IVs de banda ancha (los que se aplican a los sensores que poseen bandas espectrales anchas) se encuentran entre las estimaciones más simples de la cantidad y el vigor de la vegetación verde. Son combinaciones de las mediciones de reflectancia que son sensibles a los efectos combinados de la concentración de clorofila del follaje, el área foliar del dosel, la aglomeración del follaje y la arquitectura del dosel.</p>
 <p>Los IVs de banda ancha comparan las mediciones de reflectancia desde el pico de reflectancia de la vegetación en el rango del infrarrojo cercano (<em>NIR</em>) con otra medición tomada en el rango rojo (R), donde la clorofila absorbe fotones para almacenar energía a través de la fotosíntesis. El uso de mediciones del <em>NIR</em>, con una profundidad de penetración mucho mayor a través del dosel que el rojo, permite sondear la cantidad total de vegetación verde en la columna hasta que la señal se satura a niveles muy altos.</p>
 <div id="fig-03-02" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -250,12 +250,12 @@ Figura&nbsp;3.2: Reflectancia de las longitudes de onda.
 </figcaption>
 </figure>
 </div>
-<p>Debido a que estas características son espectralmente amplias, muchos de los IVs de banda ancha pueden funcionar de manera efectiva con datos de imágenes recopilados de sensores multiespectrales como AVHRR, Landsat TM, OLI y QuickBird, entre otros.</p>
+<p>Debido a que estas características son espectralmente amplias, muchos de los IVs de banda ancha pueden funcionar de manera efectiva con datos de imágenes recopilados de sensores multiespectrales como <em>AVHRR</em>, <em>TM</em>, <em>OLI</em> y <em>MSI</em>, entre otros.</p>
 <p>Las aplicaciones incluyen estudios de fenología (crecimiento) de la vegetación, evaluaciones del impacto climatológico y del uso de la tierra, y modelado de la productividad de la vegetación.</p>
-<p>Los aumentos en la concentración de clorofila de la hoja o el área de la hoja, la disminución de la aglomeración del follaje y los cambios en la arquitectura del dosel pueden contribuir a la disminución de las longitudes de onda R y al aumento de las longitudes de onda NIR, lo que provoca un aumento en los valores de verdor.</p>
+<p>Los aumentos en la concentración de clorofila de la hoja o el área de la hoja, la disminución de la aglomeración del follaje y los cambios en la arquitectura del dosel pueden contribuir a la disminución de las longitudes de onda R y al aumento de las longitudes de onda <em>NIR</em>, lo que provoca un aumento en los valores de verdor.</p>
 <section id="normalized-difference-vegetation-index-ndvi" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="normalized-difference-vegetation-index-ndvi"><em>Normalized Difference Vegetation Index</em> (<em>NDVI</em>)</h3>
-<p>Este índice es una medida de la vegetación verde y saludable. La combinación de su formulación de diferencia normalizada y el uso de las regiones de clorofila de mayor absorción y reflectancia lo hacen robusto en una amplia gama de condiciones (<a href="#fig-03-03" class="quarto-xref">Figura&nbsp;<span>3.3</span></a>). Sin embargo, puede saturarse en condiciones de vegetación densa cuando el LAI aumenta.</p>
+<p>Este índice es una estimación de la vegetación verde y saludable. La combinación de su formulación de diferencia normalizada y el uso de las regiones de clorofila de mayor absorción y reflectancia lo hacen robusto en una amplia gama de condiciones (<a href="#fig-03-03" class="quarto-xref">Figura&nbsp;<span>3.3</span></a>). Sin embargo, puede saturarse en condiciones de vegetación densa cuando el LAI aumenta.</p>
 <p>El valor de este índice varía de -1 a 1. El rango común para la vegetación verde es de 0,2 a 0,8. <span id="eq-ndvi"><span class="math display">\[
 NDVI=\frac{(NIR-RED)}{(NIR+RED)}
 \tag{3.1}\]</span></span></p>
@@ -348,9 +348,12 @@ Tabla&nbsp;3.1: Categorías de severidad del <em>dNBR</em> según el <em>US Fore
 </figure>
 </div>
 <p>El desempeño de los índices o transformaciones espectrales se ve afectado por las condiciones de la vegetación, que pueden incluir a la heterogeneidad, estructura o cobertura. En otras palabras, no todas las transformaciones espectrales funcionan adecuadamente en todos los ecosistemas. Para el caso del <em>dNBR</em>, se ha reportado que subestima el nivel de daño, sobre todo cuando la vegetación pre-incendio corresponde a estructuras heterogéneas o se cuenta con poca cobertura. Para intentar mitigar estos efectos se pueden usar variaciones del <em>dNBR</em>.</p>
-
-
 </section>
+</section>
+<section id="dentro-de-python" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="dentro-de-python"><span class="header-section-number">3.2</span> Dentro de <em>Python</em></h2>
+
+
 </section>
 
 </main> <!-- /main -->
