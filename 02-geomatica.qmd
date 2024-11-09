@@ -1,4 +1,4 @@
-# Fundamentos de Geomática y visualización de Datos Raster
+# Fundamentos de Geomática y visualización de Datos Raster {#sec-raster}
 
 En las Ciencias de los Tierra, existen principalmente dos formas de representar la realidad, los datos vectoriales y los datos raster.
 
@@ -177,7 +177,7 @@ plt.show()
     - `xmax` = 700721.5109
 
     - `ymin` = 5494727.9939
-    
+
     - `ymax` = 5496852.5981
 
     iv) Aplicar un realce lineal y observar sus histogramas.

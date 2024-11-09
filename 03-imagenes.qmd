@@ -57,7 +57,7 @@ A pesar que el *NBR* funciona relativamente bien para la estimación de severida
 El *dNBR* funciona con una imagen previa y una posterior al incendio, sobre las cuales se calcula el *NBR* respectivo.
 
 $$
-dNBR=(NBR_{pre} - NBR{post}) \times 100
+dNBR=(NBR_{pre} - NBR_{post}) \times 100
 $$ {#eq-dnbr}
 
 De esta forma el *dNBR* permite estimar el grado de severidad de una zona, respecto a una condición anterior al incendio. Para generar las diferentes categorías de daño se suelen usar umbrales de corte del índice. Los umbrales indicados a continuación son los empleados por el *US Forest*.
@@ -78,6 +78,7 @@ El desempeño de los índices o transformaciones espectrales se ve afectado por 
 
 ## Dentro de *Python*
 
+En el [Módulo @sec-raster] aprendimos a cargar un raster en Python utilizando *Rasterio*. Es importante recordar que una imagen raster puede ser interpretada como una matriz, la cual *Numpy* puede manejar como un array. En el caso de una imagen monobanda, esta se representará como una matriz de $n$ filas por $n$ columnas. Por otro lado, una imagen multiespectral estará compuesta por múltiples matrices apiladas.
 
 
-
+`https://figshare.com/ndownloader/files/50334435`
