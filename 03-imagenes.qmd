@@ -80,7 +80,7 @@ El desempeño de los índices o transformaciones espectrales se ve afectado por 
 
 En el [Módulo @sec-raster] aprendimos a cargar un raster en Python utilizando *Rasterio*. Es importante recordar que una imagen raster puede ser interpretada como una matriz, la cual *Numpy* puede manejar como un array. En el caso de una imagen monobanda, esta se representará como una matriz de $n$ filas por $n$ columnas. Por otro lado, una imagen multiespectral estará compuesta por múltiples matrices apiladas.
 
-Una vez cargado el raster, se pueden separar sus capas (bandas) y poder realizar las transformaciones espectrales. En el siguiente ejemplo, se cargará una imagen de Valdivia y se le calculará su `NDVI`:
+Una vez cargado el raster, se pueden separar sus capas (bandas) y poder realizar las transformaciones espectrales. En el siguiente ejemplo, se cargará una imagen de Valdivia y se le calculará el `NDVI`:
 
 ```{python}
 #| echo: false
@@ -88,6 +88,8 @@ import os
 os.chdir("recursos")
 ```
 ```{python}
+#| fig-align: center
+
 # Importación de librerías
 import os
 import rasterio as rio
@@ -114,6 +116,7 @@ ep.plot_bands(NDVI,
               vmin = -1,
               vmax = 1,
               ax = ax)
+ ax.set_title("NDVI en Valdivia")
 plt.show()
 ```
 
