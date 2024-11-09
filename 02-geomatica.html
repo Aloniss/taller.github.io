@@ -275,7 +275,7 @@ Figura&nbsp;2.1: Composición <em>RGB</em>
 <section id="monobanda" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="monobanda">Monobanda</h3>
 <p>Son aquellas que solo almacenan una variable o <em>layer</em>. Es común encontrar este tipo de imágenes para almacenar y representar datos de tipo continuo, como la temperatura superficial o la reflectancia. No obstante, se usan también para representar variables de tipo discretas como las categorías de un sistema de clasificación.</p>
-<div id="aab05d03" class="cell" data-execution_count="1">
+<div id="96676869" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -295,15 +295,16 @@ Figura&nbsp;2.1: Composición <em>RGB</em>
 <li><p>Otras</p></li>
 </ul>
 <p>Estas bandas se pueden combinar con los colores <em>RGB</em> que proporcionan los monitores para obtener distintas composiciones que resaltan características específicas, como la vegetación o el agua.</p>
-<div>
-
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/share/miniconda/envs/tallerpython/lib/python3.10/site-packages/earthpy/spatial.py:561: RuntimeWarning: invalid value encountered in cast
+  return (bytedata.clip(low, high) + 0.5).astype("uint8")</code></pre>
 </div>
-<div id="8c27dd75" class="cell quarto-layout-panel" data-execution_count="2" data-layout-nrow="2">
+<div id="95e6718b" class="cell quarto-layout-panel" data-layout-nrow="2" data-execution_count="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="02-geomatica_files/figure-html/cell-3-output-1.png" width="408" height="389" class="figure-img"></p>
+<p><img src="02-geomatica_files/figure-html/cell-3-output-2.png" width="408" height="389" class="figure-img"></p>
 <figcaption>Composición Color Natural</figcaption>
 </figure>
 </div>
@@ -313,7 +314,7 @@ Figura&nbsp;2.1: Composición <em>RGB</em>
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="02-geomatica_files/figure-html/cell-3-output-2.png" width="408" height="389" class="figure-img"></p>
+<p><img src="02-geomatica_files/figure-html/cell-3-output-3.png" width="408" height="389" class="figure-img"></p>
 <figcaption>Composición Falso Color</figcaption>
 </figure>
 </div>
@@ -372,39 +373,39 @@ Figura&nbsp;2.4: Bandas de <em>Sentinel</em>.
 <h2 data-number="2.7" class="anchored" data-anchor-id="dentro-de-python"><span class="header-section-number">2.7</span> Dentro de <em>Python</em></h2>
 <p>En <em>Python</em> las librerías principales para poder trabajar con datos raster son <code>rasterio</code> y <code>earthpy</code>. <code>rasterio</code> es una librería de <em>Python</em> diseñada para leer y escribir datos raster geoespaciales, mientras que <code>earthpy</code> facilita el manejo de multiples tipos de datos, lidiando con su descarga, descompresión y visualización.</p>
 <p>Por ejemplo, se cargará e imprimirá la información de un raster de elevación (<em>DEM</em>)</p>
-<div id="52ebdb69" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Importando los paquetes necesarios</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> os</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> rasterio <span class="im">as</span> rio</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="im">import</span> earthpy.plot <span class="im">as</span> ep</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-7"><a href="#cb1-7"></a></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="cf">with</span> rio.<span class="bu">open</span>(<span class="st">"recursos/pre_DTM.tif"</span>) <span class="im">as</span> src:</span>
-<span id="cb1-9"><a href="#cb1-9"></a>    num_bandas <span class="op">=</span> src.count</span>
-<span id="cb1-10"><a href="#cb1-10"></a>    elcrs <span class="op">=</span> src.crs</span>
-<span id="cb1-11"><a href="#cb1-11"></a>    <span class="bu">print</span>(<span class="ss">f"La imagen tiene </span><span class="sc">{</span>num_bandas<span class="sc">}</span><span class="ss"> bandas."</span>)</span>
-<span id="cb1-12"><a href="#cb1-12"></a>    <span class="bu">print</span>(<span class="ss">f"La imagen tiene </span><span class="sc">{</span>elcrs<span class="sc">}</span><span class="ss">."</span>)</span>
-<span id="cb1-13"><a href="#cb1-13"></a>    DEM <span class="op">=</span> src.read(<span class="dv">1</span>, masked <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="dadab5a9" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Importando los paquetes necesarios</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="im">import</span> os</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="im">import</span> rasterio <span class="im">as</span> rio</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="im">import</span> earthpy.plot <span class="im">as</span> ep</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="cf">with</span> rio.<span class="bu">open</span>(<span class="st">"pre_DTM.tif"</span>) <span class="im">as</span> src:</span>
+<span id="cb2-9"><a href="#cb2-9"></a>    num_bandas <span class="op">=</span> src.count</span>
+<span id="cb2-10"><a href="#cb2-10"></a>    elcrs <span class="op">=</span> src.crs</span>
+<span id="cb2-11"><a href="#cb2-11"></a>    <span class="bu">print</span>(<span class="ss">f"La imagen tiene </span><span class="sc">{</span>num_bandas<span class="sc">}</span><span class="ss"> bandas."</span>)</span>
+<span id="cb2-12"><a href="#cb2-12"></a>    <span class="bu">print</span>(<span class="ss">f"La imagen tiene </span><span class="sc">{</span>elcrs<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb2-13"><a href="#cb2-13"></a>    DEM <span class="op">=</span> src.read(<span class="dv">1</span>, masked <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>La imagen tiene 1 bandas.
 La imagen tiene EPSG:32613.</code></pre>
 </div>
 </div>
 <p>A través de <code>earthpy</code> podemos visualizarlo:</p>
-<div id="30a4ddfd" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>f, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb3-2"><a href="#cb3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3"></a>ep.plot_bands(DEM,</span>
-<span id="cb3-4"><a href="#cb3-4"></a>              scale <span class="op">=</span> <span class="va">False</span>,</span>
-<span id="cb3-5"><a href="#cb3-5"></a>              cmap <span class="op">=</span> <span class="st">'Greys'</span>,</span>
-<span id="cb3-6"><a href="#cb3-6"></a>              title <span class="op">=</span> <span class="st">"Modelo Digital de Elevación"</span>,</span>
-<span id="cb3-7"><a href="#cb3-7"></a>              ax <span class="op">=</span> ax)</span>
-<span id="cb3-8"><a href="#cb3-8"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fd3384dd" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>f, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a>ep.plot_bands(DEM,</span>
+<span id="cb4-4"><a href="#cb4-4"></a>              scale <span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb4-5"><a href="#cb4-5"></a>              cmap <span class="op">=</span> <span class="st">'Greys'</span>,</span>
+<span id="cb4-6"><a href="#cb4-6"></a>              title <span class="op">=</span> <span class="st">"Modelo Digital de Elevación"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7"></a>              ax <span class="op">=</span> ax)</span>
+<span id="cb4-8"><a href="#cb4-8"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02-geomatica_files/figure-html/cell-5-output-1.png" width="583" height="289" class="figure-img"></p>
+<p><img src="02-geomatica_files/figure-html/cell-6-output-1.png" width="583" height="289" class="figure-img"></p>
 </figure>
 </div>
 </div>
