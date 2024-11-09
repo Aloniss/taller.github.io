@@ -297,7 +297,7 @@ Figura&nbsp;3.4: Composición <em>RGB</em> y <em>NBR</em> de un incendio.
 <h3 class="unnumbered anchored" data-anchor-id="difference-normalized-burn-ratio-dnbr"><em>Difference Normalized Burn Ratio</em> (<em>dNBR</em>)</h3>
 <p>El <em>dNBR</em> funciona con una imagen previa y una posterior al incendio, sobre las cuales se calcula el <em>NBR</em> respectivo.</p>
 <p><span id="eq-dnbr"><span class="math display">\[
-dNBR=(NBR_{pre} - NBR{post}) \times 100
+dNBR=(NBR_{pre} - NBR_{post}) \times 100
 \tag{3.3}\]</span></span></p>
 <p>De esta forma el <em>dNBR</em> permite estimar el grado de severidad de una zona, respecto a una condición anterior al incendio. Para generar las diferentes categorías de daño se suelen usar umbrales de corte del índice. Los umbrales indicados a continuación son los empleados por el <em>US Forest</em>.</p>
 <div id="tbl-dnbr-severity" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -352,6 +352,8 @@ Tabla&nbsp;3.1: Categorías de severidad del <em>dNBR</em> según el <em>US Fore
 </section>
 <section id="dentro-de-python" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="dentro-de-python"><span class="header-section-number">3.2</span> Dentro de <em>Python</em></h2>
+<p>En el <a href="02-geomatica.html" class="quarto-xref">Módulo&nbsp;<span>2</span></a> aprendimos a cargar un raster en Python utilizando <em>Rasterio</em>. Es importante recordar que una imagen raster puede ser interpretada como una matriz, la cual <em>Numpy</em> puede manejar como un array. En el caso de una imagen monobanda, esta se representará como una matriz de <span class="math inline">\(n\)</span> filas por <span class="math inline">\(n\)</span> columnas. Por otro lado, una imagen multiespectral estará compuesta por múltiples matrices apiladas.</p>
+<p><code>https://figshare.com/ndownloader/files/50334435</code></p>
 
 
 </section>
