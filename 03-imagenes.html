@@ -387,8 +387,8 @@ Tabla&nbsp;3.1: Categorías de severidad del <em>dNBR</em> según el <em>US Fore
 <section id="dentro-de-python" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="dentro-de-python"><span class="header-section-number">3.2</span> Dentro de <em>Python</em></h2>
 <p>En el <a href="02-geomatica.html" class="quarto-xref">Módulo&nbsp;<span>2</span></a> aprendimos a cargar un raster en Python utilizando <em>Rasterio</em>. Es importante recordar que una imagen raster puede ser interpretada como una matriz, la cual <em>Numpy</em> puede manejar como un array. En el caso de una imagen monobanda, esta se representará como una matriz de <span class="math inline">\(n\)</span> filas por <span class="math inline">\(n\)</span> columnas. Por otro lado, una imagen multiespectral estará compuesta por múltiples matrices apiladas.</p>
-<p>Una vez cargado el raster, se pueden separar sus capas (bandas) y poder realizar las transformaciones espectrales. En el siguiente ejemplo, se cargará una imagen de Valdivia y se le calculará su <code>NDVI</code>:</p>
-<div id="132cc532" class="cell" data-execution_count="2">
+<p>Una vez cargado el raster, se pueden separar sus capas (bandas) y poder realizar las transformaciones espectrales. En el siguiente ejemplo, se cargará una imagen de Valdivia y se le calculará el <code>NDVI</code>:</p>
+<div id="8088c7b2" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Importación de librerías</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> os</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> rasterio <span class="im">as</span> rio</span>
@@ -415,11 +415,12 @@ Tabla&nbsp;3.1: Categorías de severidad del <em>dNBR</em> según el <em>US Fore
 <span id="cb1-24"><a href="#cb1-24"></a>              vmin <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>,</span>
 <span id="cb1-25"><a href="#cb1-25"></a>              vmax <span class="op">=</span> <span class="dv">1</span>,</span>
 <span id="cb1-26"><a href="#cb1-26"></a>              ax <span class="op">=</span> ax)</span>
-<span id="cb1-27"><a href="#cb1-27"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-27"><a href="#cb1-27"></a>ax.set_title(<span class="st">"NDVI en Valdivia"</span>)</span>
+<span id="cb1-28"><a href="#cb1-28"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="03-imagenes_files/figure-html/cell-3-output-1.png" width="479" height="402" class="figure-img"></p>
+<p><img src="03-imagenes_files/figure-html/cell-3-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="479" height="417"></p>
 </figure>
 </div>
 </div>
