@@ -79,21 +79,21 @@ Estas bandas se pueden combinar con los colores *RGB* que proporcionan los monit
 #|   - "Composición Color Natural"
 #|   - "Composición Falso Color"
 
-with rio.open("recursos/imagenSenTrue.tif") as src2:
+with rio.open("recursos/valdiviaSentinel.tif") as src2:
     senti = src2.read()
 f, ax2 = plt.subplots()
 ep.plot_rgb(senti, 
             ax = ax2,
-            rgb = (1, 2, 3),
+            rgb = (3, 2, 1),
             stretch = True)
 plt.show()
 
-with rio.open("recursos/imagenSenTrue.tif") as src1:
+with rio.open("recursos/valdiviaSentinel.tif") as src1:
     sentiNir = src1.read()
 f, ax1 = plt.subplots()
 ep.plot_rgb(sentiNir, 
             ax = ax1,
-            rgb = (0, 1, 2),
+            rgb = (8, 3, 2),
             stretch = True)
 plt.show()
 ```
@@ -127,6 +127,12 @@ En *Python* las librerías principales para poder trabajar con datos raster son 
 Por ejemplo, se cargará e imprimirá la información de un raster de elevación (*DEM*)
 
 ```{python}
+#| echo: false
+import os
+os.chdir("recursos")
+```
+
+```{python}
 #| echo: true
 # Importando los paquetes necesarios
 import os
@@ -135,7 +141,7 @@ import earthpy.plot as ep
 import matplotlib.pyplot as plt
 import numpy as np
 
-with rio.open("recursos/pre_DTM.tif") as src:
+with rio.open("pre_DTM.tif") as src:
     num_bandas = src.count
     elcrs = src.crs
     print(f"La imagen tiene {num_bandas} bandas.")
