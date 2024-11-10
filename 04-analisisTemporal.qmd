@@ -215,4 +215,4 @@ plt.show()
 
 1.  Obtenga un gráfico de caja y bigotes (*boxplot*) para cada sitio.
 
-2.  Con el siguiente set de [datos]() obtenga el NDVI promedio para el fundo El Desprecio. Este fundo ... . Los datos consisten en 9 imágenes *Landsat* desde septiembre de 2016 a septiembre 2017. Todas las imágenes tienen 4 bandas, (*R*, *G*, *B* y *NIR*).
+2.  Con el siguiente set de [datos](https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/datosModulo4.zip) obtenga el NDVI promedio para el fundo El Desprecio. Este fundo ... . Los datos consisten en 9 imágenes *Landsat* desde septiembre de 2016 a septiembre 2017. Todas las imágenes tienen 4 bandas, (*R*, *G*, *B* y *NIR*).
