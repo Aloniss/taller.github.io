@@ -145,7 +145,7 @@ ax.set_title("NDVI en Valdivia")
 plt.show()
 ```
 
-## Segmentación (discretización) de datos Raster
+##  Discretización de datos Raster
 
 Los índices entregan valores continuos en un rango determinado, no obstante, para obtener las categorías de interés, es necesario encontrar ciertos valores o umbrales que permitan esa separación. Generalmente esos umbrales vienen dados o se pueden establecer desde calibraciones en campo o con gráficos de distribución de los valores.
 
@@ -154,12 +154,12 @@ En este caso, se mostrará una segmentación simple del NDVI anteriormente calcu
 ```{python}
 #| fig-align: center
 
-# Asigna otro objeto
-ndvi_clases = NDVI
+# Creamos una copia de la variable original
+ndvi_clases = NDVI.copy()
 
-# Re-clasifica los valores de los píxeles
-ndvi_clases[np.where((ndvi_clases > 0.5))] = 2
-ndvi_clases[np.where((ndvi_clases <= 0.5))] = 1
+# Re-clasifica los valores de los píxeles comparando con el NDVI original
+ndvi_clases[np.where((NDVI > 0.5))] = 2
+ndvi_clases[np.where((NDVI <= 0.5))] = 1
 
 # Visualizacion+
 f, ax = plt.subplots()
@@ -170,10 +170,6 @@ ep.plot_bands(ndvi_clases,
 ax.set_title("NDVI con dos clases")
 plt.show()
 ```
-
-::: {.callout-important}
-Es crucial mantener el orden correcto al reclasificar los valores de los píxeles. Si primero asignamos `[np.where(ndvi_clases <= 0.5)] = 1` y luego `[np.where(ndvi_clases > 0.5)] = 2`, los valores ya reclasificados en la primera condición serán también considerados en la segunda, lo que resultará en una única clase.
-:::
 
 ## Vectorización de Datos Raster
 
@@ -218,7 +214,7 @@ lista_geo = gpd.GeoDataFrame(geometry = lista,
 f, ax = plt.subplots()
 lista_geo.plot(ax = ax,
                color = "green")
-ax.set_title("NDVI vectrorial en Valdivia")
+ax.set_title("NDVI vectorial en Valdivia")
 plt.show()
 ```
 
@@ -254,12 +250,12 @@ lista_geo.to_file("ndvi_vectrorial.shp")
 
 1.  Descargue el siguiente [set de datos](https://figshare.com/ndownloader/files/50335344). Ests son dos imágenes *Sentinel* de Viña del Mar antes y después de los incendios ocurridos en Febrero de este año. Las bandas entregadas son: B1, B2, B3, B4, B5, B6, B7, B8, B8a, B9, B11, B12.
 
-2.  A través de *Rasterio* y *NumPy* calcule *NDVI*, *BAI* a ambas imágenes.
+2.  A través de *Rasterio* y *NumPy* calcule *NDVI* y *BAI* para la imagen post-incendio.
 
 3.  Calcule el *NBR* y los derivados de este índice para ambas imágenes.
 
-4.  A través de la @tbl-dnbr-severity, segmente el raster de *dNBR* y exportelo como un archivo `.tif`.
+4.  A través de la @tbl-dnbr-severity, discretice el raster de *dNBR* y exportelo como un archivo `.tif`.
 
-5.  Vectorice su raster segmentado y exportelo como archivo `.shp`.
+5.  Vectorice el raster discretizado y exportelo como archivo `.shp`.
 
 

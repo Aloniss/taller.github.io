@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1&nbsp; Introducción a Python y Librerías esenciales – Python y librerías Geoespaciales para el análisis de datos en el contexto de los Incendios Forestales</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./02-geomatica.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-python-librerias.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción a Python y Librerías esenciales</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Python y librerías Geoespaciales para el análisis de datos en el contexto de los Incendios Forestales</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo oscuro"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Descripción</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-python-librerias.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción a Python y Librerías esenciales</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-geomatica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos de Geomática y visualización de Datos Raster</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-imagenes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Procesamiento de Imágenes Satelitales para el Monitoreo de Incendios</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-analisisTemporal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Análisis Temporal y Monitoreo de Incendios</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-modelado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modelado y Predicción del Comportamiento de Incendios</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#programas-necesarios" id="toc-programas-necesarios" class="nav-link active" data-scroll-target="#programas-necesarios"><span class="header-section-number">1.1</span> Programas necesarios</a>
+  <ul class="collapse">
+  <li><a href="#git-bash" id="toc-git-bash" class="nav-link" data-scroll-target="#git-bash">Git Bash</a></li>
+  <li><a href="#miniconda" id="toc-miniconda" class="nav-link" data-scroll-target="#miniconda">Miniconda</a></li>
+  <li><a href="#el-ambiente" id="toc-el-ambiente" class="nav-link" data-scroll-target="#el-ambiente">El ambiente</a></li>
+  <li><a href="#spyder" id="toc-spyder" class="nav-link" data-scroll-target="#spyder"><em>Spyder</em></a></li>
+  </ul></li>
+  <li><a href="#recordatorio" id="toc-recordatorio" class="nav-link" data-scroll-target="#recordatorio">Recordatorio</a>
+  <ul class="collapse">
+  <li><a href="#librerías" id="toc-librerías" class="nav-link" data-scroll-target="#librerías">Librerías</a></li>
+  <li><a href="#directorios-de-trabajo" id="toc-directorios-de-trabajo" class="nav-link" data-scroll-target="#directorios-de-trabajo">Directorios de trabajo</a></li>
+  <li><a href="#carga-de-datos" id="toc-carga-de-datos" class="nav-link" data-scroll-target="#carga-de-datos">Carga de datos</a></li>
+  <li><a href="#visualización-de-datos" id="toc-visualización-de-datos" class="nav-link" data-scroll-target="#visualización-de-datos">Visualización de datos</a></li>
+  <li><a href="#ejemplo" id="toc-ejemplo" class="nav-link" data-scroll-target="#ejemplo">Ejemplo</a></li>
+  </ul></li>
+  <li><a href="#ejercicios" id="toc-ejercicios" class="nav-link" data-scroll-target="#ejercicios"><span class="header-section-number">1.2</span> Ejercicios</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción a Python y Librerías esenciales</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><em>Python</em> es un lenguaje de programación libre, abierto y gratuito, que puede ser descargado por cualquiera para ser usado. Este se ha convertido en uno de los lenguajes más populares y demandados en el mercado del trabajo (i.e.&nbsp;<em>ArcPy</em>, <em>PyQGIS</em> para desarrollar plugins y herramientas en el entorno de los <em>SIG</em>).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="foo/web/01-01_2-logoPy.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%"></p>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Según <em>Stack Overflow</em> (uno de los foros de programadores más grande de internet) <em>Python</em> es el tercer lenguaje más popular.</p>
+</div>
+</div>
+<p>Existen distintas formas de escribir código y usar <em>Python</em> (un terminal o CLI, <em>IPython</em>, <em>Jupyter</em>, etc.), sin embargo, para aprovechar su potencial y desplegar la naturaleza visual de los datos geográficos, ocuparemos <em>Spyder</em>, un IDE diseñado específicamente para <em>Python</em>.</p>
+<p>En el contexto de los datos geográficos, <em>Python</em> por sí solo puede que no nos baste, sin embargo, es posible instalar ciertos paquetes o librerías especializadas que permiten realizar acciones concretas o análisis más particulares de este tipo de datos. En concreto, estos son módulos o paquetes específicos que expanden la funcionalidad de <em>Python</em>, facilitando la gestión de los datos que poseen un componente espacial.</p>
+<section id="programas-necesarios" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="programas-necesarios"><span class="header-section-number">1.1</span> Programas necesarios</h2>
+<p>Para poder organizar nuestro entorno de trabajo, deberemos descargar algunos programas que ayudarán a generar ambientes de trabajo reproducibles y aislados entre sí.</p>
+<section id="git-bash" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="git-bash">Git Bash</h3>
+<p>Bash es un intérprete de línea de comandos y un lenguaje de <em>scripting</em> muy popular en sistemas operativos Unix y basados en Unix, como Linux y macOS. A través de esta se puede controlar el computador digitando los comandos desde el teclado, en lugar de usar los botones y menús como habitualmente se hace con los sistemas operativos más usados.</p>
+<p>De forma nativa, este intérprete no se encuentra dentro de <em>Windows</em>, por lo que, para hacer uso de este deberemos descargar Git Bash, el cual integra esta herramiento junto con <em>git</em>, “un sistema de control de versiones distribuido, libre y de código abierto, diseñado para manejar proyectos de cualquier tamaño, desde pequeños hasta muy grandes, con rapidez y eficiencia”.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si bien, <em>Git</em> no suena tan familiar, su versión online <em>GitHub</em> si. Esta página alberga código y sus versiones en internet y cualquier persona puede ser capaz de ver, replicar y alterar dicho (con los permisos suficientes). Algunas de las empresas que ocupan esto son Google, Microsoft y Netflix.</p>
+</div>
+</div>
+<p>Para su instalación, nos dirigiremos a la página oficial de <em>Git Bash</em>:</p>
+<ul>
+<li><a href="https://git-scm.com/downloads" class="uri">https://git-scm.com/downloads</a></li>
+</ul>
+<p>Seleccionamos el sistema operativo y versión (64-bit y 32-bit) que corresponda al computador. Ejecutamos el instalador, al terminar se verá similar a la imagen a continuación, los colores pueden cambiar, ya que ofrece la posibilidad de personalizar.</p>
+<div id="fig-bashAbierto" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bashAbierto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/03-01-bashAbierto.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bashAbierto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.1: <em>Git Bash</em> abierto en el escritorio, muestra el usuario (Alene), el computador (LAPTOP-RLJ48LRB) y la ruta en la barra principal (<code>/c/Users/Alene</code>).
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="miniconda" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="miniconda">Miniconda</h3>
+<p>Para la creación de entornos de trabajo podemos ocupar <em>Conda</em>, un sistema de gestión de paquetes y entornos de desarrollo, facilitando la instalación y gestión de librerías con sus dependencias, siendo importantes para evitar incompatibilidades entre paquetes. Debido a que <em>Anaconda</em> resulta tener un gran volumen, ocuparemos <em>Miniconda</em>, la cual es una distribución de <em>Python</em> que posee lo esencial para funcionar. Dentro de este instalaremos los paquetes y librerías que necesitamos para realizar los análisis geoespaciales.</p>
+<p>El instalador se encuentra disponible en:</p>
+<ul>
+<li><a href="https://docs.conda.io/en/latest/miniconda.html" class="uri">https://docs.conda.io/en/latest/miniconda.html</a></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Es <strong>IMPORTANTE</strong> seleccionar el sistema operativo y versión (64-bit y 32-bit) que corresponda al computador y durante la instalación seleccione la primera opción para “Agregar Miniconda3 a mi variable de entorno PATH” seleccionando también en “Registrar Anaconda como Python 3.x predeterminado”.</p>
+</div>
+</div>
+<p>Aunque el paso de agregar <em>Anaconda</em> al <em>PATH</em> no es recomendado por el sistema, lo haremos igualmente para que sea más fácil usar <em>Conda</em> con <em>Git Bash</em>.</p>
+<section id="probando-la-nueva-configuración" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="probando-la-nueva-configuración">Probando la nueva configuración</h4>
+<ol type="1">
+<li><p>Cerramos y abrimos el <em>Bash</em>.</p></li>
+<li><p>En el Terminal que se levanta digite <code>bash</code> y presione <em>Enter</em>. Si no se obtiene ningún mensaje, quiere decir que <em>Bash</em> está disponible para ser utilizado.</p></li>
+<li><p>Digite <code>git</code> y presione <em>Enter</em>. Si aprecia una serie de comandos, <em>Git</em> está disponible para ser utilizado.</p></li>
+</ol>
+<div id="fig-bashTest" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bashTest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/03-02-bashTest.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bashTest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.2: <em>Git Bash</em> testeado con <code>bash</code> (sin mensaje) y <code>git</code> (comandos disponibles).
+</figcaption>
+</figure>
+</div>
+<ol start="4" type="1">
+<li>Digite <code>conda</code> y presiona <em>Enter</em>, si se aprecia una serie de comandos, <em>Conda</em> está disponible para ser empleado.</li>
+</ol>
+<div id="fig-bashTest2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bashTest2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/03-03-bashTest2.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bashTest2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.3: <em>Conda</em> testeado en <em>Git Bash</em>.
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="el-ambiente" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="el-ambiente">El ambiente</h3>
+<p>Dentro <em>Conda</em> instalaremos un ambiente de <em>Python</em> con librerías específicas para el análisis de datos geoespaciales que sido creado exclusivamente para este taller. Puedes descargar el archivo del ambiente haciendo clic <a href="recursos/tallerpython.yml" download="tallerpython.yml">aquí</a>.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Todavía hay que ver esto. EL NOMBRE NO ES TALLERPYTHON, SINO QUE SPYDER-PYTHON una cosa asi, insertar al final</p>
+</div>
+</div>
+<p>Este archivo (de extensión <code>.yml</code>) contiene todos los paquetes con sus dependencias necesarios para desarrollar las actividades posteriores. Dentro de él se encuentra el nombre del ambiente (en este caso tallerpython), las librerías y los canales desde donde se obtienen.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note que aquí estamos creando un ambiente con paquetes previamente definidos. Si desea crear otro ambiente, con otras librerías, puede consultar la guía de <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html">conda</a>.</p>
+</div>
+</div>
+<p>Para instalar este ambiente ejecute desde el Terminal el comando <code>conda env create -f tallerpython.yml</code>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Tenga en cuenta que el proceso toma tiempo y varía de acuerdo con las capacidades de cada computador.</p>
+</div>
+</div>
+<div id="fig-mkenvir" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mkenvir-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/03-07-mkenvir.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mkenvir-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.4: Instalación del entorno con el archivo <code>environment.yml</code>.
+</figcaption>
+</figure>
+</div>
+<p>Para ver la lista de los entornos de trabajo disponibles, ejecute <code>conda info --envs</code>. En este caso, nos interesa el ambiente <code>tallerpython</code>.</p>
+<div id="fig-ambiente" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ambiente-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/web/01-01-ambienteSeleccion.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ambiente-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.5: Ambientes instalados. Se pueden observar varios ya instalados.
+</figcaption>
+</figure>
+</div>
+<p>Para activar cualquier entorno de trabajo debe ejecutar <code>conda activate &lt;nombre-entorno&gt;</code>.</p>
+<p>En el caso de que <em>Git Bash</em> genere problemas al usar <code>conda activate</code> ejecute <code>conda init bash</code> solo una vez. Posteriormente, reinicie <em>Git Bash</em> para que los cambios surtan efecto. Si el problema persiste, puede intentar revisando el siguiente <a href="https://discuss.codecademy.com/t/setting-up-conda-in-git-bash/534473">link</a>.</p>
+<p>Para desactivar el entorno de trabajo <code>conda deactivate</code>, como se observa a continuación, pasamos del ambiente <code>base</code> al recién instalado y luego a <code>base</code> nuevamente.</p>
+<div id="fig-activate" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-activate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/web/01-02-acti-deac.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-activate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.6: Activación y desactivación de los entornos.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="spyder" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="spyder"><em>Spyder</em></h3>
+<p><em>Spyder</em> es un entorno de desarrollo integrado (IDE) de código abierto diseñado específicamente para la programación en <em>Python</em>. Combina herramientas avanzadas en un solo lugar, lo que lo hace popular entre investigadores y analistas.</p>
+<p><em>Spyder</em> ya viene en el entorno de trabajo. Para usarlo solo hay que escribir <code>spyder</code> estando en el entorno <code>tallerpython</code>.</p>
+<p>Dentro de este, deberemos escoger el sistema operativo del computador.</p>
+<section id="partes-de-spyder" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="partes-de-spyder">Partes de <em>Spyder</em></h4>
+<p>Spyder cuenta principalmente con 3 paneles, los cuales pueden tener distintas funcionalidades. Entre sus partes principales se encuentran:</p>
+<ol type="1">
+<li>Editor</li>
+</ol>
+<p>En este panel se encuentra el script de <em>Python</em> a ejecutar. Dentro de este, se nos mostrará advertencias (<em>warnings</em>) o errores dentro de nuestro código. Por defecto, las líneas se encuentran numeradas. También se pueden agregar pequeñas anotaciones para destacar ciertas líneas de código (pequeños puntos rojos en líneas 25 y 29).</p>
+<div id="fig-editor" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-editor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/web/01-03-editor.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-editor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.7: Editor de <em>Spyder</em>
+</figcaption>
+</figure>
+</div>
+<ol start="2" type="1">
+<li><p>Consola</p>
+<p>Aquí es donde se ejecuta el código. Una manera de hacerlo es dentro del Editor y apretando <code>F5</code> o <code>Ctrl + Enter</code>. En el caso de querer ejecutar código en solo una línea o líneas seleccionadas, puede apretar <code>F9</code>. También puede ejecutar código directamente en la consola.</p>
+<div id="fig-consola" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-consola-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/web/01-04-consola.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-consola-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.8: Consola de <em>Spyder</em>
+</figcaption>
+</figure>
+</div>
+<p>2.1. Historial</p>
+<p>Se muestra el historial del código ejecutado. También aparece código de sesiones anteriores.</p>
+<div id="fig-historial" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-historial-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/web/01-05-historial.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-historial-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.9: Historial de <em>Spyder</em>
+</figcaption>
+</figure>
+</div></li>
+<li><p>Conjunto de Sub-Paneles</p>
+<p>Este panel contiene distintas herramientas que aportarán interacción al análisis de los datos geográficos.</p>
+<p>3.1. Explorador de variables</p>
+<p>Se muestran los objetos creados con la posibilidad de interactuar con estos.</p>
+<div id="fig-variables" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/web/01-06-variables.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.10: Explorador de variables en <em>Spyder</em>
+</figcaption>
+</figure>
+</div>
+<p>3.2. Gráficos</p>
+<p>Muestra todos los gráficos ejecutados en la sesión.</p>
+<div id="fig-graficos" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-graficos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/web/01-07-graficos.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-graficos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.11: Gráficos dentro de <em>Spyder</em>
+</figcaption>
+</figure>
+</div>
+<p>3.3. Ayuda</p>
+<p>A través de <code>Ctrl + I</code>, <em>Spyder</em> es capaz de mostrar la documentación de la función en la que se está.</p>
+<div id="fig-ayuda" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ayuda-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/web/01-08-ayuda.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ayuda-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.12: Ayuda dentro de <em>Spyder</em>
+</figcaption>
+</figure>
+</div>
+<p>3.4. Perfilador</p>
+<p>El perfilador determina el tiempo de ejecución y el número de llamadas para cada función y método llamado en un archivo. Esto te permite identificar fácilmente los cuellos de botella en tu código, señala declaraciones exactas más críticas para la optimización y mide la diferencia de rendimiento después de los cambios de seguimiento.</p></li>
+</ol>
+<div id="fig-profiler" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-profiler-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="foo/web/01-09-profiler.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-profiler-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1.13: Perfilador (<em>Profiler</em>) dentro de <em>Spyder</em>
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+</section>
+<section id="recordatorio" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="recordatorio">Recordatorio</h2>
+<p>Vamos a realizar un repaso para ver que todo está en orden. Para esto se ejecutará un <em>script</em> dentro de <em>Spyder</em>. A continuación, explicaremos un ejemplo de carga y visualización de datos. Este tendrá los siguientes pasos:</p>
+<ul>
+<li><p>Carga de librerías.</p></li>
+<li><p>Cambio en el directorio de trabajo.</p></li>
+<li><p>Carga de datos.</p></li>
+<li><p>Visualización de datos.</p></li>
+</ul>
+<section id="librerías" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="librerías">Librerías</h3>
+<p>Las librerías o paquetes son una forma de organizar múltiples funciones relacionadas. Estan se componen de módulos, los cuales son archivos individuales que contienen código reutilizable. Acceder a esta (y para ocupar <em>Python</em> en general) se ocupa la notación de punto (<em>Dot notation</em>). Aquí, el nombre del objeto va seguido de un punto (<code>.</code>), y luego el nombre del atributo o método al que se quiera acceder o invocar.</p>
+</section>
+<section id="directorios-de-trabajo" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="directorios-de-trabajo">Directorios de trabajo</h3>
+<p>Al escribir un <em>script</em> de <em>Python</em> es importante saber en que ruta estás dentro del computador. Esto con el fin de poder acceder correctamente a datos que se necesiten ocupar, exportar resultados, entre otros. En <em>Python</em>, puedes utilizar el módulo <code>os</code> para gestionar rutas, ya que evita errores relacionados con rutas relativas o absolutas.</p>
+</section>
+<section id="carga-de-datos" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="carga-de-datos">Carga de datos</h3>
+<p>En nuestro contexto de análisis geoespacial, las principales herramientas que nos ayudarán a cargar datos son Pandas, GeoPandas y Rasterio, ya que sirven para datos tabulares, vectoriales y raster, respectivamente.</p>
+</section>
+<section id="visualización-de-datos" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="visualización-de-datos">Visualización de datos</h3>
+<p>La principal herramienta para visualizar datos dentro de <em>Python</em> es <em>Matplotlib</em>, el cual a través de su módulo <code>pyplot</code>, permite generar desde simples a complejas figuras. En el caso particular de los datos raster, el paquete <code>earthpy</code> otorga las herramientas necesarias para generar representaciones adecuadas para este tipo de datos.</p>
+</section>
+<section id="ejemplo" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo">Ejemplo</h3>
+<p>Una vez explicado los pasos a seguir, se tiene que implementar en código. Este tendrá la siguiente forma:</p>
+<div id="670d32c3" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1"></a><span class="im">import</span> os</span>
+<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-1-5" class="code-annotation-target"><a href="#annotated-cell-1-5"></a>os.chdir(<span class="st">"D:/Descargas"</span>)</span>
+<span id="annotated-cell-1-6"><a href="#annotated-cell-1-6"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-1-7" class="code-annotation-target"><a href="#annotated-cell-1-7"></a>poligono <span class="op">=</span> gpd.read_file(<span class="st">"polygon.shp"</span>)</span>
+<span id="annotated-cell-1-8"><a href="#annotated-cell-1-8"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-1-9" class="code-annotation-target"><a href="#annotated-cell-1-9"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10"></a></span>
+<span id="annotated-cell-1-11"><a href="#annotated-cell-1-11"></a>poligono.plot(ax <span class="op">=</span> ax,</span>
+<span id="annotated-cell-1-12"><a href="#annotated-cell-1-12"></a>              color <span class="op">=</span> <span class="st">"red"</span>)</span>
+<span id="annotated-cell-1-13"><a href="#annotated-cell-1-13"></a></span>
+<span id="annotated-cell-1-14"><a href="#annotated-cell-1-14"></a>ax.set_title(<span class="st">"Polígono a visualizar"</span>)</span>
+<span id="annotated-cell-1-15"><a href="#annotated-cell-1-15"></a></span>
+<span id="annotated-cell-1-16"><a href="#annotated-cell-1-16"></a>plt.show()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="1,2,3" data-code-annotation="1">Importa las librerías necesarias. Tanto <code>geopandas</code> como <code>matplotlib.pyplot</code> están abreviados gracias a <code>as</code>. La abreviación existe para facilitar la escritura dentro del <em>script</em>.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="5" data-code-annotation="2">Cambia el directorio de trabajo a la ruta <code>D:/Descargas</code>. Esta ruta es personal y varía según dispositivo.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="7" data-code-annotation="3">Con <em>GeoPandas</em> (<code>gpd</code>) carga un archivo vectorial (<code>.shp</code>).</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="9,11,12,14,16" data-code-annotation="4">A través de <em>Matplotlib</em> (<code>plt</code>), graficamos el objeto <code>poligono</code>. Si desea más información de como visualizar datos, consulte su <a href="https://matplotlib.org/stable/users/explain/quick_start.html">documentación</a>.</span>
+</dd>
+</dl>
+</div>
+</div>
+<p>Si todo va bien, el resultado del script sería la figura mostrada abajo:</p>
+<div id="a5800072" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="01-python-librerias_files/figure-html/cell-3-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="265" height="446"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="ejercicios" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="ejercicios"><span class="header-section-number">1.2</span> Ejercicios</h2>
+<ol type="1">
+<li>Descargue y lea los datos vectoriales disponibles en este <a href="https://figshare.com/ndownloader/files/49550784">enlace</a>. Estos datos corresponden a una base de datos histórica de cicatrices de fuego en Chile (propiedad del (CR)<sup>2</sup> y disponibles en el siguiente <a href="https://www.plataformadedatos.cl/datasets/es/492F65B350AAF9D1">link</a>). Una vez descargados, visualizarlos.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>El paquete <code>earthpy</code> tiene un submódulo especializado para descargar datos desde internet. Este es <code>data.get_data()</code>.</p>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li><p>Una vez cargados los datos, a través de sus atributos, consulte por la cantidad de puntos de ignición y superficie quemada por región.</p></li>
+<li><p>Dadas las provincias de Chile continental (disponibles en el siguiente <a href="https://figshare.com/ndownloader/files/50316978">enlace</a>), consulte la cantidad de puntos de ignición que existen por región, usando una consulta basada en la coincidencia espacial. Observe si hay diferencias con lo obtenido con el ejercicio anterior.</p></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>En el caso de que las capas estén en otro sistema de referencia, puede ocupar la función de <em>GeoPandas</em> <code>.to_crs()</code>.</p>
+<p><em>GeoPandas</em> permite disolver polígonos a través de <code>.dissolve()</code>. Si tiene dudas, puede consultar la documentación de ambas funciones.</p>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Descripción">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Descripción</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./02-geomatica.html" class="pagination-link" aria-label="Fundamentos de Geomática y visualización de Datos Raster">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fundamentos de Geomática y visualización de Datos Raster</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
