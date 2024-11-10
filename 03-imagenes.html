@@ -236,7 +236,7 @@ window.Quarto = {
   <li><a href="#burn-area-index-bai" id="toc-burn-area-index-bai" class="nav-link" data-scroll-target="#burn-area-index-bai"><span class="header-section-number">3.1.3</span> Burn Area Index (BAI)</a></li>
   <li><a href="#ejemplo" id="toc-ejemplo" class="nav-link" data-scroll-target="#ejemplo"><span class="header-section-number">3.1.4</span> Ejemplo</a></li>
   </ul></li>
-  <li><a href="#segmentación-discretización-de-datos-raster" id="toc-segmentación-discretización-de-datos-raster" class="nav-link" data-scroll-target="#segmentación-discretización-de-datos-raster"><span class="header-section-number">3.2</span> Segmentación (discretización) de datos Raster</a></li>
+  <li><a href="#discretización-de-datos-raster" id="toc-discretización-de-datos-raster" class="nav-link" data-scroll-target="#discretización-de-datos-raster"><span class="header-section-number">3.2</span> Discretización de datos Raster</a></li>
   <li><a href="#vectorización-de-datos-raster" id="toc-vectorización-de-datos-raster" class="nav-link" data-scroll-target="#vectorización-de-datos-raster"><span class="header-section-number">3.3</span> Vectorización de Datos Raster</a></li>
   <li><a href="#exportación-de-archivos" id="toc-exportación-de-archivos" class="nav-link" data-scroll-target="#exportación-de-archivos"><span class="header-section-number">3.4</span> Exportación de archivos</a></li>
   <li><a href="#ejercicios" id="toc-ejercicios" class="nav-link" data-scroll-target="#ejercicios">Ejercicios</a></li>
@@ -460,17 +460,17 @@ Listado&nbsp;3.1
 </div>
 </section>
 </section>
-<section id="segmentación-discretización-de-datos-raster" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="segmentación-discretización-de-datos-raster"><span class="header-section-number">3.2</span> Segmentación (discretización) de datos Raster</h2>
+<section id="discretización-de-datos-raster" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="discretización-de-datos-raster"><span class="header-section-number">3.2</span> Discretización de datos Raster</h2>
 <p>Los índices entregan valores continuos en un rango determinado, no obstante, para obtener las categorías de interés, es necesario encontrar ciertos valores o umbrales que permitan esa separación. Generalmente esos umbrales vienen dados o se pueden establecer desde calibraciones en campo o con gráficos de distribución de los valores.</p>
 <p>En este caso, se mostrará una segmentación simple del NDVI anteriormente calculado. En este, valores mayores a <code>0.5</code> serán una categoría, mientras que valores menores o iguales <code>0.5</code> será otra categoría.</p>
-<div id="55939133" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Asigna otro objeto</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>ndvi_clases <span class="op">=</span> NDVI</span>
+<div id="e3e3a635" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Creamos una copia de la variable original</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>ndvi_clases <span class="op">=</span> NDVI.copy()</span>
 <span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># Re-clasifica los valores de los píxeles</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>ndvi_clases[np.where((ndvi_clases <span class="op">&gt;</span> <span class="fl">0.5</span>))] <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>ndvi_clases[np.where((ndvi_clases <span class="op">&lt;=</span> <span class="fl">0.5</span>))] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># Re-clasifica los valores de los píxeles comparando con el NDVI original</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>ndvi_clases[np.where((NDVI <span class="op">&gt;</span> <span class="fl">0.5</span>))] <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>ndvi_clases[np.where((NDVI <span class="op">&lt;=</span> <span class="fl">0.5</span>))] <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb2-7"><a href="#cb2-7"></a></span>
 <span id="cb2-8"><a href="#cb2-8"></a><span class="co"># Visualizacion+</span></span>
 <span id="cb2-9"><a href="#cb2-9"></a>f, ax <span class="op">=</span> plt.subplots()</span>
@@ -486,19 +486,6 @@ Listado&nbsp;3.1
 <p><img src="03-imagenes_files/figure-html/cell-4-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="459" height="417"></p>
 </figure>
 </div>
-</div>
-</div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Importante
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Es crucial mantener el orden correcto al reclasificar los valores de los píxeles. Si primero asignamos <code>[np.where(ndvi_clases &lt;= 0.5)] = 1</code> y luego <code>[np.where(ndvi_clases &gt; 0.5)] = 2</code>, los valores ya reclasificados en la primera condición serán también considerados en la segunda, lo que resultará en una única clase.</p>
 </div>
 </div>
 </section>
@@ -520,7 +507,7 @@ Nota
 </div>
 </div>
 <p>Una vez hecho teniendo el objeto de tipo <code>generator</code>, se transformará a un <em>GeoDataFrame</em> el cual servirá para su visualización:</p>
-<div id="241ca0cb" class="cell" data-execution_count="4">
+<div id="0fc61c75" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#Importancion de librerias</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="im">import</span> shapely <span class="co"># Nos permite transformar geometrías.</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="im">import</span> rasterio.features <span class="im">as</span> features <span class="co"># Contiene una función para vectorizar.</span></span>
@@ -549,7 +536,7 @@ Nota
 <span id="cb3-26"><a href="#cb3-26"></a>f, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb3-27"><a href="#cb3-27"></a>lista_geo.plot(ax <span class="op">=</span> ax,</span>
 <span id="cb3-28"><a href="#cb3-28"></a>               color <span class="op">=</span> <span class="st">"green"</span>)</span>
-<span id="cb3-29"><a href="#cb3-29"></a>ax.set_title(<span class="st">"NDVI vectrorial en Valdivia"</span>)</span>
+<span id="cb3-29"><a href="#cb3-29"></a>ax.set_title(<span class="st">"NDVI vectorial en Valdivia"</span>)</span>
 <span id="cb3-30"><a href="#cb3-30"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -564,7 +551,7 @@ Nota
 <h2 data-number="3.4" class="anchored" data-anchor-id="exportación-de-archivos"><span class="header-section-number">3.4</span> Exportación de archivos</h2>
 <p>Una vez creados los archivos de interés (ya sea raster o vectorial), podemos exportarlos de la siguiente manera:</p>
 <p>Para datos raster:</p>
-<div id="dbfaeefe" class="cell" data-execution_count="5">
+<div id="17267d73" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="cf">with</span> rio.<span class="bu">open</span>(<span class="st">"ndvi_clases.tif"</span>, <span class="co"># Crea el archivo</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>              <span class="st">'w'</span>, <span class="co"># En modo escritura (write)</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>              driver <span class="op">=</span> <span class="st">'GTiff'</span>,  <span class="co"># Especifica el controlador (formato) del archivo, en este caso GeoTIFF</span></span>
@@ -577,7 +564,7 @@ Nota
 <span id="cb4-10"><a href="#cb4-10"></a>    dst.write(ndvi_clases, <span class="dv">1</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Para datos vectoriales:</p>
-<div id="26043e8a" class="cell" data-execution_count="6">
+<div id="4800dfb3" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>lista_geo.to_file(<span class="st">"ndvi_vectrorial.shp"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -585,10 +572,10 @@ Nota
 <h2 class="unnumbered anchored" data-anchor-id="ejercicios">Ejercicios</h2>
 <ol type="1">
 <li><p>Descargue el siguiente <a href="https://figshare.com/ndownloader/files/50335344">set de datos</a>. Ests son dos imágenes <em>Sentinel</em> de Viña del Mar antes y después de los incendios ocurridos en Febrero de este año. Las bandas entregadas son: B1, B2, B3, B4, B5, B6, B7, B8, B8a, B9, B11, B12.</p></li>
-<li><p>A través de <em>Rasterio</em> y <em>NumPy</em> calcule <em>NDVI</em>, <em>BAI</em> a ambas imágenes.</p></li>
+<li><p>A través de <em>Rasterio</em> y <em>NumPy</em> calcule <em>NDVI</em> y <em>BAI</em> para la imagen post-incendio.</p></li>
 <li><p>Calcule el <em>NBR</em> y los derivados de este índice para ambas imágenes.</p></li>
-<li><p>A través de la <a href="#tbl-dnbr-severity" class="quarto-xref">Tabla&nbsp;<span>3.1</span></a>, segmente el raster de <em>dNBR</em> y exportelo como un archivo <code>.tif</code>.</p></li>
-<li><p>Vectorice su raster segmentado y exportelo como archivo <code>.shp</code>.</p></li>
+<li><p>A través de la <a href="#tbl-dnbr-severity" class="quarto-xref">Tabla&nbsp;<span>3.1</span></a>, discretice el raster de <em>dNBR</em> y exportelo como un archivo <code>.tif</code>.</p></li>
+<li><p>Vectorice el raster discretizado y exportelo como archivo <code>.shp</code>.</p></li>
 </ol>
 
 

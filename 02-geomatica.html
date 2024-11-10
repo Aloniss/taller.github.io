@@ -275,7 +275,7 @@ Figura&nbsp;2.1: Composición <em>RGB</em>
 <section id="monobanda" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="monobanda">Monobanda</h3>
 <p>Son aquellas que solo almacenan una variable o <em>layer</em>. Es común encontrar este tipo de imágenes para almacenar y representar datos de tipo continuo, como la temperatura superficial o la reflectancia. No obstante, se usan también para representar variables de tipo discretas como las categorías de un sistema de clasificación.</p>
-<div id="d38b5e7d" class="cell" data-execution_count="1">
+<div id="43943731" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -299,7 +299,7 @@ Figura&nbsp;2.1: Composición <em>RGB</em>
 <pre><code>/usr/share/miniconda/envs/tallerpython/lib/python3.10/site-packages/earthpy/spatial.py:561: RuntimeWarning: invalid value encountered in cast
   return (bytedata.clip(low, high) + 0.5).astype("uint8")</code></pre>
 </div>
-<div id="78fa1161" class="cell quarto-layout-panel" data-layout-nrow="2" data-execution_count="2">
+<div id="7850c132" class="cell quarto-layout-panel" data-layout-nrow="2" data-execution_count="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
@@ -373,7 +373,7 @@ Figura&nbsp;2.4: Bandas de <em>Sentinel</em>.
 <h2 data-number="2.7" class="anchored" data-anchor-id="dentro-de-python"><span class="header-section-number">2.7</span> Dentro de <em>Python</em></h2>
 <p>En <em>Python</em> las librerías principales para poder trabajar con datos raster son <code>rasterio</code> y <code>earthpy</code>. <code>rasterio</code> es una librería de <em>Python</em> diseñada para leer y escribir datos raster geoespaciales, mientras que <code>earthpy</code> facilita el manejo de multiples tipos de datos, lidiando con su descarga, descompresión y visualización.</p>
 <p>Por ejemplo, se cargará e imprimirá la información de un raster de elevación (<em>DEM</em>)</p>
-<div id="49462865" class="cell" data-execution_count="4">
+<div id="b755266a" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Importando los paquetes necesarios</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="im">import</span> os</span>
 <span id="cb2-3"><a href="#cb2-3"></a><span class="im">import</span> rasterio <span class="im">as</span> rio</span>
@@ -393,7 +393,7 @@ La imagen tiene EPSG:32613.</code></pre>
 </div>
 </div>
 <p>A través de <code>earthpy</code> podemos visualizarlo:</p>
-<div id="696abb3a" class="cell" data-execution_count="5">
+<div id="6cd2ed1e" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>f, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb4-2"><a href="#cb4-2"></a></span>
 <span id="cb4-3"><a href="#cb4-3"></a>ep.plot_bands(DEM,</span>
