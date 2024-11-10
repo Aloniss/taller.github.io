@@ -1,4 +1,4 @@
-# Procesamiento de Imágenes Satelitales para el Monitoreo de Incendios
+# Procesamiento de Imágenes Satelitales para el Monitoreo de Incendios {#sec-indices}
 
 Los incendios forestales se han transformado en un grave problema para el mundo y particularmente para los ecosistemas forestales. Dada la actual y futura situación de Cambio Climático, se espera que los incendios aumenten en frecuencia, magnitud y en la extensión de sus temporadas. En este contexto, se hace cada vez más necesario contar con herramientas que permitan su rápida detección y evaluación de los daños una vez ocurridos. 
 
@@ -161,7 +161,7 @@ ndvi_clases = NDVI.copy()
 ndvi_clases[np.where((NDVI > 0.5))] = 2
 ndvi_clases[np.where((NDVI <= 0.5))] = 1
 
-# Visualizacion+
+# Visualizacion
 f, ax = plt.subplots()
 ep.plot_bands(ndvi_clases,
               cmap="RdYlGn",
@@ -227,6 +227,20 @@ Para datos raster:
 ```{python}
 #| eval: false
 
+# Para raster con el NDVI calculado =========
+
+with rio.open("ndviValdivia.tif", # Crea el archivo
+              'w', # En modo escritura (write)
+              driver = 'GTiff',  # Especifica el controlador (formato) del archivo, en este caso GeoTIFF
+              height = NDVI.shape[0], # Alto de raster
+              width = NDVI.shape[1], # Ancho de raster
+              count = 1, # Número de bandas en el raster 
+              crs = crs, # Sistema de referencia de coordenadas (CRS) del raster
+              transform = transform, # Transformación de afinidad del raster
+              dtype = "float32") as dst: # Tipo de dato de los valores del raster
+    dst.write(NDVI, 1)
+
+# Para el raster con las clases del NDVI =========
 with rio.open("ndvi_clases.tif", # Crea el archivo
               'w', # En modo escritura (write)
               driver = 'GTiff',  # Especifica el controlador (formato) del archivo, en este caso GeoTIFF

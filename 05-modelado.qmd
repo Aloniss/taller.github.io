@@ -1,15 +1,32 @@
 # Modelado y Predicción del Comportamiento de Incendios
 
-En el contexto del Cambio Climático, los incendios forestales han aumentado en frecuencia y magnitud por todo el globo. ...
-Es en esta línea que intentan poder crear modelos matemáticos capaces de modelar el comportamiendo del fuego a través de condiciones meteorológicas, físicas, asociadas a la vegetación y asi poder predecir las instancias en que se provocan las igniciones y la expansión del fuego.
+El cambio climático está intensificando las condiciones climáticas adversas, caracterizadas por temperaturas más altas y precipitaciones reducidas. Estas condiciones extremas, combinadas con la actividad humana en el territorio, incrementan significativamente el riesgo de ignición y propagación de incendios. Frente a esta amenaza, se vuelve esencial desarrollar herramientas capaces de predecir de manera precisa cómo y dónde se distribuirá el riesgo de incendio. En este contexto, los algoritmos de aprendizaje automático ofrecen un enfoque potente para identificar patrones en variables relacionadas con los incendios, lo que permite estimar la probabilidad de inicio de un incendio en áreas específicas. Este enfoque predictivo puede facilitar la planificación y gestión del riesgo, contribuyendo a la prevención y mitigación de incendios forestales.
 
-Una de las principales técnicas ocupadas ha sido el *Random Forest*, un algoritmo de aprendizaje automático supervisado. 
+Para el caso particular de los incendios forestales, *Random Forest* se ha usado ampliamente en combinación con datos históricos de ignición y variables relacionadas al fenómeno para identificar patrones y/o factores que promuevan la ignición y propagación de incendios.
 
-El *Random Forest* se constituye a través de varios árboles de condición, donde cada árbol se entrena con un sample o muestra aleatoria y se realiza una predicción independiente. Posterior a eso, se juntan todas las predicciones de los árboles para obtener una predicción final. El árbol más votado sale como predicción.
+En el siguiente ejemplo, trabajaremos para predecir la probabilidad de incendio de la Región de la Araucanía para el año 2016. Para realizar el ejercicio, tendrá que descargar el siguiente  [`.zip`](https://figshare.com/ndownloader/files/50336817). El archivo contiene:
 
-Para el caos de los incendios forestales, el Random Fores se puede emplear para realizar análisis de datos históricos y apartir de estos, identificar posibles patrones y/o factores que promuevan la ignición y propagación de incendios y así, poder predecir eventos de esta índole hacia el futuro.
+-   Puntos de ignición
 
-En el siguiente ejemplo, trabajaremos para predecir la probabilidad de incendio de **algo** para el año 2016. Para realizar el ejercicio, tendrá que descargar el siguiente [`.zip`](https://figshare.com/ndownloader/files/50336817). Este contiene ...
+-   Puntos de no-ignición
+
+-   Polígono con la zona de estudio
+
+-   Imágen raster con variables predictoras con el siguiente orden:
+
+    -   **B1**: Precipitación.
+
+    -   **B2**: Distancia a caminos.
+
+    -   **B3**: Distancia a zonas urbanas.
+
+    -   **B4**: DEM.
+
+    -   **B5**: Pendiente.
+
+
+
+
 
 ## Preparación de datos
 Antes de comenzar, tendremos que cargar algunas librerías extras:
@@ -30,10 +47,12 @@ from sklearn.metrics import roc_auc_score # <4>
 
 1. `rioxarray` es una librería que combina capacidades de manejar datos multidimensionales con las capacidades de `rasterio`.
 2.  `sklearn` es una de las librerías más ocupadas dentro de *Python* para el *Machine Learning*. En esta línea se está importando una función que facilita la extracción de puntos para muestras y las de validación.
-3.  Del submódulo `ensemble` se ocupa *Random Forest* *Regressor* el cual, predece valores continuos.
-4.  Por útltimo, el submódulo `metrics` importa la la función `AUC` que servirpa para evalaur el rendimiento de la clasificación.
+3.  Del submódulo `ensemble` se ocupa *Random Forest* *Regressor* el cual, puede predecir valores continuos.
+4.  Por útltimo, el submódulo `metrics` importa la función `AUC` que servirá para evaluar el rendimiento del modelo.
 
-Una vez cargada las librerías, cargaremos los datos. Estos se componen en puntos donde se sabe que hubo alguna ignición y de puntos donde no ha habido/hubo* ignición. Ambos nos servirán para el entrenamiento del modelo. Además, tendremos un raster multibanda, con la consideración de que las bandas no representan un atributo del espectro electromagnético, sino que una variable.
+Una vez cargada las librerías, llamaremos a los datos. Estos se componen de puntos para ignición/no-ignición. Ambos servirán para el entrenamiento del modelo. Además del raster multibanda que alberga a las variables predictoras.
+
+Lo primero es verificar que nuestros datos se encuentren en el mismo CRS:
 
 ```{python}
 #| echo: false
@@ -42,10 +61,10 @@ os.chdir("recursos/rf")
 ```
 
 ```{python}
-#| echo: false
-#| 
-coord_1 = gpd.read_file("puntos/si_ignicion_2016.shp") # muestras igncion
-coord_0 = gpd.read_file("puntos/no_ignicion_2016.shp") # Meustras no ignicion
+#| echo: true
+
+coord_1 = gpd.read_file("puntos/si_ignicion_2016.shp") # Muestras igncion
+coord_0 = gpd.read_file("puntos/no_ignicion_2016.shp") # Muestras no ignicion
 
 # Imprimimos los atributos del raster
 with rio.open('datos/datos_2016.tif') as src:
@@ -56,7 +75,6 @@ with rio.open('datos/datos_2016.tif') as src:
 datos_raster = rio.open('datos/datos_2016.tif') 
 ```
 
-Debemos verificar que nuestros datos se encuentren en el mismo CRS:
 ```{python}
 if coord_1.crs == coord_0.crs == crsRaster:
     print("Todas las capas se encuentran en el mismo CRS")
@@ -66,7 +84,7 @@ else:
           f"raster:{datos_raster.crs}")
 ```
 
-Ahora, a través de una función, obtendremos datos de las variables en el raster con las coordenadas de los puntos. Despues, ambas listas se convierten a *DataFrame* y se les asigna una etiqueta. Por último, se unen ambos `DataFrames`:
+A través de una función que vamos a construir, obtendremos los datos de las variables en el raster usando las coordenadas de los puntos. Posteriormente, ambas listas se convierten a *DataFrame* y se les asigna una etiqueta. Por último, se unen ambos *DataFrames*:
 
 ```{python}
 def ext_muestras(gdf_data, raster):
@@ -102,7 +120,8 @@ df = pd.concat([df_1, df_0])
 df.head()
 ```
 
-Para poder ingresar los datos correctamente al modelo debemos inputar dos arrays. Uno conteniendo únicamente los valores de los datos y otro conteniendo las etiquetas de estas:
+Para ingresar los datos correctamente al algoritmo de *Random Forest*, debemos separar los datos en dos arrays. Uno conteniendo únicamente los valores de los datos y otro conteniendo las etiquetas para cada observación.
+
 ```{python}
 X = df.drop('etiqueta', axis=1).to_numpy()
 y = df['etiqueta'].to_numpy()
@@ -142,13 +161,13 @@ Para predecir deberemos ocupar la función `.predict`:
 # Realizar predicciones con los datos de X
 predicciones = modelo_RF.predict(X = testX)
 
-# Obtiene AUC para validar
+# Obtiene AUC para la estimación del desempeño.
 metrica = roc_auc_score(testy, predicciones)
 
 print(f"AUC: {metrica}")
 ```
 
-## Probando el modelo
+## Prediciendo con el modelo
 
 ```{python}
 
@@ -167,18 +186,20 @@ resultado = data[0].copy() # <6>
 resultado.values = mapa_pred # <6>
 ```
 
-1.  Se carga el mismo raster, con la salvedad de abrirlo con `rioxarray`.
-2.  Transpone los datos del raster para que las bandas estén en el último eje. En este caso pasa de (bandas, filas, columnas) a (filas, columnas, filas).
-3.  Reorganiza los datos en un array de 2 dimensiones. Aquí, el `-1` permite que `NumPy` calcule automáticamente el tamaño de la primera dimensión, mientras que el `5` es el número de bandas. 
+1.  Se carga el mismo raster con los datos, excepto que ahora se hace con `rioxarray`.
+2.  Transpone los datos del raster para que las bandas estén en el último eje. En este caso pasa de una estructura (bandas, filas, columnas) a (filas, columnas, bandas).
+3.  Reorganiza los datos en un array de 2 dimensiones. Aquí, el `-1` permite que NumPy calcule automáticamente el tamaño de la primera dimensión, mientras que el `5` es el número de bandas. 
 4.  Ocupa el modelo entrenado para hacer las predicciones sobre los datos reorganizados.
-5.  Se reorganiza de nuevo las predicciones para obtener la forma original del raster.
+5.  Se reorganizan de nuevo las predicciones para obtener la forma original del raster.
 6.  Se crea una copia del raster original y asigna las predicciones a los valores del raster.
 
-Para observar las predicciones, podemos graficarlas gracias a *Matplotlib*
+Para observar el resultado del modelo podemos usar *Matplotlib*.
 
+:::{.column-body-outset}
 ```{python}
 #| fig-align: center
-fig, ax = plt.subplots()
+#| warning: false
+fig, ax = plt.subplots(figsize=(10, 10))
 
 resultado.plot(
     ax = ax,
@@ -189,11 +210,15 @@ resultado.plot(
 coord_1.plot(
     ax = ax,
     color = 'red',
-    markersize= 30,
+    markersize= 15,
     label = 'Ignición')
 
-ax.set_title('Mapa de predicción de ignición 2016')
+ax.set_title('Probabilidad de ignición año 2016')
+ax.set_ylabel("")
+ax.set_xlabel("")
+
+
 ax.legend()
 plt.show()
 ```
-
+:::
