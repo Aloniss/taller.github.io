@@ -17,7 +17,7 @@ La importancia de la estadística zonal en GIS radica en su capacidad para propo
 
 La estadística zonal es una herramienta poderosa que facilita el análisis espacial detallado y contextualizado, apoyando la toma de decisiones informada en una amplia gama de campos.
 
-En este caso, en el NDVI obtenido en el [Módulo @sec-indices], calcularemos los principales estadígrafos (media, desviación estándar, mínimo, máximo y mediana) a distintos sitios dentro de la zona. Si quiere seguir el esta demostración puedeo obtener los datos en el siguiente [enlace]().
+En este caso, en el NDVI obtenido en el [Módulo @sec-indices], calcularemos los principales estadígrafos (media, desviación estándar, mínimo, máximo y mediana) a distintos sitios dentro de la zona. Si quiere seguir el esta demostración puedeo obtener los datos en el siguiente [enlace](https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/puntoExplicacionMod4.zip).
 
 ## Dentro de *Python*
 
