@@ -73,6 +73,7 @@ Estas bandas se pueden combinar con los colores *RGB* que proporcionan los monit
 
 ```{python}
 #| layout-nrow: 2
+#| warning: false
 #| fig-align: center
 #| echo: false
 #| fig-cap: 
