@@ -180,7 +180,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-analisisTemporal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Análisis Temporal y Monitoreo de Incendios</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Análisis Temporal y Estadística Zonal</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -202,12 +202,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#preparación-de-datos" id="toc-preparación-de-datos" class="nav-link active" data-scroll-target="#preparación-de-datos"><span class="header-section-number">5.1</span> Preparación de datos</a></li>
   <li><a href="#entrenamiento" id="toc-entrenamiento" class="nav-link" data-scroll-target="#entrenamiento"><span class="header-section-number">5.2</span> Entrenamiento</a></li>
   <li><a href="#predicción-y-validación" id="toc-predicción-y-validación" class="nav-link" data-scroll-target="#predicción-y-validación"><span class="header-section-number">5.3</span> Predicción y validación</a></li>
-  <li><a href="#probando-el-modelo" id="toc-probando-el-modelo" class="nav-link" data-scroll-target="#probando-el-modelo"><span class="header-section-number">5.4</span> Probando el modelo</a></li>
+  <li><a href="#prediciendo-con-el-modelo" id="toc-prediciendo-con-el-modelo" class="nav-link" data-scroll-target="#prediciendo-con-el-modelo"><span class="header-section-number">5.4</span> Prediciendo con el modelo</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -228,15 +228,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>En el contexto del Cambio Climático, los incendios forestales han aumentado en frecuencia y magnitud por todo el globo. … Es en esta línea que intentan poder crear modelos matemáticos capaces de modelar el comportamiendo del fuego a través de condiciones meteorológicas, físicas, asociadas a la vegetación y asi poder predecir las instancias en que se provocan las igniciones y la expansión del fuego.</p>
-<p>Una de las principales técnicas ocupadas ha sido el <em>Random Forest</em>, un algoritmo de aprendizaje automático supervisado.</p>
-<p>El <em>Random Forest</em> se constituye a través de varios árboles de condición, donde cada árbol se entrena con un sample o muestra aleatoria y se realiza una predicción independiente. Posterior a eso, se juntan todas las predicciones de los árboles para obtener una predicción final. El árbol más votado sale como predicción.</p>
-<p>Para el caos de los incendios forestales, el Random Fores se puede emplear para realizar análisis de datos históricos y apartir de estos, identificar posibles patrones y/o factores que promuevan la ignición y propagación de incendios y así, poder predecir eventos de esta índole hacia el futuro.</p>
-<p>En el siguiente ejemplo, trabajaremos para predecir la probabilidad de incendio de <strong>algo</strong> para el año 2016. Para realizar el ejercicio, tendrá que descargar el siguiente <a href="https://figshare.com/ndownloader/files/50336817"><code>.zip</code></a>. Este contiene …</p>
+<p>El cambio climático está intensificando las condiciones climáticas adversas, caracterizadas por temperaturas más altas y precipitaciones reducidas. Estas condiciones extremas, combinadas con la actividad humana en el territorio, incrementan significativamente el riesgo de ignición y propagación de incendios. Frente a esta amenaza, se vuelve esencial desarrollar herramientas capaces de predecir de manera precisa cómo y dónde se distribuirá el riesgo de incendio. En este contexto, los algoritmos de aprendizaje automático ofrecen un enfoque potente para identificar patrones en variables relacionadas con los incendios, lo que permite estimar la probabilidad de inicio de un incendio en áreas específicas. Este enfoque predictivo puede facilitar la planificación y gestión del riesgo, contribuyendo a la prevención y mitigación de incendios forestales.</p>
+<p>Para el caso particular de los incendios forestales, <em>Random Forest</em> se ha usado ampliamente en combinación con datos históricos de ignición y variables relacionadas al fenómeno para identificar patrones y/o factores que promuevan la ignición y propagación de incendios.</p>
+<p>En el siguiente ejemplo, trabajaremos para predecir la probabilidad de incendio de la Región de la Araucanía para el año 2016. Para realizar el ejercicio, tendrá que descargar el siguiente <a href="https://figshare.com/ndownloader/files/50336817"><code>.zip</code></a>. El archivo contiene:</p>
+<ul>
+<li><p>Puntos de ignición</p></li>
+<li><p>Puntos de no-ignición</p></li>
+<li><p>Polígono con la zona de estudio</p></li>
+<li><p>Imágen raster con variables predictoras con el siguiente orden:</p>
+<ul>
+<li><p><strong>B1</strong>: Precipitación.</p></li>
+<li><p><strong>B2</strong>: Distancia a caminos.</p></li>
+<li><p><strong>B3</strong>: Distancia a zonas urbanas.</p></li>
+<li><p><strong>B4</strong>: DEM.</p></li>
+<li><p><strong>B5</strong>: Pendiente.</p></li>
+</ul></li>
+</ul>
 <section id="preparación-de-datos" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="preparación-de-datos"><span class="header-section-number">5.1</span> Preparación de datos</h2>
 <p>Antes de comenzar, tendremos que cargar algunas librerías extras:</p>
-<div id="09629ebf" class="cell" data-execution_count="1">
+<div id="12addfbd" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1"></a><span class="im">import</span> os</span>
 <span id="annotated-cell-1-2"><a href="#annotated-cell-1-2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="annotated-cell-1-3"><a href="#annotated-cell-1-3"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
@@ -260,67 +271,77 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="10" data-code-annotation="3">Del submódulo <code>ensemble</code> se ocupa <em>Random Forest</em> <em>Regressor</em> el cual, predece valores continuos.</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="10" data-code-annotation="3">Del submódulo <code>ensemble</code> se ocupa <em>Random Forest</em> <em>Regressor</em> el cual, puede predecir valores continuos.</span>
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="11" data-code-annotation="4">Por útltimo, el submódulo <code>metrics</code> importa la la función <code>AUC</code> que servirpa para evalaur el rendimiento de la clasificación.</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="11" data-code-annotation="4">Por útltimo, el submódulo <code>metrics</code> importa la función <code>AUC</code> que servirá para evaluar el rendimiento del modelo.</span>
 </dd>
 </dl>
 </div>
 </div>
-<p>Una vez cargada las librerías, cargaremos los datos. Estos se componen en puntos donde se sabe que hubo alguna ignición y de puntos donde no ha habido/hubo* ignición. Ambos nos servirán para el entrenamiento del modelo. Además, tendremos un raster multibanda, con la consideración de que las bandas no representan un atributo del espectro electromagnético, sino que una variable.</p>
-<div id="b22d12ff" class="cell" data-execution_count="3">
+<p>Una vez cargada las librerías, llamaremos a los datos. Estos se componen de puntos para ignición/no-ignición. Ambos servirán para el entrenamiento del modelo. Además del raster multibanda que alberga a las variables predictoras.</p>
+<p>Lo primero es verificar que nuestros datos se encuentren en el mismo CRS:</p>
+<div id="d0ac5676" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a>coord_1 <span class="op">=</span> gpd.read_file(<span class="st">"puntos/si_ignicion_2016.shp"</span>) <span class="co"># Muestras igncion</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>coord_0 <span class="op">=</span> gpd.read_file(<span class="st">"puntos/no_ignicion_2016.shp"</span>) <span class="co"># Muestras no ignicion</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Imprimimos los atributos del raster</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="cf">with</span> rio.<span class="bu">open</span>(<span class="st">'datos/datos_2016.tif'</span>) <span class="im">as</span> src:</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    crsRaster <span class="op">=</span> src.crs</span>
+<span id="cb1-7"><a href="#cb1-7"></a>    <span class="bu">print</span>(<span class="ss">f"El crs de los datos es </span><span class="sc">{</span>src<span class="sc">.</span>crs<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>          <span class="ss">f"La cantidad de bandas (datos) es </span><span class="sc">{</span>src<span class="sc">.</span>count<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a>datos_raster <span class="op">=</span> rio.<span class="bu">open</span>(<span class="st">'datos/datos_2016.tif'</span>) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>El crs de los datos es EPSG:32718
 La cantidad de bandas (datos) es 5</code></pre>
 </div>
 </div>
-<p>Debemos verificar que nuestros datos se encuentren en el mismo CRS:</p>
-<div id="0df17361" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="cf">if</span> coord_1.crs <span class="op">==</span> coord_0.crs <span class="op">==</span> crsRaster:</span>
-<span id="cb2-2"><a href="#cb2-2"></a>    <span class="bu">print</span>(<span class="st">"Todas las capas se encuentran en el mismo CRS"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="cf">else</span>:</span>
-<span id="cb2-4"><a href="#cb2-4"></a>    <span class="bu">print</span>(<span class="ss">f"coord1: </span><span class="sc">{</span>coord_1<span class="sc">.</span>crs<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>          <span class="ss">f"coord2: </span><span class="sc">{</span>coord_2<span class="sc">.</span>crs<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>          <span class="ss">f"raster:</span><span class="sc">{</span>datos_raster<span class="sc">.</span>crs<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="e03dc30d" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="cf">if</span> coord_1.crs <span class="op">==</span> coord_0.crs <span class="op">==</span> crsRaster:</span>
+<span id="cb3-2"><a href="#cb3-2"></a>    <span class="bu">print</span>(<span class="st">"Todas las capas se encuentran en el mismo CRS"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="cf">else</span>:</span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="bu">print</span>(<span class="ss">f"coord1: </span><span class="sc">{</span>coord_1<span class="sc">.</span>crs<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>          <span class="ss">f"coord2: </span><span class="sc">{</span>coord_2<span class="sc">.</span>crs<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>          <span class="ss">f"raster:</span><span class="sc">{</span>datos_raster<span class="sc">.</span>crs<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Todas las capas se encuentran en el mismo CRS</code></pre>
 </div>
 </div>
-<p>Ahora, a través de una función, obtendremos datos de las variables en el raster con las coordenadas de los puntos. Despues, ambas listas se convierten a <em>DataFrame</em> y se les asigna una etiqueta. Por último, se unen ambos <code>DataFrames</code>:</p>
-<div id="6be33fef" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">def</span> ext_muestras(gdf_data, raster):</span>
-<span id="cb4-2"><a href="#cb4-2"></a>    <span class="co"># Crear lista de coordenadas</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>    coordenadas <span class="op">=</span> []</span>
-<span id="cb4-4"><a href="#cb4-4"></a></span>
-<span id="cb4-5"><a href="#cb4-5"></a>    <span class="co"># Extrae un punto con sus coordenadas</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a>    <span class="cf">for</span> punto <span class="kw">in</span> gdf_data.geometry:</span>
-<span id="cb4-7"><a href="#cb4-7"></a>        coordenada <span class="op">=</span> (punto.x, punto.y)</span>
-<span id="cb4-8"><a href="#cb4-8"></a>        coordenadas.append(coordenada)</span>
-<span id="cb4-9"><a href="#cb4-9"></a>    </span>
-<span id="cb4-10"><a href="#cb4-10"></a>    <span class="co"># Crear lista de muestras</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a>    muestras <span class="op">=</span> []</span>
-<span id="cb4-12"><a href="#cb4-12"></a></span>
-<span id="cb4-13"><a href="#cb4-13"></a>    <span class="co"># Por cada muestra, extrae el valor del raster</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a>    <span class="cf">for</span> muestra <span class="kw">in</span> raster.sample(coordenadas):</span>
-<span id="cb4-15"><a href="#cb4-15"></a>        muestras.append(muestra)</span>
-<span id="cb4-16"><a href="#cb4-16"></a>        </span>
-<span id="cb4-17"><a href="#cb4-17"></a>    <span class="cf">return</span> muestras</span>
-<span id="cb4-18"><a href="#cb4-18"></a></span>
-<span id="cb4-19"><a href="#cb4-19"></a><span class="co"># Aplicamos la funcion en ambos puntos (ignición y no ignición) y trasnforman a df</span></span>
-<span id="cb4-20"><a href="#cb4-20"></a>muestras_1 <span class="op">=</span> ext_muestras(coord_1, datos_raster)</span>
-<span id="cb4-21"><a href="#cb4-21"></a>df_1 <span class="op">=</span> pd.DataFrame(muestras_1)</span>
-<span id="cb4-22"><a href="#cb4-22"></a>df_1[<span class="st">"etiqueta"</span>] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb4-23"><a href="#cb4-23"></a></span>
-<span id="cb4-24"><a href="#cb4-24"></a>muestras_0 <span class="op">=</span> ext_muestras(coord_0, datos_raster)</span>
-<span id="cb4-25"><a href="#cb4-25"></a>df_0 <span class="op">=</span> pd.DataFrame(muestras_0)</span>
-<span id="cb4-26"><a href="#cb4-26"></a>df_0[<span class="st">"etiqueta"</span>] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb4-27"><a href="#cb4-27"></a></span>
-<span id="cb4-28"><a href="#cb4-28"></a><span class="co"># Concatenar primero los DataFrames</span></span>
-<span id="cb4-29"><a href="#cb4-29"></a>df <span class="op">=</span> pd.concat([df_1, df_0])</span>
-<span id="cb4-30"><a href="#cb4-30"></a></span>
-<span id="cb4-31"><a href="#cb4-31"></a>df.head()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A través de una función que vamos a construir, obtendremos los datos de las variables en el raster usando las coordenadas de los puntos. Posteriormente, ambas listas se convierten a <em>DataFrame</em> y se les asigna una etiqueta. Por último, se unen ambos <em>DataFrames</em>:</p>
+<div id="ca9c2e57" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">def</span> ext_muestras(gdf_data, raster):</span>
+<span id="cb5-2"><a href="#cb5-2"></a>    <span class="co"># Crear lista de coordenadas</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>    coordenadas <span class="op">=</span> []</span>
+<span id="cb5-4"><a href="#cb5-4"></a></span>
+<span id="cb5-5"><a href="#cb5-5"></a>    <span class="co"># Extrae un punto con sus coordenadas</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>    <span class="cf">for</span> punto <span class="kw">in</span> gdf_data.geometry:</span>
+<span id="cb5-7"><a href="#cb5-7"></a>        coordenada <span class="op">=</span> (punto.x, punto.y)</span>
+<span id="cb5-8"><a href="#cb5-8"></a>        coordenadas.append(coordenada)</span>
+<span id="cb5-9"><a href="#cb5-9"></a>    </span>
+<span id="cb5-10"><a href="#cb5-10"></a>    <span class="co"># Crear lista de muestras</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>    muestras <span class="op">=</span> []</span>
+<span id="cb5-12"><a href="#cb5-12"></a></span>
+<span id="cb5-13"><a href="#cb5-13"></a>    <span class="co"># Por cada muestra, extrae el valor del raster</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a>    <span class="cf">for</span> muestra <span class="kw">in</span> raster.sample(coordenadas):</span>
+<span id="cb5-15"><a href="#cb5-15"></a>        muestras.append(muestra)</span>
+<span id="cb5-16"><a href="#cb5-16"></a>        </span>
+<span id="cb5-17"><a href="#cb5-17"></a>    <span class="cf">return</span> muestras</span>
+<span id="cb5-18"><a href="#cb5-18"></a></span>
+<span id="cb5-19"><a href="#cb5-19"></a><span class="co"># Aplicamos la funcion en ambos puntos (ignición y no ignición) y trasnforman a df</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a>muestras_1 <span class="op">=</span> ext_muestras(coord_1, datos_raster)</span>
+<span id="cb5-21"><a href="#cb5-21"></a>df_1 <span class="op">=</span> pd.DataFrame(muestras_1)</span>
+<span id="cb5-22"><a href="#cb5-22"></a>df_1[<span class="st">"etiqueta"</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb5-23"><a href="#cb5-23"></a></span>
+<span id="cb5-24"><a href="#cb5-24"></a>muestras_0 <span class="op">=</span> ext_muestras(coord_0, datos_raster)</span>
+<span id="cb5-25"><a href="#cb5-25"></a>df_0 <span class="op">=</span> pd.DataFrame(muestras_0)</span>
+<span id="cb5-26"><a href="#cb5-26"></a>df_0[<span class="st">"etiqueta"</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb5-27"><a href="#cb5-27"></a></span>
+<span id="cb5-28"><a href="#cb5-28"></a><span class="co"># Concatenar primero los DataFrames</span></span>
+<span id="cb5-29"><a href="#cb5-29"></a>df <span class="op">=</span> pd.concat([df_1, df_0])</span>
+<span id="cb5-30"><a href="#cb5-30"></a></span>
+<span id="cb5-31"><a href="#cb5-31"></a>df.head()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
@@ -389,16 +410,16 @@ La cantidad de bandas (datos) es 5</code></pre>
 </div>
 </div>
 </div>
-<p>Para poder ingresar los datos correctamente al modelo debemos inputar dos arrays. Uno conteniendo únicamente los valores de los datos y otro conteniendo las etiquetas de estas:</p>
-<div id="bc28144e" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>X <span class="op">=</span> df.drop(<span class="st">'etiqueta'</span>, axis<span class="op">=</span><span class="dv">1</span>).to_numpy()</span>
-<span id="cb5-2"><a href="#cb5-2"></a>y <span class="op">=</span> df[<span class="st">'etiqueta'</span>].to_numpy()</span>
-<span id="cb5-3"><a href="#cb5-3"></a></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="bu">print</span>(<span class="ss">f"Array con valores </span><span class="ch">\n</span><span class="ss">"</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a>      <span class="ss">f"</span><span class="sc">{</span>X<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb5-6"><a href="#cb5-6"></a></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="bu">print</span>(<span class="ss">f"Array con etiquetas</span><span class="ch">\n</span><span class="ss">"</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a>      <span class="ss">f" </span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Para ingresar los datos correctamente al algoritmo de <em>Random Forest</em>, debemos separar los datos en dos arrays. Uno conteniendo únicamente los valores de los datos y otro conteniendo las etiquetas para cada observación.</p>
+<div id="a3054f90" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>X <span class="op">=</span> df.drop(<span class="st">'etiqueta'</span>, axis<span class="op">=</span><span class="dv">1</span>).to_numpy()</span>
+<span id="cb6-2"><a href="#cb6-2"></a>y <span class="op">=</span> df[<span class="st">'etiqueta'</span>].to_numpy()</span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="bu">print</span>(<span class="ss">f"Array con valores </span><span class="ch">\n</span><span class="ss">"</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>      <span class="ss">f"</span><span class="sc">{</span>X<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6"></a></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="bu">print</span>(<span class="ss">f"Array con etiquetas</span><span class="ch">\n</span><span class="ss">"</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>      <span class="ss">f" </span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Array con valores 
 [[0.2723342  0.0053401  0.05634571 0.03840931 0.08405565]
@@ -415,26 +436,26 @@ Array con etiquetas
 </section>
 <section id="entrenamiento" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="entrenamiento"><span class="header-section-number">5.2</span> Entrenamiento</h2>
-<div id="6c7bdb2e" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="annotated-cell-5"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-5-1"><a href="#annotated-cell-5-1"></a><span class="co"># Particion de datos</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-5-2" class="code-annotation-target"><a href="#annotated-cell-5-2"></a>trainX, testX, trainy, testy <span class="op">=</span> train_test_split(X,</span>
-<span id="annotated-cell-5-3"><a href="#annotated-cell-5-3"></a>                                                y,</span>
-<span id="annotated-cell-5-4"><a href="#annotated-cell-5-4"></a>                                                test_size <span class="op">=</span> <span class="fl">0.3</span>,</span>
-<span id="annotated-cell-5-5"><a href="#annotated-cell-5-5"></a>                                                shuffle <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="annotated-cell-5-6"><a href="#annotated-cell-5-6"></a><span class="co"># Activar el modelo RandomForestRegressor</span></span>
-<span id="annotated-cell-5-7"><a href="#annotated-cell-5-7"></a>modelo_RF <span class="op">=</span> RandomForestRegressor()</span>
-<span id="annotated-cell-5-8"><a href="#annotated-cell-5-8"></a></span>
-<span id="annotated-cell-5-9"><a href="#annotated-cell-5-9"></a><span class="co"># Entrena el modelo con los datos de entrenamiento</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-5-10" class="code-annotation-target"><a href="#annotated-cell-5-10"></a>modelo_RF.fit(trainX, trainy)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="42af3899" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="annotated-cell-6"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-6-1"><a href="#annotated-cell-6-1"></a><span class="co"># Particion de datos</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-6-2" class="code-annotation-target"><a href="#annotated-cell-6-2"></a>trainX, testX, trainy, testy <span class="op">=</span> train_test_split(X,</span>
+<span id="annotated-cell-6-3"><a href="#annotated-cell-6-3"></a>                                                y,</span>
+<span id="annotated-cell-6-4"><a href="#annotated-cell-6-4"></a>                                                test_size <span class="op">=</span> <span class="fl">0.3</span>,</span>
+<span id="annotated-cell-6-5"><a href="#annotated-cell-6-5"></a>                                                shuffle <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="annotated-cell-6-6"><a href="#annotated-cell-6-6"></a><span class="co"># Activar el modelo RandomForestRegressor</span></span>
+<span id="annotated-cell-6-7"><a href="#annotated-cell-6-7"></a>modelo_RF <span class="op">=</span> RandomForestRegressor()</span>
+<span id="annotated-cell-6-8"><a href="#annotated-cell-6-8"></a></span>
+<span id="annotated-cell-6-9"><a href="#annotated-cell-6-9"></a><span class="co"># Entrena el modelo con los datos de entrenamiento</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-6-10" class="code-annotation-target"><a href="#annotated-cell-6-10"></a>modelo_RF.fit(trainX, trainy)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="2,3,4,5" data-code-annotation="1">La función <code>train_test_split</code> divide los datos para porciones de entrenamiento y de test. Como input necesita el array con los valores de los datos (<code>X</code>), un array con las etiquetas (<code>y</code>), el tamaño de datos para la prueba (<code>test_size</code>) y establecer si mezclar los datos (<code>shuffle</code>). Como outputs se obtienen los conjuntos de entrenamiento y de test tanto de <code>X</code> como de <code>y</code>.</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="2,3,4,5" data-code-annotation="1">La función <code>train_test_split</code> divide los datos para porciones de entrenamiento y de test. Como input necesita el array con los valores de los datos (<code>X</code>), un array con las etiquetas (<code>y</code>), el tamaño de datos para la prueba (<code>test_size</code>) y establecer si mezclar los datos (<code>shuffle</code>). Como outputs se obtienen los conjuntos de entrenamiento y de test tanto de <code>X</code> como de <code>y</code>.</span>
 </dd>
-<dt data-target-cell="annotated-cell-5" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="10" data-code-annotation="2"><code>modelo_RF.fit</code> entrena el modelo utilizando los datos de entrenamiento. Durante este, el modelo aprende relaciones entre las características y las etiquetas en los datos de entrenamiento.</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="10" data-code-annotation="2"><code>modelo_RF.fit</code> entrena el modelo utilizando los datos de entrenamiento. Durante este, el modelo aprende relaciones entre las características y las etiquetas en los datos de entrenamiento.</span>
 </dd>
 </dl>
 </div>
@@ -443,92 +464,94 @@ Array con etiquetas
 <section id="predicción-y-validación" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="predicción-y-validación"><span class="header-section-number">5.3</span> Predicción y validación</h2>
 <p>Para predecir deberemos ocupar la función <code>.predict</code>:</p>
-<div id="4d27f9f9" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Realizar predicciones con los datos de X</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>predicciones <span class="op">=</span> modelo_RF.predict(X <span class="op">=</span> testX)</span>
-<span id="cb7-3"><a href="#cb7-3"></a></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="co"># Obtiene AUC para validar</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a>metrica <span class="op">=</span> roc_auc_score(testy, predicciones)</span>
-<span id="cb7-6"><a href="#cb7-6"></a></span>
-<span id="cb7-7"><a href="#cb7-7"></a><span class="bu">print</span>(<span class="ss">f"AUC: </span><span class="sc">{</span>metrica<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="26d0d3e3" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Realizar predicciones con los datos de X</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>predicciones <span class="op">=</span> modelo_RF.predict(X <span class="op">=</span> testX)</span>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co"># Obtiene AUC para la estimación del desempeño.</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>metrica <span class="op">=</span> roc_auc_score(testy, predicciones)</span>
+<span id="cb8-6"><a href="#cb8-6"></a></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="bu">print</span>(<span class="ss">f"AUC: </span><span class="sc">{</span>metrica<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>AUC: 0.8741621376811594</code></pre>
+<pre><code>AUC: 0.8883831521739131</code></pre>
 </div>
 </div>
 </section>
-<section id="probando-el-modelo" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="probando-el-modelo"><span class="header-section-number">5.4</span> Probando el modelo</h2>
-<div id="b5a9aa8c" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="annotated-cell-7"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-7-1" class="code-annotation-target"><a href="#annotated-cell-7-1"></a>data <span class="op">=</span> rxr.open_rasterio(<span class="st">'datos/datos_2016.tif'</span>)</span>
-<span id="annotated-cell-7-2"><a href="#annotated-cell-7-2"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-7-3" class="code-annotation-target"><a href="#annotated-cell-7-3"></a>pixeles <span class="op">=</span> data.values.transpose(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>)</span>
-<span id="annotated-cell-7-4"><a href="#annotated-cell-7-4"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-7-5" class="code-annotation-target"><a href="#annotated-cell-7-5"></a>pixeles_t <span class="op">=</span> pixeles.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">5</span>)</span>
-<span id="annotated-cell-7-6"><a href="#annotated-cell-7-6"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-7-7" class="code-annotation-target"><a href="#annotated-cell-7-7"></a>pred_2016 <span class="op">=</span> modelo_RF.predict(pixeles_t)</span>
-<span id="annotated-cell-7-8"><a href="#annotated-cell-7-8"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-7-9" class="code-annotation-target"><a href="#annotated-cell-7-9"></a>mapa_pred <span class="op">=</span> pred_2016.reshape(pixeles.shape[<span class="dv">0</span>],</span>
-<span id="annotated-cell-7-10"><a href="#annotated-cell-7-10"></a>                              pixeles.shape[<span class="dv">1</span>])</span>
-<span id="annotated-cell-7-11"><a href="#annotated-cell-7-11"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-7-12" class="code-annotation-target"><a href="#annotated-cell-7-12"></a>resultado <span class="op">=</span> data[<span class="dv">0</span>].copy()</span>
-<span id="annotated-cell-7-13"><a href="#annotated-cell-7-13"></a>resultado.values <span class="op">=</span> mapa_pred</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="prediciendo-con-el-modelo" class="level2 page-columns page-full" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="prediciendo-con-el-modelo"><span class="header-section-number">5.4</span> Prediciendo con el modelo</h2>
+<div id="3bae6a37" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="annotated-cell-8"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-8-1" class="code-annotation-target"><a href="#annotated-cell-8-1"></a>data <span class="op">=</span> rxr.open_rasterio(<span class="st">'datos/datos_2016.tif'</span>)</span>
+<span id="annotated-cell-8-2"><a href="#annotated-cell-8-2"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-8-3" class="code-annotation-target"><a href="#annotated-cell-8-3"></a>pixeles <span class="op">=</span> data.values.transpose(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>)</span>
+<span id="annotated-cell-8-4"><a href="#annotated-cell-8-4"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-8-5" class="code-annotation-target"><a href="#annotated-cell-8-5"></a>pixeles_t <span class="op">=</span> pixeles.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">5</span>)</span>
+<span id="annotated-cell-8-6"><a href="#annotated-cell-8-6"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-8-7" class="code-annotation-target"><a href="#annotated-cell-8-7"></a>pred_2016 <span class="op">=</span> modelo_RF.predict(pixeles_t)</span>
+<span id="annotated-cell-8-8"><a href="#annotated-cell-8-8"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-8-9" class="code-annotation-target"><a href="#annotated-cell-8-9"></a>mapa_pred <span class="op">=</span> pred_2016.reshape(pixeles.shape[<span class="dv">0</span>],</span>
+<span id="annotated-cell-8-10"><a href="#annotated-cell-8-10"></a>                              pixeles.shape[<span class="dv">1</span>])</span>
+<span id="annotated-cell-8-11"><a href="#annotated-cell-8-11"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-8-12" class="code-annotation-target"><a href="#annotated-cell-8-12"></a>resultado <span class="op">=</span> data[<span class="dv">0</span>].copy()</span>
+<span id="annotated-cell-8-13"><a href="#annotated-cell-8-13"></a>resultado.values <span class="op">=</span> mapa_pred</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="1" data-code-annotation="1">Se carga el mismo raster, con la salvedad de abrirlo con <code>rioxarray</code>.</span>
+<span data-code-cell="annotated-cell-8" data-code-lines="1" data-code-annotation="1">Se carga el mismo raster con los datos, excepto que ahora se hace con <code>rioxarray</code>.</span>
 </dd>
-<dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="3" data-code-annotation="2">Transpone los datos del raster para que las bandas estén en el último eje. En este caso pasa de (bandas, filas, columnas) a (filas, columnas, filas).</span>
+<span data-code-cell="annotated-cell-8" data-code-lines="3" data-code-annotation="2">Transpone los datos del raster para que las bandas estén en el último eje. En este caso pasa de una estructura (bandas, filas, columnas) a (filas, columnas, bandas).</span>
 </dd>
-<dt data-target-cell="annotated-cell-7" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="5" data-code-annotation="3">Reorganiza los datos en un array de 2 dimensiones. Aquí, el <code>-1</code> permite que <code>NumPy</code> calcule automáticamente el tamaño de la primera dimensión, mientras que el <code>5</code> es el número de bandas.</span>
+<span data-code-cell="annotated-cell-8" data-code-lines="5" data-code-annotation="3">Reorganiza los datos en un array de 2 dimensiones. Aquí, el <code>-1</code> permite que NumPy calcule automáticamente el tamaño de la primera dimensión, mientras que el <code>5</code> es el número de bandas.</span>
 </dd>
-<dt data-target-cell="annotated-cell-7" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="7" data-code-annotation="4">Ocupa el modelo entrenado para hacer las predicciones sobre los datos reorganizados.</span>
+<span data-code-cell="annotated-cell-8" data-code-lines="7" data-code-annotation="4">Ocupa el modelo entrenado para hacer las predicciones sobre los datos reorganizados.</span>
 </dd>
-<dt data-target-cell="annotated-cell-7" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="9,10" data-code-annotation="5">Se reorganiza de nuevo las predicciones para obtener la forma original del raster.</span>
+<span data-code-cell="annotated-cell-8" data-code-lines="9,10" data-code-annotation="5">Se reorganizan de nuevo las predicciones para obtener la forma original del raster.</span>
 </dd>
-<dt data-target-cell="annotated-cell-7" data-target-annotation="6">6</dt>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="12,13" data-code-annotation="6">Se crea una copia del raster original y asigna las predicciones a los valores del raster.</span>
+<span data-code-cell="annotated-cell-8" data-code-lines="12,13" data-code-annotation="6">Se crea una copia del raster original y asigna las predicciones a los valores del raster.</span>
 </dd>
 </dl>
 </div>
 </div>
-<p>Para observar las predicciones, podemos graficarlas gracias a <em>Matplotlib</em></p>
-<div id="63a24d10" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb9-2"><a href="#cb9-2"></a></span>
-<span id="cb9-3"><a href="#cb9-3"></a>resultado.plot(</span>
-<span id="cb9-4"><a href="#cb9-4"></a>    ax <span class="op">=</span> ax,</span>
-<span id="cb9-5"><a href="#cb9-5"></a>    cmap <span class="op">=</span> <span class="st">'viridis'</span>,</span>
-<span id="cb9-6"><a href="#cb9-6"></a>    add_colorbar <span class="op">=</span> <span class="va">True</span>,</span>
-<span id="cb9-7"><a href="#cb9-7"></a>    cbar_kwargs <span class="op">=</span> {<span class="st">'label'</span>: <span class="st">'Probabilidad de ignición'</span>})</span>
-<span id="cb9-8"><a href="#cb9-8"></a></span>
-<span id="cb9-9"><a href="#cb9-9"></a>coord_1.plot(</span>
-<span id="cb9-10"><a href="#cb9-10"></a>    ax <span class="op">=</span> ax,</span>
-<span id="cb9-11"><a href="#cb9-11"></a>    color <span class="op">=</span> <span class="st">'red'</span>,</span>
-<span id="cb9-12"><a href="#cb9-12"></a>    markersize<span class="op">=</span> <span class="dv">30</span>,</span>
-<span id="cb9-13"><a href="#cb9-13"></a>    label <span class="op">=</span> <span class="st">'Ignición'</span>)</span>
-<span id="cb9-14"><a href="#cb9-14"></a></span>
-<span id="cb9-15"><a href="#cb9-15"></a>ax.set_title(<span class="st">'Mapa de predicción de ignición 2016'</span>)</span>
-<span id="cb9-16"><a href="#cb9-16"></a>ax.legend()</span>
-<span id="cb9-17"><a href="#cb9-17"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/usr/share/miniconda/envs/tallerpython/lib/python3.10/site-packages/IPython/core/pylabtools.py:170: UserWarning: Creating legend with loc="best" can be slow with large amounts of data.
-  fig.canvas.print_figure(bytes_io, **kw)</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="05-modelado_files/figure-html/cell-11-output-2.png" class="quarto-figure quarto-figure-center figure-img" width="545" height="450"></p>
+<p>Para observar el resultado del modelo podemos usar <em>Matplotlib</em>.</p>
+<div class="page-columns page-full">
+<div id="6305f873" class="cell page-columns page-full" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>))</span>
+<span id="cb10-2"><a href="#cb10-2"></a></span>
+<span id="cb10-3"><a href="#cb10-3"></a>resultado.plot(</span>
+<span id="cb10-4"><a href="#cb10-4"></a>    ax <span class="op">=</span> ax,</span>
+<span id="cb10-5"><a href="#cb10-5"></a>    cmap <span class="op">=</span> <span class="st">'viridis'</span>,</span>
+<span id="cb10-6"><a href="#cb10-6"></a>    add_colorbar <span class="op">=</span> <span class="va">True</span>,</span>
+<span id="cb10-7"><a href="#cb10-7"></a>    cbar_kwargs <span class="op">=</span> {<span class="st">'label'</span>: <span class="st">'Probabilidad de ignición'</span>})</span>
+<span id="cb10-8"><a href="#cb10-8"></a></span>
+<span id="cb10-9"><a href="#cb10-9"></a>coord_1.plot(</span>
+<span id="cb10-10"><a href="#cb10-10"></a>    ax <span class="op">=</span> ax,</span>
+<span id="cb10-11"><a href="#cb10-11"></a>    color <span class="op">=</span> <span class="st">'red'</span>,</span>
+<span id="cb10-12"><a href="#cb10-12"></a>    markersize<span class="op">=</span> <span class="dv">15</span>,</span>
+<span id="cb10-13"><a href="#cb10-13"></a>    label <span class="op">=</span> <span class="st">'Ignición'</span>)</span>
+<span id="cb10-14"><a href="#cb10-14"></a></span>
+<span id="cb10-15"><a href="#cb10-15"></a>ax.set_title(<span class="st">'Probabilidad de ignición año 2016'</span>)</span>
+<span id="cb10-16"><a href="#cb10-16"></a>ax.set_ylabel(<span class="st">""</span>)</span>
+<span id="cb10-17"><a href="#cb10-17"></a>ax.set_xlabel(<span class="st">""</span>)</span>
+<span id="cb10-18"><a href="#cb10-18"></a></span>
+<span id="cb10-19"><a href="#cb10-19"></a></span>
+<span id="cb10-20"><a href="#cb10-20"></a>ax.legend()</span>
+<span id="cb10-21"><a href="#cb10-21"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="05-modelado_files/figure-html/cell-11-output-1.png" class="quarto-figure quarto-figure-center figure-img column-body-outset" width="778" height="771"></p>
 </figure>
+</div>
 </div>
 </div>
 </div>
@@ -1103,8 +1126,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./04-analisisTemporal.html" class="pagination-link" aria-label="Análisis Temporal y Monitoreo de Incendios">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Análisis Temporal y Monitoreo de Incendios</span></span>
+      <a href="./04-analisisTemporal.html" class="pagination-link" aria-label="Análisis Temporal y Estadística Zonal">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Análisis Temporal y Estadística Zonal</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

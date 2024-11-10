@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; Análisis Temporal y Monitoreo de Incendios – Python y librerías Geoespaciales para el análisis de datos en el contexto de los Incendios Forestales</title>
+<title>4&nbsp; Análisis Temporal y Estadística Zonal – Python y librerías Geoespaciales para el análisis de datos en el contexto de los Incendios Forestales</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,10 +20,44 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -70,6 +104,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Buscar"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="style.css">
@@ -84,7 +121,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-analisisTemporal.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Análisis Temporal y Monitoreo de Incendios</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-analisisTemporal.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Análisis Temporal y Estadística Zonal</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -144,7 +181,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-analisisTemporal.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Análisis Temporal y Monitoreo de Incendios</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Análisis Temporal y Estadística Zonal</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -158,15 +195,23 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción"><span class="header-section-number">4.1</span> Introducción</a></li>
+  <li><a href="#dentro-de-python" id="toc-dentro-de-python" class="nav-link" data-scroll-target="#dentro-de-python"><span class="header-section-number">4.2</span> Dentro de <em>Python</em></a></li>
+  <li><a href="#ejercicios" id="toc-ejercicios" class="nav-link" data-scroll-target="#ejercicios">Ejercicios</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Análisis Temporal y Monitoreo de Incendios</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Análisis Temporal y Estadística Zonal</span></h1>
 </div>
 
 
@@ -183,8 +228,342 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="introducción" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="introducción"><span class="header-section-number">4.1</span> Introducción</h2>
+<p>La estadística zonal es una técnica utilizada en los Sistemas de Información Geográfica (<em>GIS</em>) para analizar las propiedades de los valores de un raster dentro de zonas específicas definidas por otro raster o capa vectorial. Este método implica el cálculo de estadísticas descriptivas (como la media, la mediana, el máximo, el mínimo, la desviación estándar, etc.) para los valores de los píxeles que caen dentro de cada zona. Las zonas son definidas normalmente por atributos como regiones administrativas, tipos de hábitat, categorías de uso del suelo, entre otros.</p>
+<p>La importancia de la estadística zonal en GIS radica en su capacidad para proporcionar información detallada y contextual sobre áreas específicas, permitiendo análisis espaciales más precisos y fundamentados. Algunos ejemplos de su aplicación incluyen:</p>
+<ul>
+<li><p>Estudios Ambientales: en un análisis de la calidad del aire, se podrían utilizar estadísticas zonales para calcular la concentración media de contaminantes en diferentes zonas urbanas, ayudando a identificar áreas con niveles de contaminación críticos.</p></li>
+<li><p>Planificación Urbana y Regional: puede utilizarse para evaluar la densidad de población o el uso del suelo en diferentes barrios o distritos, lo que es crucial para la toma de decisiones en cuanto a infraestructura, servicios y regulaciones de zonificación.</p></li>
+<li><p>Agricultura y Gestión de Recursos Naturales: pueden aplicarse para analizar variables como la humedad del suelo, los rendimientos de los cultivos o la topografía en diferentes parcelas, lo que ayuda en la gestión de recursos y la toma de decisiones agrícolas.</p></li>
+<li><p>Estudios de Biodiversidad y Conservación: se pueden usar para evaluar la distribución de especies o la cobertura de hábitat en diferentes áreas protegidas o ecosistemas.</p></li>
+<li><p>Gestión de Desastres y Respuesta de Emergencia: permite analizar el impacto de eventos como inundaciones, incendios forestales o terremotos en diferentes zonas, lo que es esencial para la planificación de la respuesta de emergencia y la rehabilitación.</p></li>
+</ul>
+<p>La estadística zonal es una herramienta poderosa que facilita el análisis espacial detallado y contextualizado, apoyando la toma de decisiones informada en una amplia gama de campos.</p>
+<p>En este caso, en el NDVI obtenido en el <a href="03-imagenes.html" class="quarto-xref">Módulo&nbsp;<span>3</span></a>, calcularemos los principales estadígrafos (media, desviación estándar, mínimo, máximo y mediana) a distintos sitios dentro de la zona. Si quiere seguir el esta demostración puedeo obtener los datos en el siguiente <a href="">enlace</a>.</p>
+</section>
+<section id="dentro-de-python" class="level2 page-columns page-full" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="dentro-de-python"><span class="header-section-number">4.2</span> Dentro de <em>Python</em></h2>
+<div class="page-columns page-full">
+<div id="b637a583" class="cell page-columns page-full" data-execution_count="2">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Importacion de librerias</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> os</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">import</span> rasterio <span class="im">as</span> rio</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="im">import</span> earthpy.plot <span class="im">as</span> ep</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="im">import</span> rioxarray <span class="im">as</span> rxr</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># Carga de sitios (puntos)</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>puntosAOI <span class="op">=</span> gpd.read_file(<span class="st">"puntosVal.shp"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co"># Cargamos nuestro raster a traves de rioxarray (para mantener atributos del raster)</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>valdiNdvi <span class="op">=</span> rxr.open_rasterio(<span class="st">"ndviValdivia.tif"</span>)</span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="co"># Visualizacion</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a>f, ax <span class="op">=</span> plt.subplots(figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb1-19"><a href="#cb1-19"></a></span>
+<span id="cb1-20"><a href="#cb1-20"></a>valdiNdvi.plot(ax <span class="op">=</span> ax, </span>
+<span id="cb1-21"><a href="#cb1-21"></a>           cmap <span class="op">=</span> <span class="st">'RdYlGn'</span>, </span>
+<span id="cb1-22"><a href="#cb1-22"></a>           vmin <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>, </span>
+<span id="cb1-23"><a href="#cb1-23"></a>           vmax <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb1-24"><a href="#cb1-24"></a></span>
+<span id="cb1-25"><a href="#cb1-25"></a>puntosAOI.plot(ax <span class="op">=</span> ax,</span>
+<span id="cb1-26"><a href="#cb1-26"></a>            color <span class="op">=</span> <span class="st">"blue"</span>,</span>
+<span id="cb1-27"><a href="#cb1-27"></a>            marker <span class="op">=</span> <span class="st">"*"</span>,</span>
+<span id="cb1-28"><a href="#cb1-28"></a>            markersize <span class="op">=</span> <span class="dv">10</span>)</span>
+<span id="cb1-29"><a href="#cb1-29"></a></span>
+<span id="cb1-30"><a href="#cb1-30"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(puntosAOI)):</span>
+<span id="cb1-31"><a href="#cb1-31"></a>    ax.annotate(puntosAOI[<span class="st">"id"</span>].iloc[i],</span>
+<span id="cb1-32"><a href="#cb1-32"></a>                (puntosAOI.geometry.x[i] <span class="op">-</span> <span class="dv">380</span>, puntosAOI.geometry.y[i] <span class="op">-</span> <span class="dv">300</span>))</span>
+<span id="cb1-33"><a href="#cb1-33"></a></span>
+<span id="cb1-34"><a href="#cb1-34"></a>ax.set_title(<span class="st">"NDVI en Valdivia sitios de interés"</span>)</span>
+<span id="cb1-35"><a href="#cb1-35"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="04-analisisTemporal_files/figure-html/cell-3-output-1.png" class="quarto-figure quarto-figure-center figure-img column-body-outset" width="797" height="646"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>Note que los sitios de interés son elementos vectoriales de tipo punto, por lo que, con ellos no es posible obtener los estadígrafos (ya que solo contienen un valor). Para arreglar esto, crearemos un área buffer de 250 metros.</p>
+<div id="73481c86" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Copiamos los puntos para crear las areas buffer</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>puntosBuffer <span class="op">=</span> puntosAOI.copy()</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># Reemplazamos la geometria original (de puntos) por la calculada (buffer)</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>puntosBuffer[<span class="st">'geometry'</span>] <span class="op">=</span> puntosBuffer.geometry.<span class="bu">buffer</span>(distance <span class="op">=</span> <span class="dv">250</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>La delimitación del tamaño del área buffer depende del CRS de sus capas. En este caso, debido a que las capas se encuentran en el EPSG:32718, el sistema de medida a ocupar será en metros.</p>
+</div>
+</div>
+</div>
+<p>Así se ven las zonas buffer creadas a partir de los puntos</p>
+<div class="page-columns page-full">
+<div id="1880aded" class="cell page-columns page-full" data-execution_count="4">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>f, ax <span class="op">=</span> plt.subplots(figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a>valdiNdvi.plot(ax <span class="op">=</span> ax, </span>
+<span id="cb3-4"><a href="#cb3-4"></a>           cmap <span class="op">=</span> <span class="st">'RdYlGn'</span>, </span>
+<span id="cb3-5"><a href="#cb3-5"></a>           vmin <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>, </span>
+<span id="cb3-6"><a href="#cb3-6"></a>           vmax <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a>puntosBuffer.plot(ax <span class="op">=</span> ax,</span>
+<span id="cb3-9"><a href="#cb3-9"></a>            edgecolor <span class="op">=</span> <span class="st">"blue"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10"></a>            facecolor <span class="op">=</span> <span class="st">"none"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11"></a>            hatch <span class="op">=</span> <span class="st">"////"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12"></a></span>
+<span id="cb3-13"><a href="#cb3-13"></a>ax.set_title(<span class="st">"NDVI en Valdivia con buffers de interés"</span>)</span>
+<span id="cb3-14"><a href="#cb3-14"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="04-analisisTemporal_files/figure-html/cell-5-output-1.png" class="quarto-figure quarto-figure-center figure-img column-body-outset" width="797" height="646"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>Una vez creado el buffer, se extraen los valores desde el raster y se calcula los estadísticos de interes.</p>
+<div id="e975cb31" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Lista vacia</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>estadisticas <span class="op">=</span> []</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co"># For loop para extraccion</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(puntosBuffer)):</span>
+<span id="cb4-6"><a href="#cb4-6"></a>    </span>
+<span id="cb4-7"><a href="#cb4-7"></a>    <span class="co"># Se extrae el nombre del sitio</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>    idFila <span class="op">=</span> puntosBuffer[<span class="st">"id"</span>].iloc[x]</span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a>    <span class="co"># Selección de la geometria</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>    geometriaFila <span class="op">=</span> puntosBuffer.iloc[[x]].geometry </span>
+<span id="cb4-12"><a href="#cb4-12"></a>    </span>
+<span id="cb4-13"><a href="#cb4-13"></a>    <span class="co"># Recorte</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a>    parcelaPix <span class="op">=</span> valdiNdvi.rio.clip(geometriaFila) </span>
+<span id="cb4-15"><a href="#cb4-15"></a>    </span>
+<span id="cb4-16"><a href="#cb4-16"></a>    <span class="co"># Aplanamos los valores a un array de una sola dimension</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a>    parcelaValores <span class="op">=</span> parcelaPix.values.flatten()</span>
+<span id="cb4-18"><a href="#cb4-18"></a>    </span>
+<span id="cb4-19"><a href="#cb4-19"></a>    <span class="co"># Sacamos los NaN</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a>    valores <span class="op">=</span> parcelaValores[<span class="op">~</span> np.isnan(parcelaValores)]</span>
+<span id="cb4-21"><a href="#cb4-21"></a>    </span>
+<span id="cb4-22"><a href="#cb4-22"></a>    <span class="co"># Se calculan los estadigrafos</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a>    media <span class="op">=</span> np.mean(valores)</span>
+<span id="cb4-24"><a href="#cb4-24"></a>    mediana <span class="op">=</span> np.median(valores)</span>
+<span id="cb4-25"><a href="#cb4-25"></a>    sd <span class="op">=</span> np.std(valores)</span>
+<span id="cb4-26"><a href="#cb4-26"></a>    minimo <span class="op">=</span> np.<span class="bu">min</span>(valores)</span>
+<span id="cb4-27"><a href="#cb4-27"></a>    maximo <span class="op">=</span> np.<span class="bu">max</span>(valores)</span>
+<span id="cb4-28"><a href="#cb4-28"></a>    </span>
+<span id="cb4-29"><a href="#cb4-29"></a>    <span class="co"># Se agregan a la lista anteriormente creada</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a>    estadisticas.append({</span>
+<span id="cb4-31"><a href="#cb4-31"></a>        <span class="st">'id'</span>: idFila,</span>
+<span id="cb4-32"><a href="#cb4-32"></a>        <span class="st">'media'</span>: media,</span>
+<span id="cb4-33"><a href="#cb4-33"></a>        <span class="st">'mediana'</span>: mediana,</span>
+<span id="cb4-34"><a href="#cb4-34"></a>        <span class="st">'sd'</span>: sd,</span>
+<span id="cb4-35"><a href="#cb4-35"></a>        <span class="st">'minimo'</span>: minimo,</span>
+<span id="cb4-36"><a href="#cb4-36"></a>        <span class="st">'maximo'</span>: maximo</span>
+<span id="cb4-37"><a href="#cb4-37"></a>    })</span>
+<span id="cb4-38"><a href="#cb4-38"></a>    </span>
+<span id="cb4-39"><a href="#cb4-39"></a><span class="co"># Convertimos en un DataFrame</span></span>
+<span id="cb4-40"><a href="#cb4-40"></a>estadisticas <span class="op">=</span> pd.DataFrame(estadisticas)</span>
+<span id="cb4-41"><a href="#cb4-41"></a></span>
+<span id="cb4-42"><a href="#cb4-42"></a><span class="co"># Unimos nuestro gdf de buffer con el de estadisticas</span></span>
+<span id="cb4-43"><a href="#cb4-43"></a>puntosBuffer <span class="op">=</span> puntosBuffer.merge(estadisticas,</span>
+<span id="cb4-44"><a href="#cb4-44"></a>                                  how <span class="op">=</span> <span class="st">"inner"</span>)</span>
+<span id="cb4-45"><a href="#cb4-45"></a></span>
+<span id="cb4-46"><a href="#cb4-46"></a>puntosBuffer</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
 
 
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th">geometry</th>
+<th data-quarto-table-cell-role="th">media</th>
+<th data-quarto-table-cell-role="th">mediana</th>
+<th data-quarto-table-cell-role="th">sd</th>
+<th data-quarto-table-cell-role="th">minimo</th>
+<th data-quarto-table-cell-role="th">maximo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Sitio 1</td>
+<td>POLYGON ((653575.211 5589444.45, 653574.007 55...</td>
+<td>0.167249</td>
+<td>0.158344</td>
+<td>0.131650</td>
+<td>-0.200989</td>
+<td>0.847045</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Sitio 2</td>
+<td>POLYGON ((657751.113 5587109.038, 657749.909 5...</td>
+<td>0.884141</td>
+<td>0.888256</td>
+<td>0.030674</td>
+<td>0.764588</td>
+<td>0.955374</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Sitio 3</td>
+<td>POLYGON ((647863.596 5587432.921, 647862.392 5...</td>
+<td>-0.533523</td>
+<td>-0.520000</td>
+<td>0.105754</td>
+<td>-0.865546</td>
+<td>-0.235294</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Sitio 4</td>
+<td>POLYGON ((653486.052 5594718.46, 653484.848 55...</td>
+<td>0.467598</td>
+<td>0.431419</td>
+<td>0.160849</td>
+<td>0.199051</td>
+<td>0.933968</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Sitio 5</td>
+<td>POLYGON ((650214.474 5593885.099, 650213.27 55...</td>
+<td>0.753121</td>
+<td>0.780255</td>
+<td>0.081850</td>
+<td>0.382153</td>
+<td>0.872004</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>Sitio 6</td>
+<td>POLYGON ((648314.848 5591447.791, 648313.644 5...</td>
+<td>0.542913</td>
+<td>0.563952</td>
+<td>0.108113</td>
+<td>-0.037657</td>
+<td>0.771179</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>Sitio 7</td>
+<td>POLYGON ((656519.267 5591356.813, 656518.064 5...</td>
+<td>0.884160</td>
+<td>0.886569</td>
+<td>0.031950</td>
+<td>0.768481</td>
+<td>0.973029</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Finalmente podemos visualizar nuestro resultado.</p>
+<div class="page-columns page-full">
+<div id="400b2551" class="cell page-columns page-full" data-execution_count="6">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a>valdiNdvi.plot(ax <span class="op">=</span> ax, </span>
+<span id="cb5-4"><a href="#cb5-4"></a>               cmap <span class="op">=</span> <span class="st">'RdYlGn'</span>, </span>
+<span id="cb5-5"><a href="#cb5-5"></a>               vmin <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>, </span>
+<span id="cb5-6"><a href="#cb5-6"></a>               vmax <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co"># Etiquetas</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(puntosBuffer)):</span>
+<span id="cb5-9"><a href="#cb5-9"></a>    <span class="co"># Nombre</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>    ax.annotate(puntosBuffer[<span class="st">"id"</span>].iloc[i],</span>
+<span id="cb5-11"><a href="#cb5-11"></a>                (puntosAOI.geometry.x[i] <span class="op">-</span> <span class="dv">380</span>, puntosAOI.geometry.y[i] <span class="op">-</span> <span class="dv">550</span>))</span>
+<span id="cb5-12"><a href="#cb5-12"></a>    </span>
+<span id="cb5-13"><a href="#cb5-13"></a>    <span class="co"># Media</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a>    ax.annotate(<span class="bu">round</span>(puntosBuffer[<span class="st">"media"</span>].iloc[i], <span class="dv">3</span>),</span>
+<span id="cb5-15"><a href="#cb5-15"></a>                (puntosAOI.geometry.x[i] <span class="op">-</span> <span class="dv">380</span>, puntosAOI.geometry.y[i]<span class="op">-</span> <span class="dv">900</span>))</span>
+<span id="cb5-16"><a href="#cb5-16"></a></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="co"># Buffer</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a>puntosBuffer.plot(ax <span class="op">=</span> ax,</span>
+<span id="cb5-19"><a href="#cb5-19"></a>            edgecolor <span class="op">=</span> <span class="st">"blue"</span>,</span>
+<span id="cb5-20"><a href="#cb5-20"></a>            facecolor <span class="op">=</span> <span class="st">"none"</span>,</span>
+<span id="cb5-21"><a href="#cb5-21"></a>            hatch <span class="op">=</span> <span class="st">"////"</span>)</span>
+<span id="cb5-22"><a href="#cb5-22"></a></span>
+<span id="cb5-23"><a href="#cb5-23"></a>ax.set_title(<span class="st">"Media de NDVI en cada buffer"</span>)</span>
+<span id="cb5-24"><a href="#cb5-24"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="04-analisisTemporal_files/figure-html/cell-7-output-1.png" class="quarto-figure quarto-figure-center figure-img column-body-outset" width="797" height="646"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="f744940c" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a>ax.scatter(x <span class="op">=</span> puntosBuffer[<span class="st">"id"</span>],</span>
+<span id="cb6-4"><a href="#cb6-4"></a>           y <span class="op">=</span> puntosBuffer[<span class="st">"media"</span>])</span>
+<span id="cb6-5"><a href="#cb6-5"></a></span>
+<span id="cb6-6"><a href="#cb6-6"></a>ax.errorbar(</span>
+<span id="cb6-7"><a href="#cb6-7"></a>    x <span class="op">=</span> puntosBuffer[<span class="st">"id"</span>],</span>
+<span id="cb6-8"><a href="#cb6-8"></a>    y <span class="op">=</span> puntosBuffer[<span class="st">"media"</span>],</span>
+<span id="cb6-9"><a href="#cb6-9"></a>    yerr <span class="op">=</span> puntosBuffer[<span class="st">"sd"</span>],  <span class="co"># Barra de error ± 1 desviación estándar</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a>    fmt <span class="op">=</span> <span class="st">'o'</span>,  <span class="co"># Marcador para los puntos</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a>    ecolor <span class="op">=</span> <span class="st">'gray'</span>,  <span class="co"># Color de las barras de error</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a>    capsize <span class="op">=</span> <span class="dv">4</span>)       <span class="co"># Tamaño de las líneas en los extremos de la barra</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a></span>
+<span id="cb6-14"><a href="#cb6-14"></a>ax.set_title(<span class="st">"Media ± SD para cada sitio"</span>)</span>
+<span id="cb6-15"><a href="#cb6-15"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="04-analisisTemporal_files/figure-html/cell-8-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="582" height="431"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicios" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="ejercicios">Ejercicios</h2>
+<ol type="1">
+<li><p>Obtenga un gráfico de caja y bigotes (<em>boxplot</em>) para cada sitio.</p></li>
+<li><p>Con el siguiente set de <a href="">datos</a> obtenga el NDVI promedio para el fundo El Desprecio. Este fundo … . Los datos consisten en 9 imágenes <em>Landsat</em> desde septiembre de 2016 a septiembre 2017. Todas las imágenes tienen 4 bandas, (<em>R</em>, <em>G</em>, <em>B</em> y <em>NIR</em>).</p></li>
+</ol>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

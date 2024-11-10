@@ -207,7 +207,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-analisisTemporal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Análisis Temporal y Monitoreo de Incendios</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Análisis Temporal y Estadística Zonal</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -248,7 +248,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Procesamiento de Imágenes Satelitales para el Monitoreo de Incendios</span></h1>
+<h1 class="title"><span id="sec-indices" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Procesamiento de Imágenes Satelitales para el Monitoreo de Incendios</span></span></h1>
 </div>
 
 
@@ -446,7 +446,7 @@ BAI=\frac{1}{(0.1-Red)^2+(0.06-NIR)^2}
 <span id="cb1-29"><a href="#cb1-29"></a>ax.set_title(<span class="st">"NDVI en Valdivia"</span>)</span>
 <span id="cb1-30"><a href="#cb1-30"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div id="lst-trasnform" class="listing quarto-float quarto-figure quarto-figure-left anchored" height="417" width="479" data-fig-align="center">
+<div id="lst-trasnform" class="listing quarto-float quarto-figure quarto-figure-left anchored" height="417" data-fig-align="center" width="479">
 <figure class="quarto-float quarto-float-lst figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-trasnform-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Listado&nbsp;3.1
@@ -464,7 +464,7 @@ Listado&nbsp;3.1
 <h2 data-number="3.2" class="anchored" data-anchor-id="discretización-de-datos-raster"><span class="header-section-number">3.2</span> Discretización de datos Raster</h2>
 <p>Los índices entregan valores continuos en un rango determinado, no obstante, para obtener las categorías de interés, es necesario encontrar ciertos valores o umbrales que permitan esa separación. Generalmente esos umbrales vienen dados o se pueden establecer desde calibraciones en campo o con gráficos de distribución de los valores.</p>
 <p>En este caso, se mostrará una segmentación simple del NDVI anteriormente calculado. En este, valores mayores a <code>0.5</code> serán una categoría, mientras que valores menores o iguales <code>0.5</code> será otra categoría.</p>
-<div id="e3e3a635" class="cell" data-execution_count="3">
+<div id="26f71415" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Creamos una copia de la variable original</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>ndvi_clases <span class="op">=</span> NDVI.copy()</span>
 <span id="cb2-3"><a href="#cb2-3"></a></span>
@@ -472,7 +472,7 @@ Listado&nbsp;3.1
 <span id="cb2-5"><a href="#cb2-5"></a>ndvi_clases[np.where((NDVI <span class="op">&gt;</span> <span class="fl">0.5</span>))] <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb2-6"><a href="#cb2-6"></a>ndvi_clases[np.where((NDVI <span class="op">&lt;=</span> <span class="fl">0.5</span>))] <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb2-7"><a href="#cb2-7"></a></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co"># Visualizacion+</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co"># Visualizacion</span></span>
 <span id="cb2-9"><a href="#cb2-9"></a>f, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb2-10"><a href="#cb2-10"></a>ep.plot_bands(ndvi_clases,</span>
 <span id="cb2-11"><a href="#cb2-11"></a>              cmap<span class="op">=</span><span class="st">"RdYlGn"</span>,</span>
@@ -507,7 +507,7 @@ Nota
 </div>
 </div>
 <p>Una vez hecho teniendo el objeto de tipo <code>generator</code>, se transformará a un <em>GeoDataFrame</em> el cual servirá para su visualización:</p>
-<div id="0fc61c75" class="cell" data-execution_count="4">
+<div id="a4d732ac" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#Importancion de librerias</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="im">import</span> shapely <span class="co"># Nos permite transformar geometrías.</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="im">import</span> rasterio.features <span class="im">as</span> features <span class="co"># Contiene una función para vectorizar.</span></span>
@@ -551,20 +551,34 @@ Nota
 <h2 data-number="3.4" class="anchored" data-anchor-id="exportación-de-archivos"><span class="header-section-number">3.4</span> Exportación de archivos</h2>
 <p>Una vez creados los archivos de interés (ya sea raster o vectorial), podemos exportarlos de la siguiente manera:</p>
 <p>Para datos raster:</p>
-<div id="17267d73" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="cf">with</span> rio.<span class="bu">open</span>(<span class="st">"ndvi_clases.tif"</span>, <span class="co"># Crea el archivo</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>              <span class="st">'w'</span>, <span class="co"># En modo escritura (write)</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>              driver <span class="op">=</span> <span class="st">'GTiff'</span>,  <span class="co"># Especifica el controlador (formato) del archivo, en este caso GeoTIFF</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a>              height <span class="op">=</span> ndvi_clases.shape[<span class="dv">0</span>], <span class="co"># Alto de raster</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a>              width <span class="op">=</span> ndvi_clases.shape[<span class="dv">1</span>], <span class="co"># Ancho de raster</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a>              count <span class="op">=</span> <span class="dv">1</span>, <span class="co"># Número de bandas en el raster </span></span>
-<span id="cb4-7"><a href="#cb4-7"></a>              crs <span class="op">=</span> crs, <span class="co"># Sistema de referencia de coordenadas (CRS) del raster</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a>              transform <span class="op">=</span> transform, <span class="co"># Transformación de afinidad del raster</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a>              dtype <span class="op">=</span> <span class="st">"float32"</span>) <span class="im">as</span> dst: <span class="co"># Tipo de dato de los valores del raster</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a>    dst.write(ndvi_clases, <span class="dv">1</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="4c8ae5ee" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Para raster con el NDVI calculado =========</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="cf">with</span> rio.<span class="bu">open</span>(<span class="st">"ndviValdivia.tif"</span>, <span class="co"># Crea el archivo</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>              <span class="st">'w'</span>, <span class="co"># En modo escritura (write)</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>              driver <span class="op">=</span> <span class="st">'GTiff'</span>,  <span class="co"># Especifica el controlador (formato) del archivo, en este caso GeoTIFF</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>              height <span class="op">=</span> NDVI.shape[<span class="dv">0</span>], <span class="co"># Alto de raster</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>              width <span class="op">=</span> NDVI.shape[<span class="dv">1</span>], <span class="co"># Ancho de raster</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>              count <span class="op">=</span> <span class="dv">1</span>, <span class="co"># Número de bandas en el raster </span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>              crs <span class="op">=</span> crs, <span class="co"># Sistema de referencia de coordenadas (CRS) del raster</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>              transform <span class="op">=</span> transform, <span class="co"># Transformación de afinidad del raster</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>              dtype <span class="op">=</span> <span class="st">"float32"</span>) <span class="im">as</span> dst: <span class="co"># Tipo de dato de los valores del raster</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a>    dst.write(NDVI, <span class="dv">1</span>)</span>
+<span id="cb4-13"><a href="#cb4-13"></a></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co"># Para el raster con las clases del NDVI =========</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="cf">with</span> rio.<span class="bu">open</span>(<span class="st">"ndvi_clases.tif"</span>, <span class="co"># Crea el archivo</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a>              <span class="st">'w'</span>, <span class="co"># En modo escritura (write)</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a>              driver <span class="op">=</span> <span class="st">'GTiff'</span>,  <span class="co"># Especifica el controlador (formato) del archivo, en este caso GeoTIFF</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a>              height <span class="op">=</span> ndvi_clases.shape[<span class="dv">0</span>], <span class="co"># Alto de raster</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a>              width <span class="op">=</span> ndvi_clases.shape[<span class="dv">1</span>], <span class="co"># Ancho de raster</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a>              count <span class="op">=</span> <span class="dv">1</span>, <span class="co"># Número de bandas en el raster </span></span>
+<span id="cb4-21"><a href="#cb4-21"></a>              crs <span class="op">=</span> crs, <span class="co"># Sistema de referencia de coordenadas (CRS) del raster</span></span>
+<span id="cb4-22"><a href="#cb4-22"></a>              transform <span class="op">=</span> transform, <span class="co"># Transformación de afinidad del raster</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a>              dtype <span class="op">=</span> <span class="st">"float32"</span>) <span class="im">as</span> dst: <span class="co"># Tipo de dato de los valores del raster</span></span>
+<span id="cb4-24"><a href="#cb4-24"></a>    dst.write(ndvi_clases, <span class="dv">1</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Para datos vectoriales:</p>
-<div id="4800dfb3" class="cell" data-execution_count="6">
+<div id="462a4789" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>lista_geo.to_file(<span class="st">"ndvi_vectrorial.shp"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -1153,8 +1167,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./04-analisisTemporal.html" class="pagination-link" aria-label="Análisis Temporal y Monitoreo de Incendios">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Análisis Temporal y Monitoreo de Incendios</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./04-analisisTemporal.html" class="pagination-link" aria-label="Análisis Temporal y Estadística Zonal">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Análisis Temporal y Estadística Zonal</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
