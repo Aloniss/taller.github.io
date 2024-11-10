@@ -254,7 +254,7 @@
     "href": "05-modelado.html#predicción-y-validación",
     "title": "5  Modelado y Predicción del Comportamiento de Incendios",
     "section": "5.3 Predicción y validación",
-    "text": "5.3 Predicción y validación\nPara predecir deberemos ocupar la función .predict:\n\n# Realizar predicciones con los datos de X\npredicciones = modelo_RF.predict(X = testX)\n\n# Obtiene AUC para la estimación del desempeño.\nmetrica = roc_auc_score(testy, predicciones)\n\nprint(f\"AUC: {metrica}\")\n\nAUC: 0.8711510222523438",
+    "text": "5.3 Predicción y validación\nPara predecir deberemos ocupar la función .predict:\n\n# Realizar predicciones con los datos de X\npredicciones = modelo_RF.predict(X = testX)\n\n# Obtiene AUC para la estimación del desempeño.\nmetrica = roc_auc_score(testy, predicciones)\n\nprint(f\"AUC: {metrica}\")\n\nAUC: 0.8570299801336463",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Modelado y Predicción del Comportamiento de Incendios</span>"
     ]
