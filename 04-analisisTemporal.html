@@ -240,12 +240,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Gestión de Desastres y Respuesta de Emergencia: permite analizar el impacto de eventos como inundaciones, incendios forestales o terremotos en diferentes zonas, lo que es esencial para la planificación de la respuesta de emergencia y la rehabilitación.</p></li>
 </ul>
 <p>La estadística zonal es una herramienta poderosa que facilita el análisis espacial detallado y contextualizado, apoyando la toma de decisiones informada en una amplia gama de campos.</p>
-<p>En este caso, en el NDVI obtenido en el <a href="03-imagenes.html" class="quarto-xref">Módulo&nbsp;<span>3</span></a>, calcularemos los principales estadígrafos (media, desviación estándar, mínimo, máximo y mediana) a distintos sitios dentro de la zona. Si quiere seguir el esta demostración puedeo obtener los datos en el siguiente <a href="">enlace</a>.</p>
+<p>En este caso, en el NDVI obtenido en el <a href="03-imagenes.html" class="quarto-xref">Módulo&nbsp;<span>3</span></a>, calcularemos los principales estadígrafos (media, desviación estándar, mínimo, máximo y mediana) a distintos sitios dentro de la zona. Si quiere seguir el esta demostración puedeo obtener los datos en el siguiente <a href="https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/puntoExplicacionMod4.zip">enlace</a>.</p>
 </section>
 <section id="dentro-de-python" class="level2 page-columns page-full" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="dentro-de-python"><span class="header-section-number">4.2</span> Dentro de <em>Python</em></h2>
 <div class="page-columns page-full">
-<div id="f2d3f3fd" class="cell page-columns page-full" data-execution_count="2">
+<div id="67255d5a" class="cell page-columns page-full" data-execution_count="2">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Importacion de librerias</span></span>
@@ -294,7 +294,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Note que los sitios de interés son elementos vectoriales de tipo punto, por lo que, con ellos no es posible obtener los estadígrafos (ya que solo contienen un valor). Para arreglar esto, crearemos un área buffer de 250 metros.</p>
-<div id="93aafbf3" class="cell" data-execution_count="3">
+<div id="c6b031c0" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Copiamos los puntos para crear las areas buffer</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>puntosBuffer <span class="op">=</span> puntosAOI.copy()</span>
 <span id="cb2-3"><a href="#cb2-3"></a></span>
@@ -319,7 +319,7 @@ Nota
 </div>
 <p>Así se ven las zonas buffer creadas a partir de los puntos</p>
 <div class="page-columns page-full">
-<div id="7e158dc8" class="cell page-columns page-full" data-execution_count="4">
+<div id="251adde0" class="cell page-columns page-full" data-execution_count="4">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>f, ax <span class="op">=</span> plt.subplots(figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">8</span>))</span>
@@ -347,7 +347,7 @@ Nota
 </div>
 </div>
 <p>Una vez creado el buffer, se extraen los valores desde el raster y se calcula los estadísticos de interes.</p>
-<div id="20bbbf2c" class="cell" data-execution_count="5">
+<div id="5d158d4d" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Lista vacia</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>estadisticas <span class="op">=</span> []</span>
 <span id="cb4-3"><a href="#cb4-3"></a></span>
@@ -490,7 +490,7 @@ Nota
 </div>
 <p>Finalmente podemos visualizar nuestro resultado.</p>
 <div class="page-columns page-full">
-<div id="f83c8229" class="cell page-columns page-full" data-execution_count="6">
+<div id="42a94bf7" class="cell page-columns page-full" data-execution_count="6">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
@@ -527,7 +527,7 @@ Nota
 </div>
 </div>
 </div>
-<div id="4f916db5" class="cell" data-execution_count="7">
+<div id="ff35f85c" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
