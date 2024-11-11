@@ -64,27 +64,23 @@ Aunque el paso de agregar *Anaconda* al *PATH* no es recomendado por el sistema,
 
 ### El ambiente {-}
 
-Dentro *Conda* instalaremos un ambiente de *Python* con librerías específicas para el análisis de datos geoespaciales que sido creado exclusivamente para este taller. Puedes descargar el archivo del ambiente haciendo clic [aquí](recursos/tallerpython.yml){download="tallerpython.yml"}. 
+Dentro *Conda* instalaremos un ambiente de *Python* con librerías específicas para el análisis de datos geoespaciales que sido creado exclusivamente para este taller. Puedes descargar el archivo del ambiente haciendo clic [aquí](spyder-geospatial.yml){download="spyder-geospatial.yml"}. 
 
-::: {.callout-warning}
-Todavía hay que ver esto. EL NOMBRE NO ES TALLERPYTHON, SINO QUE SPYDER-PYTHON una cosa asi, insertar al final
-:::
-
-Este archivo (de extensión `.yml`) contiene todos los paquetes con sus dependencias necesarios para desarrollar las actividades posteriores. Dentro de él se encuentra el nombre del ambiente (en este caso tallerpython), las librerías y los canales desde donde se obtienen.
+Este archivo (de extensión `.yml`) contiene todos los paquetes con sus dependencias necesarios para desarrollar las actividades posteriores. Dentro de él se encuentra el nombre del ambiente (en este caso `spyder-geospatial`), las librerías y los canales desde donde se obtienen.
 
 ::: {.callout-note}
 Note que aquí estamos creando un ambiente con paquetes previamente definidos. Si desea crear otro ambiente, con otras librerías, puede consultar la guía de [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html).
 :::
 
-Para instalar este ambiente ejecute desde el Terminal el comando `conda env create -f tallerpython.yml`.
+Para instalar este ambiente ejecute desde el Terminal el comando `conda env create -f spyder-geospatial.yml`.
 
 ::: {.callout-important}
 Tenga en cuenta que el proceso toma tiempo y varía de acuerdo con las capacidades de cada computador.
 :::
 
-![Instalación del entorno con el archivo `environment.yml`.](foo/03-07-mkenvir.png){#fig-mkenvir}
+![Instalación del entorno con el archivo `spyder-geospatial.yml`.](foo/03-07-mkenvir.png){#fig-mkenvir}
 
-Para ver la lista de los entornos de trabajo disponibles, ejecute `conda info --envs`. En este caso, nos interesa el ambiente `tallerpython`.
+Para ver la lista de los entornos de trabajo disponibles, ejecute `conda info --envs`. En este caso, nos interesa el ambiente `spyder-geospatial`.
 
 ![Ambientes instalados. Se pueden observar varios ya instalados.](foo/web/01-01-ambienteSeleccion.png){#fig-ambiente}
 
@@ -100,7 +96,7 @@ Para desactivar el entorno de trabajo `conda deactivate`, como se observa a cont
 
 *Spyder* es un entorno de desarrollo integrado (IDE) de código abierto diseñado específicamente para la programación en *Python*. Combina herramientas avanzadas en un solo lugar, lo que lo hace popular entre investigadores y analistas.
 
-*Spyder* ya viene en el entorno de trabajo. Para usarlo solo hay que escribir `spyder` estando en el entorno `tallerpython`.
+*Spyder* ya viene en el entorno de trabajo. Para usarlo solo hay que escribir `spyder` estando en el entorno `spyder-geospatial`.
 
 Dentro de este, deberemos escoger el sistema operativo del computador.
 

@@ -1,0 +1,31 @@
+name: spyder-geospatial
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - numpy
+  - pandas
+  - geopandas
+  - rasterio
+  - rioxarray
+  - xarray
+  - shapely
+  - fiona
+  - matplotlib
+  - scikit-image
+  - pyproj
+  - gdal
+  - jupyterlab  # Para un entorno interactivo
+  - seaborn  # Para visualizaciones avanzadas
+  - ipykernel  # Para usar este entorno como kernel de Jupyter
+  - scikit-learn  # Para tareas de análisis de datos y modelado opcional, incluyendo Random Forest
+  - cartopy  # Para visualización de datos geoespaciales
+  - h5py  # Para manejo de archivos HDF5
+  - pillow  # Para procesamiento de imágenes
+  - dask  # Para manejo de grandes conjuntos de datos
+  - spyder # Para usar Spyder con este entorno
+  - pyresample  # Para remuestreo de datos de satélite
+  - earthpy # Para simplificacion de funciones
+  - jupyter
+  - nbformat
