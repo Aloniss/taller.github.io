@@ -1,13 +1,10 @@
 # Análisis Temporal y Estadística Zonal
 
 ## Introducción
-La estadística zonal es una técnica utilizada en los Sistemas de Información Geográfica (*GIS*) para analizar las propiedades de los valores de un raster dentro de zonas específicas definidas por otro raster o capa vectorial. Este método implica el cálculo de estadísticas descriptivas (como la media, la mediana, el máximo, el mínimo, la desviación estándar, etc.) para los valores de los píxeles que caen dentro de cada zona. Las zonas son definidas normalmente por atributos como regiones administrativas, tipos de hábitat, categorías de uso del suelo, entre otros.
 
-La importancia de la estadística zonal en GIS radica en su capacidad para proporcionar información detallada y contextual sobre áreas específicas, permitiendo análisis espaciales más precisos y fundamentados. Algunos ejemplos de su aplicación incluyen:
+La estadística zonal es una técnica utilizada en los Sistemas de Información Geográfica (*SIG*) para analizar los valores de un raster que se encuentran dentro de zonas definidas por otro raster o capa vectorial. Esta herramienta permite el cálculo de estadísticas descriptivas (como la media, la mediana, el máximo, entre otras.) para los valores de los píxeles que caen dentro de cada zona. Las zonas pueden ser definidas por geometrías que representan regiones administrativas, tipos de hábitat, categorías de uso del suelo, entre otros.
 
--   Estudios Ambientales: en un análisis de la calidad del aire, se podrían utilizar estadísticas zonales para calcular la concentración media de contaminantes en diferentes zonas urbanas, ayudando a identificar áreas con niveles de contaminación críticos.
-
--   Planificación Urbana y Regional: puede utilizarse para evaluar la densidad de población o el uso del suelo en diferentes barrios o distritos, lo que es crucial para la toma de decisiones en cuanto a infraestructura, servicios y regulaciones de zonificación.
+Algunos ejemplos de su aplicación incluyen:
 
 -   Agricultura y Gestión de Recursos Naturales: pueden aplicarse para analizar variables como la humedad del suelo, los rendimientos de los cultivos o la topografía en diferentes parcelas, lo que ayuda en la gestión de recursos y la toma de decisiones agrícolas.
 
@@ -15,9 +12,7 @@ La importancia de la estadística zonal en GIS radica en su capacidad para propo
 
 -   Gestión de Desastres y Respuesta de Emergencia: permite analizar el impacto de eventos como inundaciones, incendios forestales o terremotos en diferentes zonas, lo que es esencial para la planificación de la respuesta de emergencia y la rehabilitación.
 
-La estadística zonal es una herramienta poderosa que facilita el análisis espacial detallado y contextualizado, apoyando la toma de decisiones informada en una amplia gama de campos.
-
-En este caso, en el NDVI obtenido en el [Módulo @sec-indices], calcularemos los principales estadígrafos (media, desviación estándar, mínimo, máximo y mediana) a distintos sitios dentro de la zona. Si quiere seguir el esta demostración puedeo obtener los datos en el siguiente [enlace](https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/puntoExplicacionMod4.zip).
+Para ejemplificar su aplicación, usaremos el NDVI obtenido en el [Módulo @sec-indices], calcularemos los principales estadígrafos (media, desviación estándar, mínimo, máximo y mediana) en los distintos sitios dentro de la zona. Los datos de este ejemplo los puede encontrar en el siguiente  [enlace](https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/puntoExplicacionMod4.zip).
 
 ## Dentro de *Python*
 
@@ -64,12 +59,12 @@ for i in range(len(puntosAOI)):
     ax.annotate(puntosAOI["id"].iloc[i],
                 (puntosAOI.geometry.x[i] - 380, puntosAOI.geometry.y[i] - 300))
 
-ax.set_title("NDVI en Valdivia sitios de interés")
+ax.set_title("NDVI en sitios de interés de Valdivia")
 plt.show()
 ```
 :::
 
-Note que los sitios de interés son elementos vectoriales de tipo punto, por lo que, con ellos no es posible obtener los estadígrafos (ya que solo contienen un valor). Para arreglar esto, crearemos un área buffer de 250 metros.
+Note que los sitios de interés son elementos vectoriales de tipo punto, por lo que, con ellos no es posible obtener los estadígrafos (ya que solo contienen un valor). Para solucionar esto, crearemos un área buffer de 250 metros.
 
 ```{python}
 # Copiamos los puntos para crear las areas buffer
@@ -101,12 +96,12 @@ puntosBuffer.plot(ax = ax,
             facecolor = "none",
             hatch = "////")
 
-ax.set_title("NDVI en Valdivia con buffers de interés")
+ax.set_title("NDVI en buffers de interés de Valdivia")
 plt.show()
 ```
 :::
 
-Una vez creado el buffer, se extraen los valores desde el raster y se calcula los estadísticos de interes.
+Una vez creado los buffers, se extraen los valores desde el raster y se calcula los estadísticos de interés.
 
 ```{python}
 # Lista vacia
@@ -213,6 +208,6 @@ plt.show()
 
 ## Ejercicios {-}
 
-1.  Obtenga un gráfico de caja y bigotes (*boxplot*) para cada sitio.
+1.  Obtenga un gráfico de caja y bigotes (*boxplot*) para cada sitio ya revisado.
 
-2.  Con el siguiente set de [datos](https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/datosModulo_4.zip) obtenga el NDVI promedio para el fundo El Desprecio. Este fundo ... . Los datos consisten en 9 imágenes *Landsat* desde septiembre de 2016 a septiembre 2017. Todas las imágenes tienen 4 bandas, (*R*, *G*, *B* y *NIR*).
+2.  Con el siguiente set de  [datos](https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/datosModulo_4.zip) obtenga el NDVI promedio para el fundo El Desprecio. Este predio contenía uno de los pocos parches de Ruiles que van quedando y que fue afectado por los incendios del año 2017. El set de datos consiste en 7 imágenes *Landsat* que van desde septiembre de 2016 a julio de 2017. Todas las imágenes tienen 4 bandas (*R*, *G*, *B* y *NIR*).
