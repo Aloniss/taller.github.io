@@ -262,7 +262,7 @@ lista_geo.to_file("ndvi_vectrorial.shp")
 
 ## Ejercicios {-}
 
-1.  Descargue el siguiente [set de datos](https://figshare.com/ndownloader/files/50335344). Ests son dos imágenes *Sentinel* de Viña del Mar antes y después de los incendios ocurridos en Febrero de este año. Las bandas entregadas son: B1, B2, B3, B4, B5, B6, B7, B8, B8a, B9, B11, B12.
+1.  Descargue el siguiente [set de datos](https://figshare.com/ndownloader/files/50344533). Ests son dos imágenes de Santa Cruz antes y después de los incendios ocurridos en el año 2017. Las bandas entregadas son: B1, B2, B3, B4, B5, B6, B7, B8A, B11, B12.
 
 2.  A través de *Rasterio* y *NumPy* calcule *NDVI* y *BAI* para la imagen post-incendio.
 
