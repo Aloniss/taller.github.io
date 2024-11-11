@@ -338,7 +338,7 @@ Figura&nbsp;3.4: Composición <em>RGB</em> y <em>NBR</em> de un incendio.
 <h3 class="unnumbered anchored" data-anchor-id="difference-normalized-burn-ratio-dnbr"><em>Difference Normalized Burn Ratio</em> (<em>dNBR</em>)</h3>
 <p>El <em>dNBR</em> funciona con una imagen previa y una posterior al incendio, sobre las cuales se calcula el <em>NBR</em> respectivo.</p>
 <p><span id="eq-dnbr"><span class="math display">\[
-dNBR=(NBR_{pre} - NBR_{post}) \times 100
+dNBR=(NBR_{pre} - NBR_{post}) \times 1000
 \tag{3.3}\]</span></span></p>
 <p>De esta forma el <em>dNBR</em> permite estimar el grado de severidad de una zona, respecto a una condición anterior al incendio. Para generar las diferentes categorías de daño se suelen usar umbrales de corte del índice. Los umbrales indicados a continuación son los empleados por el <em>US Forest</em>.</p>
 <div id="tbl-dnbr-severity" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -446,7 +446,7 @@ BAI=\frac{1}{(0.1-Red)^2+(0.06-NIR)^2}
 <span id="cb1-29"><a href="#cb1-29"></a>ax.set_title(<span class="st">"NDVI en Valdivia"</span>)</span>
 <span id="cb1-30"><a href="#cb1-30"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div id="lst-trasnform" class="listing quarto-float quarto-figure quarto-figure-left anchored" height="417" data-fig-align="center" width="479">
+<div id="lst-trasnform" class="listing quarto-float quarto-figure quarto-figure-left anchored" data-fig-align="center" width="479" height="417">
 <figure class="quarto-float quarto-float-lst figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-trasnform-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Listado&nbsp;3.1
@@ -464,7 +464,7 @@ Listado&nbsp;3.1
 <h2 data-number="3.2" class="anchored" data-anchor-id="discretización-de-datos-raster"><span class="header-section-number">3.2</span> Discretización de datos Raster</h2>
 <p>Los índices entregan valores continuos en un rango determinado, no obstante, para obtener las categorías de interés, es necesario encontrar ciertos valores o umbrales que permitan esa separación. Generalmente esos umbrales vienen dados o se pueden establecer desde calibraciones en campo o con gráficos de distribución de los valores.</p>
 <p>En este caso, se mostrará una segmentación simple del NDVI anteriormente calculado. En este, valores mayores a <code>0.5</code> serán una categoría, mientras que valores menores o iguales <code>0.5</code> será otra categoría.</p>
-<div id="76d88949" class="cell" data-execution_count="3">
+<div id="be6675f6" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Creamos una copia de la variable original</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>ndvi_clases <span class="op">=</span> NDVI.copy()</span>
 <span id="cb2-3"><a href="#cb2-3"></a></span>
@@ -507,7 +507,7 @@ Nota
 </div>
 </div>
 <p>Una vez hecho teniendo el objeto de tipo <code>generator</code>, se transformará a un <em>GeoDataFrame</em> el cual servirá para su visualización:</p>
-<div id="72cb71b8" class="cell" data-execution_count="4">
+<div id="246a53b8" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#Importancion de librerias</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="im">import</span> shapely <span class="co"># Nos permite transformar geometrías.</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="im">import</span> rasterio.features <span class="im">as</span> features <span class="co"># Contiene una función para vectorizar.</span></span>
@@ -551,7 +551,7 @@ Nota
 <h2 data-number="3.4" class="anchored" data-anchor-id="exportación-de-archivos"><span class="header-section-number">3.4</span> Exportación de archivos</h2>
 <p>Una vez creados los archivos de interés (ya sea raster o vectorial), podemos exportarlos de la siguiente manera:</p>
 <p>Para datos raster:</p>
-<div id="2d067e8c" class="cell" data-execution_count="5">
+<div id="916fdc1c" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Para raster con el NDVI calculado =========</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a></span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="cf">with</span> rio.<span class="bu">open</span>(<span class="st">"ndviValdivia.tif"</span>, <span class="co"># Crea el archivo</span></span>
@@ -578,7 +578,7 @@ Nota
 <span id="cb4-24"><a href="#cb4-24"></a>    dst.write(ndvi_clases, <span class="dv">1</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Para datos vectoriales:</p>
-<div id="81da7a28" class="cell" data-execution_count="6">
+<div id="64b900e0" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>lista_geo.to_file(<span class="st">"ndvi_vectrorial.shp"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
