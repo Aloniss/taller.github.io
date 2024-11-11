@@ -230,22 +230,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introducción" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="introducción"><span class="header-section-number">4.1</span> Introducción</h2>
-<p>La estadística zonal es una técnica utilizada en los Sistemas de Información Geográfica (<em>GIS</em>) para analizar las propiedades de los valores de un raster dentro de zonas específicas definidas por otro raster o capa vectorial. Este método implica el cálculo de estadísticas descriptivas (como la media, la mediana, el máximo, el mínimo, la desviación estándar, etc.) para los valores de los píxeles que caen dentro de cada zona. Las zonas son definidas normalmente por atributos como regiones administrativas, tipos de hábitat, categorías de uso del suelo, entre otros.</p>
-<p>La importancia de la estadística zonal en GIS radica en su capacidad para proporcionar información detallada y contextual sobre áreas específicas, permitiendo análisis espaciales más precisos y fundamentados. Algunos ejemplos de su aplicación incluyen:</p>
+<p>La estadística zonal es una técnica utilizada en los Sistemas de Información Geográfica (<em>SIG</em>) para analizar los valores de un raster que se encuentran dentro de zonas definidas por otro raster o capa vectorial. Esta herramienta permite el cálculo de estadísticas descriptivas (como la media, la mediana, el máximo, entre otras.) para los valores de los píxeles que caen dentro de cada zona. Las zonas pueden ser definidas por geometrías que representan regiones administrativas, tipos de hábitat, categorías de uso del suelo, entre otros.</p>
+<p>Algunos ejemplos de su aplicación incluyen:</p>
 <ul>
-<li><p>Estudios Ambientales: en un análisis de la calidad del aire, se podrían utilizar estadísticas zonales para calcular la concentración media de contaminantes en diferentes zonas urbanas, ayudando a identificar áreas con niveles de contaminación críticos.</p></li>
-<li><p>Planificación Urbana y Regional: puede utilizarse para evaluar la densidad de población o el uso del suelo en diferentes barrios o distritos, lo que es crucial para la toma de decisiones en cuanto a infraestructura, servicios y regulaciones de zonificación.</p></li>
 <li><p>Agricultura y Gestión de Recursos Naturales: pueden aplicarse para analizar variables como la humedad del suelo, los rendimientos de los cultivos o la topografía en diferentes parcelas, lo que ayuda en la gestión de recursos y la toma de decisiones agrícolas.</p></li>
 <li><p>Estudios de Biodiversidad y Conservación: se pueden usar para evaluar la distribución de especies o la cobertura de hábitat en diferentes áreas protegidas o ecosistemas.</p></li>
 <li><p>Gestión de Desastres y Respuesta de Emergencia: permite analizar el impacto de eventos como inundaciones, incendios forestales o terremotos en diferentes zonas, lo que es esencial para la planificación de la respuesta de emergencia y la rehabilitación.</p></li>
 </ul>
-<p>La estadística zonal es una herramienta poderosa que facilita el análisis espacial detallado y contextualizado, apoyando la toma de decisiones informada en una amplia gama de campos.</p>
-<p>En este caso, en el NDVI obtenido en el <a href="03-imagenes.html" class="quarto-xref">Módulo&nbsp;<span>3</span></a>, calcularemos los principales estadígrafos (media, desviación estándar, mínimo, máximo y mediana) a distintos sitios dentro de la zona. Si quiere seguir el esta demostración puedeo obtener los datos en el siguiente <a href="https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/puntoExplicacionMod4.zip">enlace</a>.</p>
+<p>Para ejemplificar su aplicación, usaremos el NDVI obtenido en el <a href="03-imagenes.html" class="quarto-xref">Módulo&nbsp;<span>3</span></a>, calcularemos los principales estadígrafos (media, desviación estándar, mínimo, máximo y mediana) en los distintos sitios dentro de la zona. Los datos de este ejemplo los puede encontrar en el siguiente <a href="https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/puntoExplicacionMod4.zip">enlace</a>.</p>
 </section>
 <section id="dentro-de-python" class="level2 page-columns page-full" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="dentro-de-python"><span class="header-section-number">4.2</span> Dentro de <em>Python</em></h2>
 <div class="page-columns page-full">
-<div id="24bde2c4" class="cell page-columns page-full" data-execution_count="2">
+<div id="57eef724" class="cell page-columns page-full" data-execution_count="2">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Importacion de librerias</span></span>
@@ -281,7 +278,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-31"><a href="#cb1-31"></a>    ax.annotate(puntosAOI[<span class="st">"id"</span>].iloc[i],</span>
 <span id="cb1-32"><a href="#cb1-32"></a>                (puntosAOI.geometry.x[i] <span class="op">-</span> <span class="dv">380</span>, puntosAOI.geometry.y[i] <span class="op">-</span> <span class="dv">300</span>))</span>
 <span id="cb1-33"><a href="#cb1-33"></a></span>
-<span id="cb1-34"><a href="#cb1-34"></a>ax.set_title(<span class="st">"NDVI en Valdivia sitios de interés"</span>)</span>
+<span id="cb1-34"><a href="#cb1-34"></a>ax.set_title(<span class="st">"NDVI en sitios de interés de Valdivia"</span>)</span>
 <span id="cb1-35"><a href="#cb1-35"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display page-columns page-full">
@@ -293,8 +290,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Note que los sitios de interés son elementos vectoriales de tipo punto, por lo que, con ellos no es posible obtener los estadígrafos (ya que solo contienen un valor). Para arreglar esto, crearemos un área buffer de 250 metros.</p>
-<div id="12d97db6" class="cell" data-execution_count="3">
+<p>Note que los sitios de interés son elementos vectoriales de tipo punto, por lo que, con ellos no es posible obtener los estadígrafos (ya que solo contienen un valor). Para solucionar esto, crearemos un área buffer de 250 metros.</p>
+<div id="fab73901" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Copiamos los puntos para crear las areas buffer</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>puntosBuffer <span class="op">=</span> puntosAOI.copy()</span>
 <span id="cb2-3"><a href="#cb2-3"></a></span>
@@ -319,7 +316,7 @@ Nota
 </div>
 <p>Así se ven las zonas buffer creadas a partir de los puntos</p>
 <div class="page-columns page-full">
-<div id="a528d00f" class="cell page-columns page-full" data-execution_count="4">
+<div id="0706f803" class="cell page-columns page-full" data-execution_count="4">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>f, ax <span class="op">=</span> plt.subplots(figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">8</span>))</span>
@@ -334,7 +331,7 @@ Nota
 <span id="cb3-10"><a href="#cb3-10"></a>            facecolor <span class="op">=</span> <span class="st">"none"</span>,</span>
 <span id="cb3-11"><a href="#cb3-11"></a>            hatch <span class="op">=</span> <span class="st">"////"</span>)</span>
 <span id="cb3-12"><a href="#cb3-12"></a></span>
-<span id="cb3-13"><a href="#cb3-13"></a>ax.set_title(<span class="st">"NDVI en Valdivia con buffers de interés"</span>)</span>
+<span id="cb3-13"><a href="#cb3-13"></a>ax.set_title(<span class="st">"NDVI en buffers de interés de Valdivia"</span>)</span>
 <span id="cb3-14"><a href="#cb3-14"></a>plt.show()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display page-columns page-full">
@@ -346,8 +343,8 @@ Nota
 </div>
 </div>
 </div>
-<p>Una vez creado el buffer, se extraen los valores desde el raster y se calcula los estadísticos de interes.</p>
-<div id="8697ef8a" class="cell" data-execution_count="5">
+<p>Una vez creado los buffers, se extraen los valores desde el raster y se calcula los estadísticos de interés.</p>
+<div id="df4bce66" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Lista vacia</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>estadisticas <span class="op">=</span> []</span>
 <span id="cb4-3"><a href="#cb4-3"></a></span>
@@ -490,7 +487,7 @@ Nota
 </div>
 <p>Finalmente podemos visualizar nuestro resultado.</p>
 <div class="page-columns page-full">
-<div id="74174ec3" class="cell page-columns page-full" data-execution_count="6">
+<div id="ca72cb27" class="cell page-columns page-full" data-execution_count="6">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
@@ -527,7 +524,7 @@ Nota
 </div>
 </div>
 </div>
-<div id="3c445a57" class="cell" data-execution_count="7">
+<div id="86a3463d" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
@@ -558,8 +555,8 @@ Nota
 <section id="ejercicios" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="ejercicios">Ejercicios</h2>
 <ol type="1">
-<li><p>Obtenga un gráfico de caja y bigotes (<em>boxplot</em>) para cada sitio.</p></li>
-<li><p>Con el siguiente set de <a href="https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/datosModulo_4.zip">datos</a> obtenga el NDVI promedio para el fundo El Desprecio. Este fundo … . Los datos consisten en 9 imágenes <em>Landsat</em> desde septiembre de 2016 a septiembre 2017. Todas las imágenes tienen 4 bandas, (<em>R</em>, <em>G</em>, <em>B</em> y <em>NIR</em>).</p></li>
+<li><p>Obtenga un gráfico de caja y bigotes (<em>boxplot</em>) para cada sitio ya revisado.</p></li>
+<li><p>Con el siguiente set de <a href="https://github.com/Aloniss/taller.github.io/raw/refs/heads/master/recursos/descarga/datosModulo_4.zip">datos</a> obtenga el NDVI promedio para el fundo El Desprecio. Este predio contenía uno de los pocos parches de Ruiles que van quedando y que fue afectado por los incendios del año 2017. El set de datos consiste en 7 imágenes <em>Landsat</em> que van desde septiembre de 2016 a julio de 2017. Todas las imágenes tienen 4 bandas (<em>R</em>, <em>G</em>, <em>B</em> y <em>NIR</em>).</p></li>
 </ol>
 
 
