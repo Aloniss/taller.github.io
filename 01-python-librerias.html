@@ -350,21 +350,8 @@ Figura&nbsp;1.3: <em>Conda</em> testeado en <em>Git Bash</em>.
 </section>
 <section id="el-ambiente" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="el-ambiente">El ambiente</h3>
-<p>Dentro <em>Conda</em> instalaremos un ambiente de <em>Python</em> con librerías específicas para el análisis de datos geoespaciales que sido creado exclusivamente para este taller. Puedes descargar el archivo del ambiente haciendo clic <a href="recursos/tallerpython.yml" download="tallerpython.yml">aquí</a>.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Advertencia
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Todavía hay que ver esto. EL NOMBRE NO ES TALLERPYTHON, SINO QUE SPYDER-PYTHON una cosa asi, insertar al final</p>
-</div>
-</div>
-<p>Este archivo (de extensión <code>.yml</code>) contiene todos los paquetes con sus dependencias necesarios para desarrollar las actividades posteriores. Dentro de él se encuentra el nombre del ambiente (en este caso tallerpython), las librerías y los canales desde donde se obtienen.</p>
+<p>Dentro <em>Conda</em> instalaremos un ambiente de <em>Python</em> con librerías específicas para el análisis de datos geoespaciales que sido creado exclusivamente para este taller. Puedes descargar el archivo del ambiente haciendo clic <a href="spyder-geospatial.yml" download="spyder-geospatial.yml">aquí</a>.</p>
+<p>Este archivo (de extensión <code>.yml</code>) contiene todos los paquetes con sus dependencias necesarios para desarrollar las actividades posteriores. Dentro de él se encuentra el nombre del ambiente (en este caso <code>spyder-geospatial</code>), las librerías y los canales desde donde se obtienen.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -378,7 +365,7 @@ Nota
 <p>Note que aquí estamos creando un ambiente con paquetes previamente definidos. Si desea crear otro ambiente, con otras librerías, puede consultar la guía de <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html">conda</a>.</p>
 </div>
 </div>
-<p>Para instalar este ambiente ejecute desde el Terminal el comando <code>conda env create -f tallerpython.yml</code>.</p>
+<p>Para instalar este ambiente ejecute desde el Terminal el comando <code>conda env create -f spyder-geospatial.yml</code>.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -398,11 +385,11 @@ Importante
 <img src="foo/03-07-mkenvir.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mkenvir-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;1.4: Instalación del entorno con el archivo <code>environment.yml</code>.
+Figura&nbsp;1.4: Instalación del entorno con el archivo <code>spyder-geospatial.yml</code>.
 </figcaption>
 </figure>
 </div>
-<p>Para ver la lista de los entornos de trabajo disponibles, ejecute <code>conda info --envs</code>. En este caso, nos interesa el ambiente <code>tallerpython</code>.</p>
+<p>Para ver la lista de los entornos de trabajo disponibles, ejecute <code>conda info --envs</code>. En este caso, nos interesa el ambiente <code>spyder-geospatial</code>.</p>
 <div id="fig-ambiente" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ambiente-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -430,7 +417,7 @@ Figura&nbsp;1.6: Activación y desactivación de los entornos.
 <section id="spyder" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="spyder"><em>Spyder</em></h3>
 <p><em>Spyder</em> es un entorno de desarrollo integrado (IDE) de código abierto diseñado específicamente para la programación en <em>Python</em>. Combina herramientas avanzadas en un solo lugar, lo que lo hace popular entre investigadores y analistas.</p>
-<p><em>Spyder</em> ya viene en el entorno de trabajo. Para usarlo solo hay que escribir <code>spyder</code> estando en el entorno <code>tallerpython</code>.</p>
+<p><em>Spyder</em> ya viene en el entorno de trabajo. Para usarlo solo hay que escribir <code>spyder</code> estando en el entorno <code>spyder-geospatial</code>.</p>
 <p>Dentro de este, deberemos escoger el sistema operativo del computador.</p>
 <section id="partes-de-spyder" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="partes-de-spyder">Partes de <em>Spyder</em></h4>
@@ -556,7 +543,7 @@ Figura&nbsp;1.13: Perfilador (<em>Profiler</em>) dentro de <em>Spyder</em>
 <section id="ejemplo" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="ejemplo">Ejemplo</h3>
 <p>Una vez explicado los pasos a seguir, se tiene que implementar en código. Este tendrá la siguiente forma:</p>
-<div id="6b970b1d" class="cell" data-execution_count="1">
+<div id="e2e5a97d" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1"></a><span class="im">import</span> os</span>
 <span id="annotated-cell-1-2"><a href="#annotated-cell-1-2"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
 <span id="annotated-cell-1-3"><a href="#annotated-cell-1-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -595,7 +582,7 @@ Figura&nbsp;1.13: Perfilador (<em>Profiler</em>) dentro de <em>Spyder</em>
 </div>
 </div>
 <p>Si todo va bien, el resultado del script sería la figura mostrada abajo:</p>
-<div id="67f6cc9e" class="cell" data-execution_count="2">
+<div id="c71a34dc" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -612,7 +599,7 @@ Figura&nbsp;1.13: Perfilador (<em>Profiler</em>) dentro de <em>Spyder</em>
 <li>Descargue y lea los datos vectoriales disponibles en este <a href="https://figshare.com/ndownloader/files/49550784">enlace</a>. Estos datos corresponden a una base de datos histórica de cicatrices de fuego en Chile (propiedad del (CR)<sup>2</sup> y disponibles en el siguiente <a href="https://www.plataformadedatos.cl/datasets/es/492F65B350AAF9D1">link</a>). Una vez descargados, visualizarlos.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -621,7 +608,7 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>El paquete <code>earthpy</code> tiene un submódulo especializado para descargar datos desde internet. Este es <code>data.get_data()</code>.</p>
 </div>
@@ -632,7 +619,7 @@ Tip
 <li><p>Dadas las provincias de Chile continental (disponibles en el siguiente <a href="https://figshare.com/ndownloader/files/50316978">enlace</a>), consulte la cantidad de puntos de ignición que existen por región, usando una consulta basada en la coincidencia espacial. Observe si hay diferencias con lo obtenido con el ejercicio anterior.</p></li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -641,7 +628,7 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>En el caso de que las capas estén en otro sistema de referencia, puede ocupar la función de <em>GeoPandas</em> <code>.to_crs()</code>.</p>
 <p><em>GeoPandas</em> permite disolver polígonos a través de <code>.dissolve()</code>. Si tiene dudas, puede consultar la documentación de ambas funciones.</p>

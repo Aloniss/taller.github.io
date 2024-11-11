@@ -245,7 +245,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="dentro-de-python" class="level2 page-columns page-full" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="dentro-de-python"><span class="header-section-number">4.2</span> Dentro de <em>Python</em></h2>
 <div class="page-columns page-full">
-<div id="b09438ef" class="cell page-columns page-full" data-execution_count="2">
+<div id="8be6ff7a" class="cell page-columns page-full" data-execution_count="2">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Importacion de librerias</span></span>
@@ -294,7 +294,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Note que los sitios de interés son elementos vectoriales de tipo punto, por lo que, con ellos no es posible obtener los estadígrafos (ya que solo contienen un valor). Para arreglar esto, crearemos un área buffer de 250 metros.</p>
-<div id="c9dba06f" class="cell" data-execution_count="3">
+<div id="803fd017" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Copiamos los puntos para crear las areas buffer</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>puntosBuffer <span class="op">=</span> puntosAOI.copy()</span>
 <span id="cb2-3"><a href="#cb2-3"></a></span>
@@ -319,7 +319,7 @@ Nota
 </div>
 <p>Así se ven las zonas buffer creadas a partir de los puntos</p>
 <div class="page-columns page-full">
-<div id="20d58518" class="cell page-columns page-full" data-execution_count="4">
+<div id="86fab8eb" class="cell page-columns page-full" data-execution_count="4">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>f, ax <span class="op">=</span> plt.subplots(figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">8</span>))</span>
@@ -347,7 +347,7 @@ Nota
 </div>
 </div>
 <p>Una vez creado el buffer, se extraen los valores desde el raster y se calcula los estadísticos de interes.</p>
-<div id="e1e293fd" class="cell" data-execution_count="5">
+<div id="80ef4432" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Lista vacia</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>estadisticas <span class="op">=</span> []</span>
 <span id="cb4-3"><a href="#cb4-3"></a></span>
@@ -490,7 +490,7 @@ Nota
 </div>
 <p>Finalmente podemos visualizar nuestro resultado.</p>
 <div class="page-columns page-full">
-<div id="7b8c1b4f" class="cell page-columns page-full" data-execution_count="6">
+<div id="7adbf5b0" class="cell page-columns page-full" data-execution_count="6">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
@@ -527,7 +527,7 @@ Nota
 </div>
 </div>
 </div>
-<div id="7b704455" class="cell" data-execution_count="7">
+<div id="00f39205" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
